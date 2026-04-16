@@ -7,5 +7,5 @@
 
 # If you have a specific folder that is confusing GitHub (like 'docs'), 
 # tell it to ignore that folder for language stats:
-data/* linguist-documentation
+data/** linguist-vendored
 figures//* linguist-documentation
