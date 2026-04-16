@@ -48,7 +48,7 @@ The scripts to process SAGs and obtain the date used for figures can be found in
 - Creating databases for mapping and quantification: [`scripts/create_dbs/`](scripts/create_dbs/).
 - Mapping BBMO metagenomes against MarFERReT and SAGs: [`scripts/metag/`](scripts/metag/).
 - Quantifying SAGs functional genes with BBMO metaT: [`scripts/metat/`](scripts/metat/).
-- GO enrichment analysis: [`scripts/enrichment/`](scripts/enrichment/) using data prepared in script [`prepare_files_enrichment.Rmd`](prepare_files_enrichment.Rmd).
+- GO enrichment analysis: [`scripts/enrichment/`](scripts/enrichment/) using data prepared in script [`scripts/enrichment/prepare_files_enrichment.Rmd`](scripts/enrichment/prepare_files_enrichment.Rmd). Already prepared data is also available at [`data/enrichment/enrichment_files/`](data/enrichment/enrichment_files/).
 
 The following software is needed:
 
