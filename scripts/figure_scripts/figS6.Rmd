@@ -1,0 +1,170 @@
+---
+title: "SAGs - Rhodopsin tree"
+author: "Aleix Obiol"
+date: "2026-04-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ape)
+```
+
+## Read data
+
+```{r}
+tree <-
+  read.tree('../../data/trees/rhodopsins_sags_mft_pnas.treefile') # tree from scratch, using auto model, it used a qfam model (strange)
+
+pnas_references_classification <- 
+  readxl::read_excel('../../data/functional_genes/pnas_rhodo_classification.xlsx', col_names = c('id','classification')) |> 
+  mutate(classification = str_remove(classification, '.*;'))
+
+marferret_classification <- 
+  read_tsv('../../data/functional_genes/mft_rhodo_classification.tsv') |> 
+  replace_na(list(classification = 'unclassified'))
+
+sags_genes_classification <- 
+  readxl::read_excel('../../data/functional_genes/Table-S6.xlsx', sheet = 3) |> 
+  select(id = 1, classification = FINAL) |> 
+  mutate(id = str_remove(id, '_SAG\\.1|_COSAG\\.1')) |> 
+  mutate(
+    classification =
+      case_when(
+        str_detect(id, 'g7744.t1_ICM0071') ~ 'Bestrhodopsins',
+        str_detect(id, 'g7741.t1_ICM0119') ~ 'Channelrhodopsins',
+        TRUE ~ classification
+      )
+  )
+
+all_classification <- 
+  bind_rows(pnas_references_classification, sags_genes_classification) |> 
+  bind_rows(marferret_classification) |> 
+  mutate(
+    classification= str_replace(classification,'8TM rhodopsin', 'Rhodopsin 8TM'),
+    supergroup = if_else(classification == 'Enzymerhodopsins', 'Rhodopsin 8TM', classification)
+    )
+```
+
+## Root tree
+
+```{r}
+tree_rooted <- 
+  root(tree, node = 766) # root on heliorhodopsins
+```
+
+## Create tree metadata
+
+```{r}
+metadata_tree <- 
+  tibble(id = tree_rooted$tip.label) |> 
+  left_join(
+    all_classification
+  ) |> 
+  mutate(sag = str_detect(id, 'ICM'),
+         name = str_replace_all(id, '_',' '),
+         name = if_else(sag, 
+                        str_c("paste(bold('",name,"'),' | ',italic('",classification,"'))"),
+                        str_c("paste('",name," | ',italic('",classification,"'))")))
+
+rhodo_types_node_nums <- # get node numbers of supergroups
+  metadata_tree |>
+  filter(!is.na(classification)) |>
+  group_by(supergroup) |>
+  summarise(node_num = MRCA(tree_rooted, id))
+
+tree_with_metadata <- # create a copy
+  tree_rooted
+
+tree_with_metadata %<>%
+  dplyr::left_join(
+    metadata_tree,
+    by = c("label" = "id")
+  )
+
+tree_with_metadata_and_bootstraps <-
+  tree_with_metadata |>
+  mutate(
+    shalrt = as.numeric(str_remove(label, "\\/.*")),
+    ufboot = as.numeric(str_remove(label, ".*\\/")),
+    support =
+      case_when(
+        ufboot == 100 & shalrt == 100 ~ "UFBoot = 100 & SH-aLRT = 100",
+        ufboot >= 95 & shalrt >= 80 ~ "UFBoot ≥ 95 & SH-aLRT ≥ 80"
+      ),
+  )
+```
+
+## Plot tree
+
+```{r}
+figure_legends <-
+  readxl::read_excel("../../data/aux/figure_legends.xlsx")
+
+fig <- "S6"
+
+caption <-
+  figure_legends |>
+  filter(figure == fig) |>
+  pull()
+
+p_tree_base <-
+  ggtree(tree_with_metadata_and_bootstraps,
+    linewidth = 0.4
+  ) +
+  geom_tiplab(
+    parse = T,
+    aes(
+      label = name,
+      color = supergroup,
+      alpha = sag
+    ),
+    linesize = 0.2,
+    size = 3
+  ) +
+  # scale_color_manual(values = supergroup_colors, na.value = "black") +
+  scale_alpha_manual(values = c(.7, 1)) +
+  guides(color = "none", fill = "none", alpha = "none") +
+  ggnewscale::new_scale_color() +
+  geom_nodepoint(
+    aes(color = support),
+    size = 2
+  ) +
+  scale_color_manual(
+    values = c(
+      "UFBoot = 100 & SH-aLRT = 100" = "black",
+      "UFBoot ≥ 95 & SH-aLRT ≥ 80" = "gray70"
+    ),
+    na.value = NA,
+    na.translate = F,
+    name = NULL
+  ) +
+  theme(
+    legend.position = "bottom",
+    # legend.background = element_rect(color = "gray20"),
+    legend.text = element_text(size = 12)
+  ) +
+  coord_cartesian(xlim = c(0, 15), clip = "off") +
+  labs(
+    caption = caption
+  ) +
+  theme(
+    plot.caption = element_textbox_simple(
+      margin = margin(30, 0, 5, 0),
+      width = unit(.9, "npc"),
+      size = 12
+    )
+  ) +
+  guides(color = guide_legend(override.aes = list(size = 4)))
+
+
+ggsave(
+  plot = p_tree_base,
+  filename = "../../figures/figS6.pdf",
+  height = 80,
+  width = 15,
+  limitsize = F
+)
+```
+

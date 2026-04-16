@@ -1,0 +1,573 @@
+---
+title: "SAGs technical results - Figure 1"
+author: "Aleix Obiol"
+date: "2026-02-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+```
+
+## Read data
+
+### cell sorting
+
+```{r}
+cytogram_pp <-
+  read_tsv("../../data/cell_sorting/sorting2018_photo.tsv.gz")
+
+cytogram_hp <-
+  read_tsv("../../data/cell_sorting/sorting2018_het.tsv.gz")
+
+cytogram_pp_2020 <- 
+  read_tsv("../../data/cell_sorting/sorting2020_photo.tsv.gz")
+
+index_sorts <-
+  read_tsv("../../data/cell_sorting/index_sorts_2018.tsv")
+
+index_sorts_pp_2020 <-
+  readxl::read_excel('~/Downloads/Table-S1.xlsx') |> 
+  filter(`Sort-event` == 2020) |> 
+  select(Fraction = Sort_FINAL, PE, PECY5) |> 
+  filter(str_detect(Fraction,'-PP')) |> 
+  mutate(across(.cols = c(PE,PECY5), as.numeric))
+
+index_sorts_selection <-
+  read_tsv("../../data/cell_sorting/index_sorts_2018_selection.tsv") |>
+  arrange(Species) |>
+  mutate(Species = fct_inorder(Species))
+
+index_sorts_names <-
+  read_tsv("../../data/cell_sorting/index_sorts_2018_selection_names.tsv") |>
+  mutate(sp = str_remove_all(Species, "\\*")) |>
+  arrange(sp) |>
+  mutate(Species = fct_inorder(Species)) |>
+  select(-sp)
+```
+
+### 18S recovery
+
+```{r}
+recovery_18s_df <-
+  read_tsv("../../data/cell_sorting/recovery_18S.tsv") |>
+  mutate(
+    Fraction = fct_inorder(Fraction),
+    `18S recovery` = factor(`18S recovery`, levels = c("PCR", "Both", "PCR only", "Illumina only", "Not recovered"))
+  ) |>
+  arrange(`18S recovery`) |>
+  mutate(
+    `18S recovery` = str_replace(`18S recovery`, " ", "\n"),
+    `18S recovery` = fct_inorder(`18S recovery`)
+  )
+```
+
+### taxonomic distributions
+
+```{r}
+taxonomic_distributions_single_cells <-
+  read_tsv("../../data/cell_sorting/tax_distr_single_cells.tsv") |>
+  mutate(Fraction = factor(Fraction, levels = c("pico-PP", "pico-HP", "nano-HP")))
+
+taxonomic_distributions_other_sequencing <-
+  read_tsv("../../data/cell_sorting/tax_distr_other_sequencing.tsv") |>
+  mutate(approach = factor(approach, levels = c("SAGs", "metaG", "metaB")))
+```
+
+## Figure 1
+
+### colors and aux things
+
+```{r}
+fraction_positions <-
+  tibble(
+    Fraction = paste0("**", c("pico-PP", "pico-HP", "nano-HP"), "**"),
+    hjust = c(0, 0, 0),
+    PE = c(1.5, 1.5, 1.5),
+    PECY5 = c(5000, 2500, 5000)
+  )
+
+# pp_color <- "#94cc1b"
+# hp_colors <- c("#9e66e8", "#cc1b7c")
+
+pp_colors <- c("turquoise3", "forestgreen")
+hp_colors <- c("goldenrod1", "indianred")
+
+index_sort_selection_colors <-
+  c(
+    "MAST-1C sp1" = "darkorange3",
+    "Picomonas judraskeda_96.9" = "deepskyblue3",
+    "MAST-8B sp1" = "indianred",
+    "MAST-1D sp2" = "darkgoldenrod4",
+    "Cryothecomonas longipes_87.1" = "mediumorchid",
+    "MAST-4A sp1" = "goldenrod1",
+    "MAST-3C sp2" = "seagreen",
+    "MAST-3C sp1" = "seagreen2"
+  )
+
+index_sort_selection_colors_richtext <-
+  index_sort_selection_colors[sort(names(index_sort_selection_colors))]
+
+names(index_sort_selection_colors_richtext) <-
+  index_sorts_names$Species
+
+# recovery_18s_colors <-
+#   c(
+#     PCR = "cadetblue3",
+#     `Not\nrecovered` = "gray70",
+#     `PCR\nonly` = "khaki",
+#     `Illumina\nonly` = "coral1",
+#     `Both` = "sandybrown"
+#   )
+
+# recovery_18s_colors <-
+#   c(
+#     PCR = "#273492ff",
+#     `Not\nrecovered` = "gray80",
+#     `PCR\nonly` = "#ffebb2ff",
+#     `Illumina\nonly` = "#ffc006ff",
+#     `Both` = "#ff6e00ff"
+#   )
+
+recovery_18s_colors <-
+  c(
+    PCR = "#9b26b0ff",
+    `Not\nrecovered` = "gray80",
+    `PCR\nonly` = "#b29ddaff",
+    `Illumina\nonly` = "#6639b7ff",
+    `Both` = "#311a92ff"
+  )
+
+# pp_groups <-
+#   c("Mamiellophyceae", "Prymnesiophyceae", "Chrysophyceae", "Dictyochophyceae")
+# 
+# hp_groups <-
+#   taxonomic_distributions_single_cells |>
+#   filter(str_detect(Fraction, "HP")) |>
+#   arrange(-perc) |>
+#   ungroup() |>
+#   distinct(Group) |>
+#   pull() |>
+#   _[1:9] |>
+#   sort()
+
+# selected_groups <- c(pp_groups, hp_groups)
+
+selected_groups <- 
+  c("MALV-I", "Mamiellophyceae", "Prymnesiophyceae", "MALV-II", "MAST-3", "Chrysophyceae", "Dictyochophyceae", "Chlorarachnea","MAST-4", "MAST-1", "Picozoa", "Choanoflagellata","MAST-8")
+
+# group_colors <-
+#   c(
+#     "Mamiellophyceae" = "aquamarine1",
+#     "Prymnesiophyceae" = "aquamarine2",
+#     "Chrysophyceae" = "aquamarine3",
+#     "Dictyochophyceae" = "aquamarine4",
+#     "MAST-1" = "khaki1",
+#     "MAST-3" = "goldenrod3",
+#     "MAST-4" = "navajowhite",
+#     "MAST-7" = "navajowhite3",
+#     "MAST-8" = "navajowhite4",
+#     "Picozoa" = "darkolivegreen3",
+#     "MALV-I" = "deepskyblue1",
+#     "MALV-II" = "deepskyblue3",
+#     "Chlorarachnea" = "indianred",
+#     "Choanoflagellata" = "mediumpurple4",
+#     "Other" = "gray80"
+#   )
+
+group_colors <-
+  c(
+    "Mamiellophyceae" = "#B2DFDAFF",
+    "Prymnesiophyceae" = "#4CB6ACFF",
+    "Chrysophyceae" = "#00887AFF",
+    "Dictyochophyceae" = "#004C3FFF",
+    "Choanoflagellata" = "#e57272ff",
+    "MALV-I" = "#80D3F9FF",
+    "MALV-II" = "#029AE5FF",
+    "MAST-1" = "#FFEBB2FF",
+    "MAST-3" = "#FFD44EFF",
+    "MAST-4" = "#FF9F00FF",
+    # "MAST-4" = "#FFC006FF",
+    # "MAST-7" = "#FF9F00FF",
+    "MAST-8" = "#FF6E00FF",
+    "Chlorarachnea" = "darkolivegreen3",
+    "Picozoa" = "#cd92d8ff",
+    "Other" = "gray80"
+  )
+
+total_cells <-
+  taxonomic_distributions_single_cells |>
+  group_by(Fraction) |>
+  summarise(total_cells = sum(ncells))
+```
+
+### a
+
+```{r}
+fig1a <-
+  cytogram_pp |>
+  plot_cytogram_hex(nbins = 150) +
+  ggnewscale::new_scale_fill() +
+  geom_point(
+    data = index_sorts |>
+      filter(Fraction == "pico-PP"),
+    shape = 21,
+    aes(fill = Fraction),
+    color = "black",
+    size = 2,
+    stroke = 0.3
+  ) +
+  geom_richtext(
+    fill = NA, label.color = NA,
+    data = fraction_positions |> filter(str_detect(Fraction, "pico-PP")),
+    aes(
+      color = Fraction,
+      label = Fraction,
+      hjust = hjust
+    ),
+    size = 2.5
+  ) +
+  scale_fill_manual(values = pp_color, name = "") +
+  scale_color_manual(values = pp_color, name = "") +
+  guides(fill = "none") +
+  guides(color = "none")
+```
+
+### b
+
+```{r}
+fig1b <-
+  cytogram_hp |>
+  plot_cytogram_hex(nbins = 150) +
+  ggnewscale::new_scale_fill() +
+  geom_point(
+    data = index_sorts |>
+      filter(Fraction != "pico-PP"),
+    shape = 21,
+    aes(fill = Fraction),
+    color = "black",
+    size = 2,
+    stroke = 0.3
+  ) +
+  geom_richtext(
+    fill = NA, label.color = NA,
+    data = fraction_positions |> filter(!str_detect(Fraction, "pico-PP")),
+    aes(
+      color = Fraction,
+      label = Fraction,
+      hjust = hjust
+    ),
+    size = 2.5
+  ) +
+  scale_fill_manual(values = hp_colors) +
+  scale_color_manual(values = hp_colors) +
+  guides(fill = "none") +
+  guides(color = "none")
+```
+
+### c
+
+```{r}
+fig1c <-
+  index_sorts |>
+  filter(str_detect(Fraction, "HP")) |>
+  plot_cytogram(
+    limits_x = c(3e1, 1e4),
+    limits_y = c(3e1, 1e4),
+    size = 1,
+    alpha_points = .5
+  ) +
+  geom_point(
+    data = index_sorts_selection,
+    aes(fill = Species),
+    color = "black",
+    size = 2,
+    shape = 21,
+    stroke = 0.3
+  ) +
+  geom_richtext(
+    fill = NA, label.color = NA,
+    data = index_sorts_names,
+    aes(
+      color = Species,
+      label = Species,
+      hjust = hjust
+    ),
+    size = 2
+  ) +
+  # scale_fill_manual(name = "", values = index_sort_selection_colors) +
+  # scale_color_manual(name = "", values = index_sort_selection_colors_richtext) +
+  scale_fill_frontiers() +
+  scale_color_frontiers() +
+  theme(
+    legend.position = c(0.3, .7),
+  ) +
+  guides(
+    fill = "none",
+    color = "none"
+  )
+```
+
+### d
+
+```{r}
+fig1d <-
+  recovery_18s_df |>
+  filter(type == "18S in positive WGA cells") |>
+  mutate(`18S recovery` = str_replace(`18S recovery`, " ", "\n")) |>
+  ggplot(aes(x = perc, y = fct_rev(Fraction))) +
+  geom_col(aes(fill = `18S recovery`),
+    color = "gray20",
+    linewidth = .2
+  ) +
+  theme_sags() +
+  theme(
+    legend.position = "right",
+    legend.title = element_blank(),
+    legend.key.spacing.y = unit(1.5, "mm"),
+    legend.box.spacing = unit(5, "mm")
+  ) +
+  labs(y = "", x = "% cells") +
+  scale_x_continuous(expand = expansion(mult = c(0, 0))) +
+  scale_fill_manual(
+    values = recovery_18s_colors,
+    labels = function(x) stringr::str_replace_all(x, "\n", " "),
+    guide =
+      guide_legend(
+        keywidth = unit(3, "mm"),
+        keyheight = unit(3, "mm"),
+        reverse = T,
+        ncol = 1
+      )
+  ) +
+  geom_text(
+    data =
+      recovery_18s_df |>
+        filter(type == "18S in positive WGA cells") |>
+        distinct(Fraction, total_cells),
+    aes(label = paste0(" ", total_cells), x = I(1), hjust = 0),
+    size = 2.7, color = "gray20"
+  ) +
+  coord_cartesian(clip = "off")
+```
+
+### e
+
+```{r}
+fig1e <-
+  recovery_18s_df |>
+  filter(type == "18S in sequenced cells") |>
+  ggplot(aes(x = perc, y = fct_rev(Fraction))) +
+  geom_col(aes(fill = fct_rev(`18S recovery`)),
+    color = "gray20",
+    linewidth = .2
+  ) +
+  theme_sags() +
+  theme(
+    legend.position = "right",
+    legend.title = element_blank(),
+    legend.key.spacing.y = unit(1.5, "mm")
+  ) +
+  labs(y = "", x = "% cells") +
+  scale_x_continuous(expand = expansion(mult = c(0, 0))) +
+  scale_fill_manual(
+    values = recovery_18s_colors,
+    labels = function(x) stringr::str_replace_all(x, "\n", " "),
+    guide =
+      guide_legend(
+        keywidth = unit(3, "mm"),
+        keyheight = unit(3, "mm"),
+        reverse = T,
+        ncol = 1
+      )
+  ) +
+  geom_text(
+    data =
+      recovery_18s_df |>
+        filter(type == "18S in sequenced cells") |>
+        distinct(Fraction, total_cells),
+    aes(label = paste0(" ", total_cells), x = I(1), hjust = 0),
+    size = 2.7, color = "gray20"
+  ) +
+  coord_cartesian(clip = "off")
+```
+
+### f
+
+```{r}
+fig1f <-
+  taxonomic_distributions_single_cells |>
+  mutate(
+    final_name = if_else(Group %in% selected_groups, Group, "Other"),
+    final_name = factor(final_name, levels = names(group_colors))
+  ) |>
+  group_by(final_name, Fraction) |>
+  summarise(perc = sum(perc)) |>
+  ggplot(aes(x = Fraction, y = perc)) +
+  geom_col(aes(fill = final_name),
+    color = "gray20",
+    linewidth = .2
+  ) +
+  scale_fill_manual(
+    values = group_colors,
+    name = NULL,
+    guide =
+      guide_legend(
+        keywidth = unit(3, "mm"),
+        keyheight = unit(3, "mm"),
+        ncol = 2
+      )
+  ) +
+  theme_sags() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0))) +
+  labs(x = "", y = "% cells") +
+  theme(legend.position = "bottom") +
+  geom_text(
+    data = total_cells,
+    aes(label = total_cells), y = I(1), vjust = -.5, size = 2.7, color = "gray20"
+  ) +
+  coord_cartesian(clip = "off")
+```
+
+### g
+
+```{r}
+fig1g <-
+  taxonomic_distributions_other_sequencing |>
+  mutate(
+    final_name = if_else(Group %in% selected_groups, Group, "Other"),
+    final_name = factor(final_name, levels = names(group_colors))
+  ) |>
+  group_by(approach, final_name) |>
+  summarise(perc = sum(perc)) |>
+  mutate(perc = if_else(final_name == "Other", perc + (100 - sum(perc)), perc)) |>
+  ggplot(aes(x = approach, y = perc)) +
+  geom_col(aes(fill = final_name),
+    color = "gray20",
+    linewidth = .2
+  ) +
+  scale_fill_manual(
+    values = group_colors,
+    name = NULL,
+    guide =
+      guide_legend(
+        keywidth = unit(3, "mm"),
+        keyheight = unit(3, "mm"),
+        ncol = 2
+      )
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0))) +
+  theme_sags() +
+  labs(x = "", y = "Relative abundance (%)")
+```
+
+### Plot
+
+```{r}
+fig1abc <-
+  (
+    fig1a + guides(fill = "none")
+  ) +
+    (
+      fig1b + guides(fill = "none") + labs(y = "")
+    ) +
+    (
+      fig1c + guides(fill = "none") + labs(y = "")
+    ) +
+    plot_layout(widths = c(1 / 3, 1 / 3, 1 / 3)) +
+    plot_annotation(tag_levels = list(c(paste0("**", letters[1:3], "**")))) &
+    theme(plot.tag = element_markdown())
+
+fig1de <-
+  free(fig1d) + free(fig1e) +
+    plot_annotation(tag_levels = list(c(paste0("**", letters[4:5], "**")))) &
+    theme(
+      plot.tag = element_markdown(),
+      legend.background = element_blank()
+    )
+
+fig1fg <-
+  ((fig1f + guides(fill = "none")) + fig1g) +
+    plot_layout(guides = "collect") &
+    plot_annotation(tag_levels = list(c(paste0("**", letters[6:7], "**")))) &
+    theme(
+      plot.tag = element_markdown(),
+      legend.position = "right",
+      legend.title = element_blank(),
+      legend.key.spacing.y = unit(2, "mm")
+    )
+
+fig1defg <-
+  cowplot::plot_grid(fig1de, fig1fg, rel_heights = c(.35, .65), ncol = 1)
+
+fig1 <-
+  cowplot::plot_grid(
+    fig1abc,
+    fig1defg,
+    ncol = 1, rel_heights = c(.35, .65)
+  )
+
+ggsave(plot = fig1, filename = "../../figures/fig1.pdf", width = 180, height = 170, units = "mm")
+```
+
+## Supp figure 2020 PP sorting
+
+```{r}
+figure_legends <- 
+  readxl::read_excel('../../data/aux/figure_legends.xlsx')
+
+fig <- 'S7'
+
+caption <- 
+  figure_legends |> filter(figure == fig) |> pull() 
+
+supp_fraction_positions <- 
+  tibble(
+    Fraction = str_c('**',c('pico-PP','nano-PP'),'**'),
+    hjust = 0,
+    PE = 1.5,
+    PECY5 = c(4000, 6000)
+    )
+
+p_cytogram_2020_pp <-
+  cytogram_pp_2020 |>
+  plot_cytogram_hex(nbins = 150) +
+  ggnewscale::new_scale_fill() +
+  geom_point(
+    data = index_sorts_pp_2020,
+    shape = 21,
+    aes(fill = Fraction),
+    color = "black",
+    size = 3,
+    stroke = 0.3
+  ) +
+  geom_richtext(
+    fill = NA, label.color = NA,
+    data = supp_fraction_positions,
+    aes(
+      color = Fraction,
+      label = Fraction,
+      hjust = hjust
+    ),
+    size = 4
+  ) +
+  scale_fill_manual(values = pp_colors, name = "") +
+  scale_color_manual(values = pp_colors, name = "") +
+  guides(fill = "none") +
+  guides(color = "none") +
+  labs(
+    caption = caption
+  ) +
+  theme(
+    plot.caption = element_textbox_simple(
+      margin = margin(5, 0, 5, 0),
+      width = unit(1, "npc"),
+      size = 8
+    )
+  )
+
+
+ggsave(plot = p_cytogram_2020_pp, file = '../../figures/figS7.pdf', height = 5, width = 5)
+```
+

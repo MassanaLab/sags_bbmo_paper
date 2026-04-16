@@ -1,0 +1,62 @@
+GO.ID	Term	final_category
+GO:0006535	cysteine biosynthetic process from serine	Biosynthetic process
+GO:0006075	(1->3)-beta-D-glucan biosynthetic process	Biosynthetic process
+GO:0009058	biosynthetic process	Biosynthetic process
+GO:0016114	terpenoid biosynthetic process	Biosynthetic process
+GO:0000272	polysaccharide catabolic process	Cell wall turnover
+GO:0030245	cellulose catabolic process	Cell wall turnover
+GO:0001522	pseudouridine synthesis	Gene expression
+GO:0006412	translation	Gene expression
+GO:0006355	regulation of DNA-templated transcription	Gene expression
+GO:0006352	DNA-templated transcription initiation	Gene expression
+GO:0015969	guanosine tetraphosphate metabolic process	General metabolism
+GO:0120009	intermembrane lipid transfer	General metabolism
+GO:0006096	glycolytic process	General metabolism
+GO:0006629	lipid metabolic process	General metabolism
+GO:0009308	amine metabolic process	General metabolism
+GO:0015986	proton motive force-driven ATP synthesis	General metabolism
+GO:0055085	transmembrane transport	Ion transport
+GO:0006811	monoatomic ion transport	Ion transport
+GO:0006820	monoatomic anion transport	Ion transport
+GO:0015693	magnesium ion transport	Ion transport
+GO:0006885	regulation of pH	Ion transport
+GO:0090481	pyrimidine nucleotide-sugar transmembrane transport	Metabolite transport
+GO:0015833	peptide transport	Metabolite transport
+GO:0003333	amino acid transmembrane transport	Metabolite transport
+GO:0015979	photosynthesis	Photosynthesis
+GO:0010207	photosystem II assembly	Photosynthesis
+GO:0010024	phytochromobilin biosynthetic process	Photosynthesis
+GO:0015995	chlorophyll biosynthetic process	Photosynthesis
+GO:0042549	photosystem II stabilization	Photosynthesis
+GO:0010206	photosystem II repair	Photosynthesis
+GO:0009101	glycoprotein biosynthetic process	Protein modification and turnover
+GO:0000413	protein peptidyl-prolyl isomerization	Protein modification and turnover
+GO:0016567	protein ubiquitination	Protein modification and turnover
+GO:0017038	protein import	Protein modification and turnover
+GO:0006457	protein folding	Protein modification and turnover
+GO:0015031	protein transport	Protein modification and turnover
+GO:0051603	proteolysis involved in protein catabolic process	Protein modification and turnover
+GO:0009190	cyclic nucleotide biosynthetic process	Biosynthetic process
+GO:0007156	homophilic cell adhesion via plasma membrane adhesion molecules	Cell adhesion
+GO:0007155	cell adhesion	Cell adhesion
+GO:0031221	arabinan metabolic process	Cell wall turnover
+GO:0007018	microtubule-based movement	Cytoskeleton and motility
+GO:0008608	attachment of spindle microtubules to kinetochore	Cytoskeleton and motility
+GO:0046785	microtubule polymerization	Cytoskeleton and motility
+GO:0007017	microtubule-based process	Cytoskeleton and motility
+GO:0006508	proteolysis	Digestive enzymes
+GO:0005975	carbohydrate metabolic process	General metabolism
+GO:0046488	phosphatidylinositol metabolic process	General metabolism
+GO:0006013	mannose metabolic process	General metabolism
+GO:0032218	riboflavin transport	Metabolite transport
+GO:0016579	protein deubiquitination	Protein modification and turnover
+GO:0071816	tail-anchored membrane protein insertion into ER membrane	Protein modification and turnover
+GO:0019236	response to pheromone	Response to environment
+GO:0006952	defense response	Response to environment
+GO:1901031	regulation of response to reactive oxygen species	Response to environment
+GO:0006468	protein phosphorylation	Signal transduction
+GO:0007186	G protein-coupled receptor signaling pathway	Signal transduction
+GO:0007264	small GTPase mediated signal transduction	Signal transduction
+GO:0035556	intracellular signal transduction	Signal transduction
+GO:0006470	protein dephosphorylation	Signal transduction
+GO:0007165	signal transduction	Signal transduction

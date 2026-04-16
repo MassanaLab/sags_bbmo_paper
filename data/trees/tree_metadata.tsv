@@ -1,0 +1,452 @@
+id	species	in_main_tree	pf_higher_tax	pf_lower_tax	sag_id	fraction	tax_group	sag	name_long	name_short	supergroup	group_tiplab
+Pedoelon	Pedospumella elongata	yes	Stramenopiles	Ochrophyta-Chrysophyceae	NA	NA	Chrysophyceae	FALSE	italic('Pedospumella elongata')	italic('Pedospumella')	Stramenopiles	ref
+Ochr2298	Ochromonadaceae sp. CCMP2298	yes	Stramenopiles	Ochrophyta-Chrysophyceae	NA	NA	Chrysophyceae	FALSE	'Ochromonadaceae sp. CCMP2298'	"""CCMP2298"""	Stramenopiles	ref
+ICM0080-Chrysophyceae	ICM0080-SAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0080_SAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0080_SAG.1_Chrysophyceae')	bold('ICM0080')	Stramenopiles	Stramenopiles
+Dino2267	Dinobryon sp.	yes	Stramenopiles	Ochrophyta-Chrysophyceae	NA	NA	Chrysophyceae	FALSE	"paste(italic('Dinobryon '),'sp.')"	italic('Dinobryon')	Stramenopiles	ref
+PoterBG1	Poteriochromonas sp. BG-1	yes	Stramenopiles	Ochrophyta-Chrysophyceae	NA	NA	Chrysophyceae	FALSE	"paste(italic('Poteriochromonas '),'sp. BG-1')"	italic('Poteriochromonas')	Stramenopiles	ref
+ICM0085-Chrysophyceae	ICM0085-SAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0085_SAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0085_SAG.1_Chrysophyceae')	bold('ICM0085')	Stramenopiles	Stramenopiles
+ICM0070-Chrysophyceae	ICM0070-SAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0070_SAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0070_SAG.1_Chrysophyceae')	bold('ICM0070')	Stramenopiles	Stramenopiles
+ICM0079-Chrysophyceae	ICM0079-COSAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0079_COSAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0079_COSAG.1_Chrysophyceae')	bold('ICM0079')	Stramenopiles	Stramenopiles
+ICM0031-Chrysophyceae	ICM0031-SAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0031_SAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0031_SAG.1_Chrysophyceae')	bold('ICM0031')	Stramenopiles	Stramenopiles
+ICM0098-Chrysophyceae	ICM0098-SAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0098_SAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0098_SAG.1_Chrysophyceae')	bold('ICM0098')	Stramenopiles	Stramenopiles
+ICM0086-Chrysophyceae	ICM0086-SAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0086_SAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0086_SAG.1_Chrysophyceae')	bold('ICM0086')	Stramenopiles	Stramenopiles
+ICM0029-Chrysophyceae	ICM0029-SAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0029_SAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0029_SAG.1_Chrysophyceae')	bold('ICM0029')	Stramenopiles	Stramenopiles
+ChrysoH2	Chrysophyceae sp. TOSAG23-5	yes	Stramenopiles	Ochrophyta-Chrysophyceae	NA	NA	Chrysophyceae	FALSE	'Chrysophyceae sp. TOSAG23-5'	"""TOSAG23-5"""	Stramenopiles	ref
+ChrysoH1	Chrysophyceae sp. TOSAG23-4	yes	Stramenopiles	Ochrophyta-Chrysophyceae	NA	NA	Chrysophyceae	FALSE	'Chrysophyceae sp. TOSAG23-4'	"""TOSAG23-4"""	Stramenopiles	ref
+ICM0092-Chrysophyceae	ICM0092-COSAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0092_COSAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0092_COSAG.1_Chrysophyceae')	bold('ICM0092')	Stramenopiles	Stramenopiles
+ICM0053-Chrysophyceae	ICM0053-COSAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0053_COSAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0053_COSAG.1_Chrysophyceae')	bold('ICM0053')	Stramenopiles	Stramenopiles
+ICM0002-Chrysophyceae	ICM0002-COSAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0002_COSAG.1_Chrysophyceae	HF	Chrysophyceae	TRUE	bold('ICM0002_COSAG.1_Chrysophyceae')	bold('ICM0002')	Stramenopiles	Stramenopiles
+ICM0048-Chrysophyceae	ICM0048-COSAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0048_COSAG.1_Chrysophyceae	PF	Chrysophyceae	TRUE	bold('ICM0048_COSAG.1_Chrysophyceae')	bold('ICM0048')	Stramenopiles	Stramenopiles
+Paravest	Paraphysomonas vestita	yes	Stramenopiles	Ochrophyta-Synurophyceae	NA	NA	Chrysophyceae	FALSE	italic('Paraphysomonas vestita')	italic('Paraphysomonas')	Stramenopiles	ref
+ICM0038-Chrysophyceae	ICM0038-SAG1-Chrysophyceae	yes	Stramenopiles	Ochrophyta-Chrysophyceae	ICM0038_SAG.1_Chrysophyceae	HF	Chrysophyceae	TRUE	bold('ICM0038_SAG.1_Chrysophyceae')	bold('ICM0038')	Stramenopiles	Stramenopiles
+Mallmari	Mallomonas marina	yes	Stramenopiles	Ochrophyta-Synurophyceae	NA	NA	NA	FALSE	italic('Mallomonas marina')	italic('Mallomonas')	Stramenopiles	ref
+Syncpusi	Synchroma pusillum CCMP3072	yes	Stramenopiles	Ochrophyta-Synchromophyceae	NA	NA	NA	FALSE	"paste(italic('Synchroma pusillum'),' CCMP3072')"	italic('Synchroma')	Stramenopiles	ref
+Paheparv	Phaeomonas parva	yes	Stramenopiles	Ochrophyta-Pinguiophyceae	NA	NA	Pinguiophyceae	FALSE	italic('Phaeomonas parva')	italic('Phaeomonas')	Stramenopiles	ref
+ICM0066-Pinguiophyceae	ICM0066-SAG1-Pinguiophyceae	yes	Stramenopiles	Ochrophyta-Pinguiophyceae	ICM0066_SAG.1_Pinguiophyceae	PF	Pinguiophyceae	TRUE	bold('ICM0066_SAG.1_Pinguiophyceae')	bold('ICM0066')	Stramenopiles	Stramenopiles
+Pingpyre	Pinguiococcus pyrenoidosus	yes	Stramenopiles	Ochrophyta-Pinguiophyceae	NA	NA	Pinguiophyceae	FALSE	italic('Pinguiococcus pyrenoidosus')	italic('Pinguiococcus')	Stramenopiles	ref
+EctocSP7	Ectocarpus sp. 7	yes	Stramenopiles	Ochrophyta-Phaeophyceae	NA	NA	NA	FALSE	"paste(italic('Ectocarpus '),'sp. 7')"	italic('Ectocarpus')	Stramenopiles	ref
+Agarclat	Agarum clathratum	no	Stramenopiles	Ochrophyta-Phaeophyceae	NA	NA	NA	FALSE	italic('Agarum clathratum')	italic('Agarum')	Stramenopiles	ref
+Fucucera	Fucus ceranoides	no	Stramenopiles	Ochrophyta-Phaeophyceae	NA	NA	NA	FALSE	italic('Fucus ceranoides')	italic('Fucus')	Stramenopiles	ref
+Vauclito	Vaucheria litorea	no	Stramenopiles	Ochrophyta-Xanthophyceae	NA	NA	NA	FALSE	italic('Vaucheria litorea')	italic('Vaucheria')	Stramenopiles	ref
+Tribgaya	Tribonema gayanum	yes	Stramenopiles	Ochrophyta-Xanthophyceae	NA	NA	NA	FALSE	italic('Tribonema gayanum')	italic('Tribonema')	Stramenopiles	ref
+Heteakas	Heterosigma akashiwo	no	Stramenopiles	Ochrophyta-Raphidophyceae	NA	NA	NA	FALSE	italic('Heterosigma akashiwo')	italic('Heterosigma')	Stramenopiles	ref
+Chatsubs	Chattonella subsalsa	yes	Stramenopiles	Ochrophyta-Raphidophyceae	NA	NA	NA	FALSE	italic('Chattonella subsalsa')	italic('Chattonella')	Stramenopiles	ref
+Fibrjapo	Fibrocapsa japonica	no	Stramenopiles	Ochrophyta-Raphidophyceae	NA	NA	NA	FALSE	italic('Fibrocapsa japonica')	italic('Fibrocapsa')	Stramenopiles	ref
+Micrgadi	Microchloropsis gadidata	yes	Stramenopiles	Ochrophyta-Eustigmatophyceae	NA	NA	NA	FALSE	italic('Microchloropsis gadidata')	italic('Microchloropsis')	Stramenopiles	ref
+ICM0027-Dictyochophyceae	ICM0027-SAG1-Dictyochophyceae	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	ICM0027_SAG.1_Dictyochophyceae	PF	Dictyochophyceae	TRUE	bold('ICM0027_SAG.1_Dictyochophyceae')	bold('ICM0027')	Stramenopiles	Stramenopiles
+ICM0025-Dictyochophyceae	ICM0025-SAG1-Dictyochophyceae	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	ICM0025_SAG.1_Dictyochophyceae	HF	Dictyochophyceae	TRUE	bold('ICM0025_SAG.1_Dictyochophyceae')	bold('ICM0025')	Stramenopiles	Stramenopiles
+ICM0016-Dictyochophyceae	ICM0016-COSAG1-Dictyochophyceae	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	ICM0016_COSAG.1_Dictyochophyceae	PF	Dictyochophyceae	TRUE	bold('ICM0016_COSAG.1_Dictyochophyceae')	bold('ICM0016')	Stramenopiles	Stramenopiles
+Pseuelas	Pseudopedinella elastica	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	NA	NA	Dictyochophyceae	FALSE	italic('Pseudopedinella elastica')	italic('Pseudopedinella')	Stramenopiles	ref
+Pedi2098	Pedinellales sp	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	NA	NA	Dictyochophyceae	FALSE	paste('Pedinellales sp.')	'Pedinellales'	Stramenopiles	ref
+Rhiz1243	Rhizochromulina sp. CCMP1243	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	NA	NA	Dictyochophyceae	FALSE	"paste(italic('Rhizochromulina '),'sp. CCMP1243')"	italic('Rhizochromulina')	Stramenopiles	ref
+ICM0069-Dictyochophyceae	ICM0069-SAG1-Dictyochophyceae	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	ICM0069_SAG.1_Dictyochophyceae	PF	Dictyochophyceae	TRUE	bold('ICM0069_SAG.1_Dictyochophyceae')	bold('ICM0069')	Stramenopiles	Stramenopiles
+Flor1587	Florenciella sp	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	NA	NA	Dictyochophyceae	FALSE	"paste(italic('Florenciella '),'sp.')"	italic('Florenciella')	Stramenopiles	ref
+Octaspec	Octactis speculum	yes	Stramenopiles	Ochrophyta-Dictyochophyceae	NA	NA	Dictyochophyceae	FALSE	italic('Octactis speculum')	italic('Octactis')	Stramenopiles	ref
+Pelasubv	Pelagococcus subviridis	no	Stramenopiles	Ochrophyta-Pelagophyceae	NA	NA	NA	FALSE	italic('Pelagococcus subviridis')	italic('Pelagococcus')	Stramenopiles	ref
+Pelacalc	Pelagomonas calceolata	yes	Stramenopiles	Ochrophyta-Pelagophyceae	NA	NA	NA	FALSE	italic('Pelagomonas calceolata')	italic('Pelagomonas')	Stramenopiles	ref
+Aureanop	Aureococcus anophagefferens	no	Stramenopiles	Ochrophyta-Pelagophyceae	NA	NA	NA	FALSE	italic('Aureococcus anophagefferens')	italic('Aureococcus')	Stramenopiles	ref
+Pela2097	Pelagophyceae sp.	no	Stramenopiles	Ochrophyta-Pelagophyceae	NA	NA	NA	FALSE	'Pelagophyceae sp.'	'Pelagophyceae sp.'	Stramenopiles	ref
+Chryfrag	Chrysocystis fragilis	no	Stramenopiles	Ochrophyta-Pelagophyceae	NA	NA	NA	FALSE	italic('Chrysocystis fragilis')	italic('Chrysocystis')	Stramenopiles	ref
+Aurelagu	Aureoumbra lagunensis	yes	Stramenopiles	Ochrophyta-Pelagophyceae	NA	NA	NA	FALSE	italic('Aureoumbra lagunensis')	italic('Aureoumbra')	Stramenopiles	ref
+ICM0075-MOCH-2	ICM0075-COSAG1-MOCH-2	yes	Stramenopiles	Ochrophyta	ICM0075_COSAG.1_MOCH-2	PF	MOCH-2	TRUE	bold('ICM0075_COSAG.1_MOCH-2')	bold('ICM0075')	Stramenopiles	Stramenopiles
+Psuemult	Pseudonitzschia multiseries	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	NA	NA	Diatomea	FALSE	italic('Pseudonitzschia multiseries')	italic('Pseudonitzschia')	Stramenopiles	ref
+ICM0141-Diatomea	ICM0141-SAG1-Diatomea	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	ICM0141_SAG.1_Diatomea	PF	Diatomea	TRUE	bold('ICM0141_SAG.1_Diatomea')	bold('ICM0141')	Stramenopiles	Stramenopiles
+ICM0068-Diatomea	ICM0068-COSAG1-Diatomea	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	ICM0068_COSAG.1_Diatomea	PF	Diatomea	TRUE	bold('ICM0068_COSAG.1_Diatomea')	bold('ICM0068')	Stramenopiles	Stramenopiles
+ICM0067-Diatomea	ICM0067-COSAG1-Diatomea	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	ICM0067_COSAG.1_Diatomea	PF	Diatomea	TRUE	bold('ICM0067_COSAG.1_Diatomea')	bold('ICM0067')	Stramenopiles	Stramenopiles
+Fragcyli	Fragilariopsis cylindrus	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	NA	NA	Diatomea	FALSE	italic('Fragilariopsis cylindrus')	italic('Fragilariopsis')	Stramenopiles	ref
+ICM0074-Diatomea	ICM0074-SAG1-Diatomea	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	ICM0074_SAG.1_Diatomea	PF	Diatomea	TRUE	bold('ICM0074_SAG.1_Diatomea')	bold('ICM0074')	Stramenopiles	Stramenopiles
+Phaetric	Phaeodactylum tricornutum	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	NA	NA	Diatomea	FALSE	italic('Phaeodactylum tricornutum')	italic('Phaeodactylum')	Stramenopiles	ref
+ICM0097-Diatomea	ICM0097-SAG1-Diatomea	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	ICM0097_SAG.1_Diatomea	PF	Diatomea	TRUE	bold('ICM0097_SAG.1_Diatomea')	bold('ICM0097')	Stramenopiles	Stramenopiles
+ICM0087-Diatomea	ICM0087-SAG1-Diatomea	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	ICM0087_SAG.1_Diatomea	PF	Diatomea	TRUE	bold('ICM0087_SAG.1_Diatomea')	bold('ICM0087')	Stramenopiles	Stramenopiles
+Thalpseu	Thalassiosira pseudonana	yes	Stramenopiles	Ochrophyta-Bacillariophyceae	NA	NA	Diatomea	FALSE	italic('Thalassiosira pseudonana')	italic('Thalassiosira')	Stramenopiles	ref
+Tripeleu	Triparma eleuthera	yes	Stramenopiles	Ochrophyta-Bolidophyceae	NA	NA	Bolidophyceae	FALSE	italic('Triparma eleuthera')	italic('Triparma')	Stramenopiles	ref
+ICM0091-Bolidophyceae	ICM0091-COSAG1-Bolidophyceae	yes	Stramenopiles	Ochrophyta-Bolidophyceae	ICM0091_COSAG.1_Bolidophyceae	PF	Bolidophyceae	TRUE	bold('ICM0091_COSAG.1_Bolidophyceae')	bold('ICM0091')	Stramenopiles	Stramenopiles
+Pythirre	Pythium irregulare	no	Stramenopiles	Pseudofungi	NA	NA	NA	FALSE	italic('Pythium irregulare')	italic('Pythium')	Stramenopiles	ref
+Phytpara	Phytophthora parasitica	yes	Stramenopiles	Pseudofungi	NA	NA	NA	FALSE	italic('Phytophthora parasitica')	italic('Phytophthora')	Stramenopiles	ref
+Albulaib	Albugo laibachii	no	Stramenopiles	Pseudofungi	NA	NA	NA	FALSE	italic('Albugo laibachii')	italic('Albugo')	Stramenopiles	ref
+Saprdecl	Saprolegnia declina	no	Stramenopiles	Pseudofungi	NA	NA	NA	FALSE	italic('Saprolegnia declina')	italic('Saprolegnia')	Stramenopiles	ref
+Hyphcate	Hyphochytrium catenoides	yes	Stramenopiles	Pseudofungi	NA	NA	NA	FALSE	italic('Hyphochytrium catenoides')	italic('Hyphochytrium')	Stramenopiles	ref
+ICM0060-MAST-1	ICM0060-SAG1-MAST-1	yes	Stramenopiles	Pseudofungi	ICM0060_SAG.1_MAST-1	HF	MAST-1	TRUE	bold('ICM0060_SAG.1_MAST-1')	bold('ICM0060')	Stramenopiles	Stramenopiles
+ICM0013-MAST-1	ICM0013-COSAG1-MAST-1	yes	Stramenopiles	Pseudofungi	ICM0013_COSAG.1_MAST-1	HF	MAST-1	TRUE	bold('ICM0013_COSAG.1_MAST-1')	bold('ICM0013')	Stramenopiles	Stramenopiles
+ICM0026-MAST-1	ICM0026-COSAG1-MAST-1	yes	Stramenopiles	Pseudofungi	ICM0026_COSAG.1_MAST-1	HF	MAST-1	TRUE	bold('ICM0026_COSAG.1_MAST-1')	bold('ICM0026')	Stramenopiles	Stramenopiles
+ICM0014-MAST-1	ICM0014-SAG1-MAST-1	no	Stramenopiles	Pseudofungi	ICM0014_SAG.1_MAST-1	HF	MAST-1	TRUE	bold('ICM0014_SAG.1_MAST-1')	bold('ICM0014')	Stramenopiles	Stramenopiles
+ICM0035-MAST-2	ICM0035-SAG1-MAST-2	yes	Stramenopiles	Pseudofungi	ICM0035_SAG.1_MAST-2	HF	MAST-2	TRUE	bold('ICM0035_SAG.1_MAST-2')	bold('ICM0035')	Stramenopiles	Stramenopiles
+Deveeleg	Developayella elegans	yes	Stramenopiles	Developayella	NA	NA	NA	FALSE	italic('Developayella elegans')	italic('Developayella')	Stramenopiles	ref
+ICM0134-MAST-7	ICM0134-COSAG1-MAST-7	yes	Stramenopiles	Sagenista	ICM0134_COSAG.1_MAST-7	HF	MAST-7	TRUE	bold('ICM0134_COSAG.1_MAST-7')	bold('ICM0134')	Stramenopiles	Stramenopiles
+ICM0043-MAST-7	ICM0043-COSAG1-MAST-7	yes	Stramenopiles	Sagenista	ICM0043_COSAG.1_MAST-7	HF	MAST-7	TRUE	bold('ICM0043_COSAG.1_MAST-7')	bold('ICM0043')	Stramenopiles	Stramenopiles
+ICM0050-MAST-7	ICM0050-SAG1-MAST-7	yes	Stramenopiles	Sagenista	ICM0050_SAG.1_MAST-7	HF	MAST-7	TRUE	bold('ICM0050_SAG.1_MAST-7')	bold('ICM0050')	Stramenopiles	Stramenopiles
+ICM0049-MAST-7	ICM0049-SAG1-MAST-7	yes	Stramenopiles	Sagenista	ICM0049_SAG.1_MAST-7	HF	MAST-7	TRUE	bold('ICM0049_SAG.1_MAST-7')	bold('ICM0049')	Stramenopiles	Stramenopiles
+ICM0059-MAST-7	ICM0059-SAG1-MAST-7	yes	Stramenopiles	Sagenista	ICM0059_SAG.1_MAST-7	HF	MAST-7	TRUE	bold('ICM0059_SAG.1_MAST-7')	bold('ICM0059')	Stramenopiles	Stramenopiles
+ICM0052-MAST-7	ICM0052-COSAG1-MAST-7	yes	Stramenopiles	Sagenista	ICM0052_COSAG.1_MAST-7	HF	MAST-7	TRUE	bold('ICM0052_COSAG.1_MAST-7')	bold('ICM0052')	Stramenopiles	Stramenopiles
+MAST04A2	Stramenopile sp. MAST-4 clade A 2	yes	Stramenopiles	MAST4	NA	NA	MAST-4	FALSE	'Stramenopile sp. MAST-4 clade A 2'	'MAST-4A2'	Stramenopiles	ref
+MAST04A1	Stramenopile sp. MAST-4 clade A 1	yes	Stramenopiles	MAST4	NA	NA	MAST-4	FALSE	'Stramenopile sp. MAST-4 clade A 1'	'MAST-4A1'	Stramenopiles	ref
+ICM0010-MAST-4	ICM0010-COSAG1-MAST-4	yes	Stramenopiles	MAST4	ICM0010_COSAG.1_MAST-4	HF	MAST-4	TRUE	bold('ICM0010_COSAG.1_MAST-4')	bold('ICM0010')	Stramenopiles	Stramenopiles
+MAST004C	Stramenopile sp. MAST-4 clade C	yes	Stramenopiles	MAST4	NA	NA	MAST-4	FALSE	'Stramenopile sp. MAST-4 clade C'	'MAST-4C'	Stramenopiles	ref
+ICM0042-MAST-4	ICM0042-COSAG1-MAST-4	yes	Stramenopiles	MAST4	ICM0042_COSAG.1_MAST-4	HF	MAST-4	TRUE	bold('ICM0042_COSAG.1_MAST-4')	bold('ICM0042')	Stramenopiles	Stramenopiles
+MAST004E	Stramenopile sp. MAST-4 clade E	yes	Stramenopiles	MAST4	NA	NA	MAST-4	FALSE	'Stramenopile sp. MAST-4 clade E'	'MAST-4E'	Stramenopiles	ref
+ICM0024-MAST-8	ICM0024-COSAG1-MAST-8	yes	Stramenopiles	Sagenista	ICM0024_COSAG.1_MAST-8	HF	MAST-8	TRUE	bold('ICM0024_COSAG.1_MAST-8')	bold('ICM0024')	Stramenopiles	Stramenopiles
+ICM0017-MAST-8	ICM0017-SAG1-MAST-8	yes	Stramenopiles	Sagenista	ICM0017_SAG.1_MAST-8	HF	MAST-8	TRUE	bold('ICM0017_SAG.1_MAST-8')	bold('ICM0017')	Stramenopiles	Stramenopiles
+ICM0023-MAST-8	ICM0023-SAG1-MAST-8	yes	Stramenopiles	Sagenista	ICM0023_SAG.1_MAST-8	HF	MAST-8	TRUE	bold('ICM0023_SAG.1_MAST-8')	bold('ICM0023')	Stramenopiles	Stramenopiles
+ICM0138-MAST-9	ICM0138-SAG1-MAST-9	yes	Stramenopiles	Sagenista	ICM0138_SAG.1_MAST-9	HF	MAST-9	TRUE	bold('ICM0138_SAG.1_MAST-9')	bold('ICM0138')	Stramenopiles	Stramenopiles
+ThraLLF1	Thraustochytrium sp.	yes	Stramenopiles	Sagenista	NA	NA	Labyrinthulomycetes	FALSE	"paste(italic('Thraustochytrium '),'sp.')"	italic('Thraustochytrium')	Stramenopiles	ref
+Schiaggr	Schizochytrium aggregatum	yes	Stramenopiles	Sagenista	NA	NA	Labyrinthulomycetes	FALSE	italic('Schizochytrium aggregatum')	italic('Schizochytrium')	Stramenopiles	ref
+ICM0044-Labyrinthulomycetes	ICM0044-SAG1-Labyrinthulomycetes	yes	Stramenopiles	Sagenista	ICM0044_SAG.1_Labyrinthulomycetes	HF	Labyrinthulomycetes	TRUE	bold('ICM0044_SAG.1_Labyrinthulomycetes')	bold('ICM0044')	Stramenopiles	Stramenopiles
+Auralima	Aurantiochytrium limacinum	yes	Stramenopiles	Sagenista	NA	NA	Labyrinthulomycetes	FALSE	italic('Aurantiochytrium limacinum')	italic('Aurantiochytrium')	Stramenopiles	ref
+ICM0054-Labyrinthulomycetes	ICM0054-COSAG1-Labyrinthulomycetes	yes	Stramenopiles	Sagenista	ICM0054_COSAG.1_Labyrinthulomycetes	HF	Labyrinthulomycetes	TRUE	bold('ICM0054_COSAG.1_Labyrinthulomycetes')	bold('ICM0054')	Stramenopiles	Stramenopiles
+Aplakerg	Aplanochytrium kerguelense	yes	Stramenopiles	Sagenista	NA	NA	Labyrinthulomycetes	FALSE	italic('Aplanochytrium kerguelense')	italic('Aplanochytrium')	Stramenopiles	ref
+ICM0009-Labyrinthulomycetes	ICM0009-SAG1-Labyrinthulomycetes	yes	Stramenopiles	Sagenista	ICM0009_SAG.1_Labyrinthulomycetes	HF	Labyrinthulomycetes	TRUE	bold('ICM0009_SAG.1_Labyrinthulomycetes')	bold('ICM0009')	Stramenopiles	Stramenopiles
+ICM0007-MAST-3	ICM0007-COSAG1-MAST-3	yes	Stramenopiles	Opalozoa	ICM0007_COSAG.1_MAST-3	HF	MAST-3	TRUE	bold('ICM0007_COSAG.1_MAST-3')	bold('ICM0007')	Stramenopiles	Stramenopiles
+ICM0006-MAST-3	ICM0006-COSAG1-MAST-3	yes	Stramenopiles	Opalozoa	ICM0006_COSAG.1_MAST-3	HF	MAST-3	TRUE	bold('ICM0006_COSAG.1_MAST-3')	bold('ICM0006')	Stramenopiles	Stramenopiles
+MAST003A	Stramenopile sp. MAST-3 clade A	yes	Stramenopiles	Opalozoa	NA	NA	MAST-3	FALSE	'Stramenopile sp. MAST-3 clade A'	'MAST-3A'	Stramenopiles	ref
+MAST003F	Stramenopile sp. MAST-3 clade F	yes	Stramenopiles	Opalozoa	NA	NA	MAST-3	FALSE	'Stramenopile sp. MAST-3 clade F'	'MAST-3F'	Stramenopiles	ref
+ICM0051-MAST-3	ICM0051-COSAG1-MAST-3	yes	Stramenopiles	Opalozoa	ICM0051_COSAG.1_MAST-3	HF	MAST-3	TRUE	bold('ICM0051_COSAG.1_MAST-3')	bold('ICM0051')	Stramenopiles	Stramenopiles
+ICM0037-MAST-3	ICM0037-SAG1-MAST-3	yes	Stramenopiles	Opalozoa	ICM0037_SAG.1_MAST-3	HF	MAST-3	TRUE	bold('ICM0037_SAG.1_MAST-3')	bold('ICM0037')	Stramenopiles	Stramenopiles
+ICM0144-MAST-3	ICM0144-SAG1-MAST-3	yes	Stramenopiles	Opalozoa	ICM0144_SAG.1_MAST-3	HF	MAST-3	TRUE	bold('ICM0144_SAG.1_MAST-3')	bold('ICM0144')	Stramenopiles	Stramenopiles
+ICM0045-MAST-3	ICM0045-COSAG1-MAST-3	yes	Stramenopiles	Opalozoa	ICM0045_COSAG.1_MAST-3	HF	MAST-3	TRUE	bold('ICM0045_COSAG.1_MAST-3')	bold('ICM0045')	Stramenopiles	Stramenopiles
+ICM0136-MAST-3	ICM0136-SAG1-MAST-3	yes	Stramenopiles	Opalozoa	ICM0136_SAG.1_MAST-3	HF	MAST-3	TRUE	bold('ICM0136_SAG.1_MAST-3')	bold('ICM0136')	Stramenopiles	Stramenopiles
+ICM0046-MAST-3	ICM0046-SAG1-MAST-3	yes	Stramenopiles	Opalozoa	ICM0046_SAG.1_MAST-3	HF	MAST-3	TRUE	bold('ICM0046_SAG.1_MAST-3')	bold('ICM0046')	Stramenopiles	Stramenopiles
+Protlace	Proteromonas lacertae	yes	Stramenopiles	Opalozoa	NA	NA	NA	FALSE	italic('Proteromonas lacertae')	italic('Proteromonas')	Stramenopiles	ref
+BlasS7SB	Blastocystis sp. subtype 7 strain B	yes	Stramenopiles	Opalozoa	NA	NA	NA	FALSE	"paste(italic('Blastocystis'),' sp. subtype 7 strain B')"	italic('Blastocystis')	Stramenopiles	ref
+ICM0081-MAST-12	ICM0081-SAG1-MAST-12	yes	Stramenopiles	Opalozoa	ICM0081_SAG.1_MAST-12	PF	MAST-12	TRUE	bold('ICM0081_SAG.1_MAST-12')	bold('ICM0081')	Stramenopiles	Stramenopiles
+Wobbluna	Wobblia lunata	yes	Stramenopiles	Opalozoa	NA	NA	NA	FALSE	italic('Wobblia lunata')	italic('Wobblia')	Stramenopiles	ref
+PlacCLAB	"Placididea sp. ""Caron lab isolate"""	yes	Stramenopiles	Opalozoa	NA	NA	NA	FALSE	"paste('Placididea sp. ""Caron lab isolate""')"	'Placididea sp.'	Stramenopiles	ref
+Haloseos	Halocafeteria seosinensis	no	Stramenopiles	Opalozoa	NA	NA	NA	FALSE	italic('Halocafeteria seosinensis')	italic('Halocafeteria')	Stramenopiles	ref
+Caferoen	Cafeteria roenbergensis	yes	Stramenopiles	Opalozoa	NA	NA	NA	FALSE	italic('Cafeteria roenbergensis')	italic('Cafeteria')	Stramenopiles	ref
+BicoCB20	Bicosoecida sp.	no	Stramenopiles	Opalozoa	NA	NA	NA	FALSE	'Bicosoecida sp.'	'Bicosoecida sp.'	Stramenopiles	ref
+Cantmars	Cantina marsupialis	yes	Stramenopiles	Opalozoa	NA	NA	NA	FALSE	italic('Cantina marsupialis')	italic('Cantina')	Stramenopiles	ref
+ICM0033-MALV-II	ICM0033-SAG1-MALV-II	yes	Alveolata	Dinoflagellata	ICM0033_SAG.1_MALV-II	HF	MALV-II	TRUE	bold('ICM0033_SAG.1_MALV-II')	bold('ICM0033')	Alveolata	Alveolata
+ICM0022-MALV-II	ICM0022-SAG1-MALV-II	yes	Alveolata	Dinoflagellata	ICM0022_SAG.1_MALV-II	HF	MALV-II	TRUE	bold('ICM0022_SAG.1_MALV-II')	bold('ICM0022')	Alveolata	Alveolata
+ICM0034-MALV-II	ICM0034-SAG1-MALV-II	yes	Alveolata	Dinoflagellata	ICM0034_SAG.1_MALV-II	HF	MALV-II	TRUE	bold('ICM0034_SAG.1_MALV-II')	bold('ICM0034')	Alveolata	Alveolata
+AmoeALEX	Amoebophrya sp. ex Alexandrium tamarense	yes	Alveolata	Dinoflagellata	NA	NA	MALV-II	FALSE	"paste(italic('Amoebophrya'),' sp. ex ',italic('Alexandrium tamarense'))"	italic('Amoebophrya')	Alveolata	ref
+ICM0032-MALV-II	ICM0032-SAG1-MALV-II	yes	Alveolata	Dinoflagellata	ICM0032_SAG.1_MALV-II	HF	MALV-II	TRUE	bold('ICM0032_SAG.1_MALV-II')	bold('ICM0032')	Alveolata	Alveolata
+ICM0020-MALV-II	ICM0020-SAG1-MALV-II	yes	Alveolata	Dinoflagellata	ICM0020_SAG.1_MALV-II	HF	MALV-II	TRUE	bold('ICM0020_SAG.1_MALV-II')	bold('ICM0020')	Alveolata	Alveolata
+HemaVICK	Hematodinium sp.	yes	Alveolata	Dinoflagellata	NA	NA	NA	FALSE	"paste(italic('Hematodinium '),'sp.')"	italic('Hematodinium')	Alveolata	ref
+Symbmicr	Symbiodinium microadriaticum	yes	Alveolata	Dinoflagellata	NA	NA	Dinoflagellata	FALSE	italic('Symbiodinium microadriaticum')	italic('Symbiodinium')	Alveolata	ref
+Alexminu	Alexandrium minutum	yes	Alveolata	Dinoflagellata	NA	NA	Dinoflagellata	FALSE	italic('Alexandrium minutum')	italic('Alexandrium')	Alveolata	ref
+Karebrev	Karenia brevis SP1	yes	Alveolata	Dinoflagellata	NA	NA	Dinoflagellata	FALSE	"paste(italic('Karenia brevis'),' SP1')"	italic('Karenia')	Alveolata	ref
+ICM0119-Dinoflagellata	ICM0119-SAG1-Dinoflagellata	yes	Alveolata	Dinoflagellata	ICM0119_SAG.1_Dinoflagellata	PF	Dinoflagellata	TRUE	bold('ICM0119_SAG.1_Dinoflagellata')	bold('ICM0119')	Alveolata	Alveolata
+Noctscin	Noctiluca scintillans	yes	Alveolata	Dinoflagellata	NA	NA	Dinoflagellata	FALSE	italic('Noctiluca scintillans')	italic('Noctiluca')	Alveolata	ref
+ICM0018-MALV-I	ICM0018-SAG1-MALV-I	yes	Alveolata	Dinoflagellata	ICM0018_SAG.1_MALV-I	HF	MALV-I	TRUE	bold('ICM0018_SAG.1_MALV-I')	bold('ICM0018')	Alveolata	Alveolata
+ICM0012-MALV-I	ICM0012-SAG1-MALV-I	yes	Alveolata	Dinoflagellata	ICM0012_SAG.1_MALV-I	HF	MALV-I	TRUE	bold('ICM0012_SAG.1_MALV-I')	bold('ICM0012')	Alveolata	Alveolata
+ICM0021-MALV-I	ICM0021-SAG1-MALV-I	yes	Alveolata	Dinoflagellata	ICM0021_SAG.1_MALV-I	HF	MALV-I	TRUE	bold('ICM0021_SAG.1_MALV-I')	bold('ICM0021')	Alveolata	Alveolata
+ICM0005-MALV-I	ICM0005-SAG1-MALV-I	yes	Alveolata	Dinoflagellata	ICM0005_SAG.1_MALV-I	HF	MALV-I	TRUE	bold('ICM0005_SAG.1_MALV-I')	bold('ICM0005')	Alveolata	Alveolata
+Oxyrmari	Oxyrrhis marina	yes	Alveolata	Dinoflagellata	NA	NA	NA	FALSE	italic('Oxyrrhis marina')	italic('Oxyrrhis')	Alveolata	ref
+Perkmari	Perkinsus marinus	yes	Alveolata	Perkinsozoa	NA	NA	NA	FALSE	italic('Perkinsus marinus')	italic('Perkinsus')	Alveolata	ref
+Toxogond	Toxoplasma gondii	yes	Alveolata	Apicomplexa	NA	NA	NA	FALSE	italic('Toxoplasma gondii')	italic('Toxoplasma')	Alveolata	ref
+Eimebrun	Eimeria brunetti	no	Alveolata	Apicomplexa	NA	NA	NA	FALSE	italic('Eimeria brunetti')	italic('Eimeria')	Alveolata	ref
+Plasfalc	Plasmodium falciparum	no	Alveolata	Apicomplexa	NA	NA	NA	FALSE	italic('Plasmodium falciparum')	italic('Plasmodium')	Alveolata	ref
+Gregniph	Gregarina niphandrodes (GNI3)	no	Alveolata	Apicomplexa	NA	NA	NA	FALSE	"paste(italic('Gregarina niphandrodes'),' (GNI3)')"	italic('Gregarina')	Alveolata	ref
+Crypparv	Cryptosporidium parvum	yes	Alveolata	Apicomplexa	NA	NA	NA	FALSE	italic('Cryptosporidium parvum')	italic('Cryptosporidium')	Alveolata	ref
+Colpangu	Colpodella angusta	no	Alveolata	Chrompodellids	NA	NA	NA	FALSE	italic('Colpodella angusta')	italic('Colpodella')	Alveolata	ref
+Chroveli	Chromera velia	yes	Alveolata	Chrompodellids	NA	NA	NA	FALSE	italic('Chromera velia')	italic('Chromera')	Alveolata	ref
+Alphedax	Alphamonas edax	no	Alveolata	Chrompodellids	NA	NA	NA	FALSE	italic('Alphamonas edax')	italic('Alphamonas')	Alveolata	ref
+Vitrbras	Vitrella brassicaformis	yes	Alveolata	Chrompodellids	NA	NA	NA	FALSE	italic('Vitrella brassicaformis')	italic('Vitrella')	Alveolata	ref
+Pirisoci	Piridium sociabile	no	Alveolata	Chrompodellids	NA	NA	NA	FALSE	italic('Piridium sociabile')	italic('Piridium')	Alveolata	ref
+Platviva	Platyproteum vivax	no	Alveolata	Chrompodellids	NA	NA	NA	FALSE	italic('Platyproteum vivax')	italic('Platyproteum')	Alveolata	ref
+Tetrther	Tetrahymena thermophila	yes	Alveolata	Ciliate	NA	NA	Ciliophora	FALSE	italic('Tetrahymena thermophila')	italic('Tetrahymena')	Alveolata	ref
+Ichtmult	Ichtyopthirius multifiliis	no	Alveolata	Ciliate	NA	NA	Ciliophora	FALSE	italic('Ichtyopthirius multifiliis')	italic('Ichtyopthirius')	Alveolata	ref
+Paratetr	Paramecium tetraurelia	no	Alveolata	Ciliate	NA	NA	Ciliophora	FALSE	italic('Paramecium tetraurelia')	italic('Paramecium')	Alveolata	ref
+Platmacr	Platyophrya macrostoma	yes	Alveolata	Ciliate	NA	NA	Ciliophora	FALSE	italic('Platyophrya macrostoma')	italic('Platyophrya')	Alveolata	ref
+Stroincl	Strombidium inclinatum	yes	Alveolata	Ciliate	NA	NA	Ciliophora	FALSE	italic('Strombidium inclinatum')	italic('Strombidium')	Alveolata	ref
+ICM0146-Ciliophora	ICM0146-SAG1-Ciliophora	yes	Alveolata	Ciliate	ICM0146_SAG.1_Ciliophora	HF	Ciliophora	TRUE	bold('ICM0146_SAG.1_Ciliophora')	bold('ICM0146')	Alveolata	Alveolata
+Styllemn	Stylonychia lemnae	yes	Alveolata	Ciliate	NA	NA	Ciliophora	FALSE	italic('Stylonychia lemnae')	italic('Stylonychia')	Alveolata	ref
+Protadhe	Protocruzia adherens	no	Alveolata	Ciliate	NA	NA	Ciliophora	FALSE	italic('Protocruzia adherens')	italic('Protocruzia')	Alveolata	ref
+Stencoer	Stentor coeruleus	no	Alveolata	Ciliate	NA	NA	Ciliophora	FALSE	italic('Stentor coeruleus')	italic('Stentor')	Alveolata	ref
+MatazaD1	Mataza sp.	yes	Rhizaria	Cercozoa	NA	NA	Cercozoa	FALSE	"paste(italic('Mataza '),'sp.')"	italic('Mataza')	Rhizaria	ref
+ICM0135-Cercozoa	ICM0135-SAG1-Cercozoa	yes	Rhizaria	Cercozoa	ICM0135_SAG.1_Cercozoa	HF	Cercozoa	TRUE	bold('ICM0135_SAG.1_Cercozoa')	bold('ICM0135')	Rhizaria	Rhizaria
+Abolprol	Abollifer prolabens	yes	Rhizaria	Cercozoa	NA	NA	Cercozoa	FALSE	italic('Abollifer prolabens')	italic('Abollifer')	Rhizaria	ref
+ICM0058-Cercozoa	ICM0058-SAG1-Cercozoa	yes	Rhizaria	Cercozoa	ICM0058_SAG.1_Cercozoa	HF	Cercozoa	TRUE	bold('ICM0058_SAG.1_Cercozoa')	bold('ICM0058')	Rhizaria	Rhizaria
+Paulchro	Paulinella chromatophora	yes	Rhizaria	Cercozoa	NA	NA	Cercozoa	FALSE	italic('Paulinella chromatophora')	italic('Paulinella')	Rhizaria	ref
+Euglrotu	Euglypha rotunda	no	Rhizaria	Cercozoa	NA	NA	Cercozoa	FALSE	italic('Euglypha rotunda')	italic('Euglypha')	Rhizaria	ref
+Brevmoto	Brevimastigomonas motovehiculus	no	Rhizaria	Cercozoa	NA	NA	Cercozoa	FALSE	italic('Brevimastigomonas motovehiculus')	italic('Brevimastigomonas')	Rhizaria	ref
+Aurisoli	Aurigamonas solis	no	Rhizaria	Cercozoa	NA	NA	Cercozoa	FALSE	italic('Aurigamonas solis')	italic('Aurigamonas')	Rhizaria	ref
+Guttvulg	Guttulinopsis vulgaris	no	Rhizaria	Cercozoa	NA	NA	Cercozoa	FALSE	italic('Guttulinopsis vulgaris')	italic('Guttulinopsis')	Rhizaria	ref
+ICM0139-Chlorarachnea	ICM0139-SAG1-Chlorarachnea	yes	Rhizaria	Cercozoa	ICM0139_SAG.1_Chlorarachnea	PF	Chlorarachnea	TRUE	bold('ICM0139_SAG.1_Chlorarachnea')	bold('ICM0139')	Rhizaria	Rhizaria
+Chlorept	Chlorarachnion reptans	yes	Rhizaria	Cercozoa	NA	NA	Chlorarachnea	FALSE	italic('Chlorarachnion reptans')	italic('Chlorarachnion')	Rhizaria	ref
+Bigenata	Bigelowiella natans	yes	Rhizaria	Cercozoa	NA	NA	Chlorarachnea	FALSE	italic('Bigelowiella natans')	italic('Bigelowiella')	Rhizaria	ref
+Gymn2014	Gymnochlora sp.	yes	Rhizaria	Cercozoa	NA	NA	Chlorarachnea	FALSE	"paste(italic('Gymnochlora '),'sp.')"	italic('Gymnochlora')	Rhizaria	ref
+ICM0041-Chlorarachnea	ICM0041-COSAG1-Chlorarachnea	yes	Rhizaria	Cercozoa	ICM0041_COSAG.1_Chlorarachnea	HF	Chlorarachnea	TRUE	bold('ICM0041_COSAG.1_Chlorarachnea')	bold('ICM0041')	Rhizaria	Rhizaria
+ICM0011-Chlorarachnea	ICM0011-COSAG1-Chlorarachnea	yes	Rhizaria	Cercozoa	ICM0011_COSAG.1_Chlorarachnea	HF	Chlorarachnea	TRUE	bold('ICM0011_COSAG.1_Chlorarachnea')	bold('ICM0011')	Rhizaria	Rhizaria
+Plasbras	Plasmodiophora brassicae	yes	Rhizaria	Endomyxa	NA	NA	Endomyxa	FALSE	italic('Plasmodiophora brassicae')	italic('Plasmodiophora')	Rhizaria	ref
+ICM0047-Cercozoa	ICM0047-SAG1-Endomyxa	yes	Rhizaria	Endomyxa	ICM0047_SAG.1_Cercozoa	HF	Endomyxa	TRUE	bold('ICM0047_SAG.1_Endomyxa')	bold('ICM0047')	Rhizaria	Rhizaria
+Leptvora	Leptophrys vorax	yes	Rhizaria	Endomyxa	NA	NA	Endomyxa	FALSE	italic('Leptophrys vorax')	italic('Leptophrys')	Rhizaria	ref
+Gromspha	Gromia sphaerica	no	Rhizaria	Endomyxa	NA	NA	Endomyxa	FALSE	italic('Gromia sphaerica')	italic('Gromia')	Rhizaria	ref
+Lapoguse	Lapot gusevi	no	Rhizaria	Endomyxa	NA	NA	Endomyxa	FALSE	italic('Lapot gusevi')	italic('Lapot')	Rhizaria	ref
+Sori0191	Sorites sp.	no	Rhizaria	Retaria	NA	NA	NA	FALSE	"paste(italic('Sorites '),'sp.')"	italic('Sorites')	Rhizaria	ref
+Ammo1384	Ammonia sp.	no	Rhizaria	Retaria	NA	NA	NA	FALSE	"paste(italic('Ammonia '),'sp.')"	italic('Ammonia')	Rhizaria	ref
+Retifilo	Reticulomyxa filosa	yes	Rhizaria	Retaria	NA	NA	NA	FALSE	italic('Reticulomyxa filosa')	italic('Reticulomyxa')	Rhizaria	ref
+Stichzan	Sticholonche zanclea	no	Rhizaria	Sticholonche	NA	NA	NA	FALSE	italic('Sticholonche zanclea')	italic('Sticholonche')	Rhizaria	ref
+ICM0127-Prymnesiophyceae	ICM0127-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0127_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0127_SAG.1_Prymnesiophyceae')	bold('ICM0127')	Haptista	Haptista
+ICM0122-Prymnesiophyceae	ICM0122-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0122_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0122_COSAG.1_Prymnesiophyceae')	bold('ICM0122')	Haptista	Haptista
+ICM0124-Prymnesiophyceae	ICM0124-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0124_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0124_SAG.1_Prymnesiophyceae')	bold('ICM0124')	Haptista	Haptista
+ICM0120-Prymnesiophyceae	ICM0120-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0120_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0120_COSAG.1_Prymnesiophyceae')	bold('ICM0120')	Haptista	Haptista
+ICM0103-Prymnesiophyceae	ICM0103-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0103_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0103_SAG.1_Prymnesiophyceae')	bold('ICM0103')	Haptista	Haptista
+ICM0101-Prymnesiophyceae	ICM0101-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0101_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0101_COSAG.1_Prymnesiophyceae')	bold('ICM0101')	Haptista	Haptista
+ICM0106-Prymnesiophyceae	ICM0106-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0106_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0106_COSAG.1_Prymnesiophyceae')	bold('ICM0106')	Haptista	Haptista
+ICM0123-Prymnesiophyceae	ICM0123-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0123_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0123_SAG.1_Prymnesiophyceae')	bold('ICM0123')	Haptista	Haptista
+ICM0113-Prymnesiophyceae	ICM0113-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0113_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0113_SAG.1_Prymnesiophyceae')	bold('ICM0113')	Haptista	Haptista
+ICM0089-Prymnesiophyceae	ICM0089-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0089_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0089_SAG.1_Prymnesiophyceae')	bold('ICM0089')	Haptista	Haptista
+ICM0105-Prymnesiophyceae	ICM0105-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0105_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0105_SAG.1_Prymnesiophyceae')	bold('ICM0105')	Haptista	Haptista
+ICM0112-Prymnesiophyceae	ICM0112-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0112_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0112_SAG.1_Prymnesiophyceae')	bold('ICM0112')	Haptista	Haptista
+ICM0111-Prymnesiophyceae	ICM0111-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0111_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0111_SAG.1_Prymnesiophyceae')	bold('ICM0111')	Haptista	Haptista
+ICM0128-Prymnesiophyceae	ICM0128-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0128_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0128_SAG.1_Prymnesiophyceae')	bold('ICM0128')	Haptista	Haptista
+ICM0115-Prymnesiophyceae	ICM0115-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0115_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0115_COSAG.1_Prymnesiophyceae')	bold('ICM0115')	Haptista	Haptista
+ICM0072-Prymnesiophyceae	ICM0072-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0072_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0072_SAG.1_Prymnesiophyceae')	bold('ICM0072')	Haptista	Haptista
+ICM0099-Prymnesiophyceae	ICM0099-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0099_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0099_SAG.1_Prymnesiophyceae')	bold('ICM0099')	Haptista	Haptista
+ICM0082-Prymnesiophyceae	ICM0082-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0082_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0082_COSAG.1_Prymnesiophyceae')	bold('ICM0082')	Haptista	Haptista
+ICM0100-Prymnesiophyceae	ICM0100-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0100_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0100_SAG.1_Prymnesiophyceae')	bold('ICM0100')	Haptista	Haptista
+ICM0071-Prymnesiophyceae	ICM0071-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0071_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0071_SAG.1_Prymnesiophyceae')	bold('ICM0071')	Haptista	Haptista
+ICM0130-Prymnesiophyceae	ICM0130-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0130_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0130_SAG.1_Prymnesiophyceae')	bold('ICM0130')	Haptista	Haptista
+ICM0121-Prymnesiophyceae	ICM0121-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0121_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0121_SAG.1_Prymnesiophyceae')	bold('ICM0121')	Haptista	Haptista
+ICM0142-Prymnesiophyceae	ICM0142-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0142_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0142_SAG.1_Prymnesiophyceae')	bold('ICM0142')	Haptista	Haptista
+ICM0131-Prymnesiophyceae	ICM0131-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0131_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0131_SAG.1_Prymnesiophyceae')	bold('ICM0131')	Haptista	Haptista
+ICM0116-Prymnesiophyceae	ICM0116-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0116_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0116_SAG.1_Prymnesiophyceae')	bold('ICM0116')	Haptista	Haptista
+ICM0129-Prymnesiophyceae	ICM0129-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0129_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0129_SAG.1_Prymnesiophyceae')	bold('ICM0129')	Haptista	Haptista
+ICM0118-Prymnesiophyceae	ICM0118-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0118_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0118_SAG.1_Prymnesiophyceae')	bold('ICM0118')	Haptista	Haptista
+ICM0107-Prymnesiophyceae	ICM0107-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0107_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0107_COSAG.1_Prymnesiophyceae')	bold('ICM0107')	Haptista	Haptista
+ICM0102-Prymnesiophyceae	ICM0102-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0102_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0102_SAG.1_Prymnesiophyceae')	bold('ICM0102')	Haptista	Haptista
+ICM0117-Prymnesiophyceae	ICM0117-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0117_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0117_SAG.1_Prymnesiophyceae')	bold('ICM0117')	Haptista	Haptista
+ICM0110-Prymnesiophyceae	ICM0110-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0110_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0110_SAG.1_Prymnesiophyceae')	bold('ICM0110')	Haptista	Haptista
+ICM0126-Prymnesiophyceae	ICM0126-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0126_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0126_SAG.1_Prymnesiophyceae')	bold('ICM0126')	Haptista	Haptista
+ICM0108-Prymnesiophyceae	ICM0108-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0108_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0108_SAG.1_Prymnesiophyceae')	bold('ICM0108')	Haptista	Haptista
+Chryrota	Chrysochromulina rotalis	yes	Haptista	Haptophyta	NA	NA	Prymnesiophyceae	FALSE	italic('Chrysochromulina rotalis')	italic('Chrysochromulina')	Haptista	ref
+ICM0125-Prymnesiophyceae	ICM0125-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0125_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0125_SAG.1_Prymnesiophyceae')	bold('ICM0125')	Haptista	Haptista
+ICM0132-Prymnesiophyceae	ICM0132-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0132_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0132_SAG.1_Prymnesiophyceae')	bold('ICM0132')	Haptista	Haptista
+ICM0109-Prymnesiophyceae	ICM0109-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0109_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0109_SAG.1_Prymnesiophyceae')	bold('ICM0109')	Haptista	Haptista
+ICM0083-Prymnesiophyceae	ICM0083-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0083_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0083_SAG.1_Prymnesiophyceae')	bold('ICM0083')	Haptista	Haptista
+Prympoly	Prymnesium polyepis	yes	Haptista	Haptophyta	NA	NA	Prymnesiophyceae	FALSE	italic('Prymnesium polyepis')	italic('Prymnesium')	Haptista	ref
+Prymparv	Prymnesium parvum	no	Haptista	Haptophyta	NA	NA	Prymnesiophyceae	FALSE	italic('Prymnesium parvum')	italic('Prymnesium')	Haptista	ref
+ICM0114-Prymnesiophyceae	ICM0114-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0114_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0114_SAG.1_Prymnesiophyceae')	bold('ICM0114')	Haptista	Haptista
+ICM0104-Prymnesiophyceae	ICM0104-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0104_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0104_SAG.1_Prymnesiophyceae')	bold('ICM0104')	Haptista	Haptista
+Phaeglob	Phaeocystis globosa	yes	Haptista	Haptophyta	NA	NA	Prymnesiophyceae	FALSE	italic('Phaeocystis globosa')	italic('Phaeocystis')	Haptista	ref
+ICM0065-Prymnesiophyceae	ICM0065-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0065_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0065_COSAG.1_Prymnesiophyceae')	bold('ICM0065')	Haptista	Haptista
+ICM0078-Prymnesiophyceae	ICM0078-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0078_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0078_COSAG.1_Prymnesiophyceae')	bold('ICM0078')	Haptista	Haptista
+ICM0003-Prymnesiophyceae	ICM0003-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0003_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0003_COSAG.1_Prymnesiophyceae')	bold('ICM0003')	Haptista	Haptista
+ICM0084-Prymnesiophyceae	ICM0084-SAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0084_SAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0084_SAG.1_Prymnesiophyceae')	bold('ICM0084')	Haptista	Haptista
+ICM0015-Prymnesiophyceae	ICM0015-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0015_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0015_COSAG.1_Prymnesiophyceae')	bold('ICM0015')	Haptista	Haptista
+ICM0004-Prymnesiophyceae	ICM0004-COSAG1-Prymnesiophyceae	yes	Haptista	Haptophyta	ICM0004_COSAG.1_Prymnesiophyceae	PF	Prymnesiophyceae	TRUE	bold('ICM0004_COSAG.1_Prymnesiophyceae')	bold('ICM0004')	Haptista	Haptista
+Tisolute	Tisochrysis lutea	yes	Haptista	Haptophyta	NA	NA	Prymnesiophyceae	FALSE	italic('Tisochrysis lutea')	italic('Tisochrysis')	Haptista	ref
+Gephhuxl	Gephyrocapsa huxleyi	yes	Haptista	Haptophyta	NA	NA	Prymnesiophyceae	FALSE	italic('Gephyrocapsa huxleyi')	italic('Gephyrocapsa')	Haptista	ref
+Chrycart	Chrysotila carterae	yes	Haptista	Haptophyta	NA	NA	Prymnesiophyceae	FALSE	italic('Chrysotila carterae')	italic('Chrysotila')	Haptista	ref
+Calclept	Calcidiscus leptoporus	yes	Haptista	Haptophyta	NA	NA	Prymnesiophyceae	FALSE	italic('Calcidiscus leptoporus')	italic('Calcidiscus')	Haptista	ref
+Pavl2436	Pavlovales sp	yes	Haptista	Haptophyta	NA	NA	NA	FALSE	'Pavlovales sp.'	'Pavlovales sp'	Haptista	ref
+Diacluth	Diacronema lutheri	yes	Haptista	Haptophyta	NA	NA	NA	FALSE	italic('Diacronema lutheri')	italic('Diacronema')	Haptista	ref
+Raphhete	Raphidiophrys heterophryoidea	no	Haptista	Centroplasthelida	NA	NA	Centroplasthelida	FALSE	italic('Raphidiophrys heterophryoidea')	italic('Raphidiophrys')	Haptista	ref
+Rainerin	Raineriophrys erinaceoides	yes	Haptista	Centroplasthelida	NA	NA	Centroplasthelida	FALSE	italic('Raineriophrys erinaceoides')	italic('Raineriophrys')	Haptista	ref
+AcanthFB	Acanthocystis sp.	yes	Haptista	Centroplasthelida	NA	NA	Centroplasthelida	FALSE	"paste(italic('Acanthocystis '),'sp.')"	italic('Acanthocystis')	Haptista	ref
+ChoanoFB	Choanocystis sp.	yes	Haptista	Centroplasthelida	NA	NA	Centroplasthelida	FALSE	"paste(italic('Choanocystis '),'sp.')"	italic('Choanocystis')	Haptista	ref
+ICM0095-Centroplasthelida	ICM0095-COSAG1-Centroplasthelida	yes	Haptista	Centroplasthelida	ICM0095_COSAG.1_Centroplasthelida	PF	Centroplasthelida	TRUE	bold('ICM0095_COSAG.1_Centroplasthelida')	bold('ICM0095')	Haptista	Haptista
+ICM0094-Centroplasthelida	ICM0094-SAG1-Centroplasthelida	yes	Haptista	Centroplasthelida	ICM0094_SAG.1_Centroplasthelida	PF	Centroplasthelida	TRUE	bold('ICM0094_SAG.1_Centroplasthelida')	bold('ICM0094')	Haptista	Haptista
+Telosubt	Telonema subtilis	yes	Telonemia	Telonema	NA	NA	NA	FALSE	italic('Telonema subtilis')	italic('Telonema')	Telonemia	ref
+TeloneP2	Telonema sp. P2	yes	Telonemia	Telonema	NA	NA	NA	FALSE	'Telonema sp. P2'	"paste(italic('Telonema'),' P2')"	Telonemia	ref
+TeloneP1	Telonema sp. P1	yes	Telonemia	Telonema	NA	NA	NA	FALSE	'Telonema sp. P1'	"paste(italic('Telonema'),' P1')"	Telonemia	ref
+ICM0039-Telonemia	ICM0039-SAG1-Telonemia	yes	Telonemia	Telonema	ICM0039_SAG.1_Telonemia	HF	Telonemia	TRUE	bold('ICM0039_SAG.1_Telonemia')	bold('ICM0039')	Telonemia	Telonemia
+ICM0057-Unknown	ICM0057-COSAG1-Unknown	yes	unassigned	unassigned	ICM0057_COSAG.1_Unknown	HF	Unknown	TRUE	bold('ICM0057_COSAG.1_Unknown')	bold('ICM0057')	unassigned	unassigned
+ICM0062-Mamiellophyceae	ICM0062-COSAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0062_COSAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0062_COSAG.1_Mamiellophyceae')	bold('ICM0062')	Archaeplastida	Archaeplastida
+ICM0001-Mamiellophyceae	ICM0001-COSAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0001_COSAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0001_COSAG.1_Mamiellophyceae')	bold('ICM0001')	Archaeplastida	Archaeplastida
+ICM0028-Mamiellophyceae	ICM0028-COSAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0028_COSAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0028_COSAG.1_Mamiellophyceae')	bold('ICM0028')	Archaeplastida	Archaeplastida
+ICM0064-Mamiellophyceae	ICM0064-SAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0064_SAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0064_SAG.1_Mamiellophyceae')	bold('ICM0064')	Archaeplastida	Archaeplastida
+ICM0063-Mamiellophyceae	ICM0063-COSAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0063_COSAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0063_COSAG.1_Mamiellophyceae')	bold('ICM0063')	Archaeplastida	Archaeplastida
+Micrpusl	Micromonas pusilla	yes	Chloroplastida	Chlorophyta	NA	NA	Mamiellophyceae	FALSE	italic('Micromonas pusilla')	italic('Micromonas')	Archaeplastida	ref
+Ostrtaur	Ostreococcus tauri	yes	Chloroplastida	Chlorophyta	NA	NA	Mamiellophyceae	FALSE	italic('Ostreococcus tauri')	italic('Ostreococcus')	Archaeplastida	ref
+ICM0077-Mamiellophyceae	ICM0077-COSAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0077_COSAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0077_COSAG.1_Mamiellophyceae')	bold('ICM0077')	Archaeplastida	Archaeplastida
+ICM0096-Mamiellophyceae	ICM0096-SAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0096_SAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0096_SAG.1_Mamiellophyceae')	bold('ICM0096')	Archaeplastida	Archaeplastida
+ICM0030-Mamiellophyceae	ICM0030-SAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0030_SAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0030_SAG.1_Mamiellophyceae')	bold('ICM0030')	Archaeplastida	Archaeplastida
+ICM0073-Mamiellophyceae	ICM0073-SAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0073_SAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0073_SAG.1_Mamiellophyceae')	bold('ICM0073')	Archaeplastida	Archaeplastida
+ICM0090-Mamiellophyceae	ICM0090-SAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0090_SAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0090_SAG.1_Mamiellophyceae')	bold('ICM0090')	Archaeplastida	Archaeplastida
+ICM0088-Mamiellophyceae	ICM0088-SAG1-Mamiellophyceae	yes	Chloroplastida	Chlorophyta	ICM0088_SAG.1_Mamiellophyceae	PF	Mamiellophyceae	TRUE	bold('ICM0088_SAG.1_Mamiellophyceae')	bold('ICM0088')	Archaeplastida	Archaeplastida
+ICM0093-Chlorophyta	ICM0093-SAG1-Chlorophyta	yes	Chloroplastida	Chlorophyta	ICM0093_SAG.1_Chlorophyta	PF	Chlorophyta	TRUE	bold('ICM0093_SAG.1_Chlorophyta')	bold('ICM0093')	Archaeplastida	Archaeplastida
+Pyrapark	Pyramimonas parkeae	yes	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Pyramimonas parkeae')	italic('Pyramimonas')	Archaeplastida	ref
+Volvcart	Volvox carteri	yes	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Volvox carteri')	italic('Volvox')	Archaeplastida	ref
+Chlarein	Chlamydomonas reinhardtii	no	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Chlamydomonas reinhardtii')	italic('Chlamydomonas')	Archaeplastida	ref
+Dunasali	Dunaliella salina	no	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Dunaliella salina')	italic('Dunaliella')	Archaeplastida	ref
+Chlovari	Chlorella variabilis	yes	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Chlorella variabilis')	italic('Chlorella')	Archaeplastida	ref
+Tetrasti	Tetraselmis astigmatica	yes	Chloroplastida	Chlorophyta	NA	NA	Chlorodendrophyceae	FALSE	italic('Tetraselmis astigmatica')	italic('Tetraselmis')	Archaeplastida	ref
+ICM0076-Chlorodendrophyceae	ICM0076-COSAG1-Chlorodendrophyceae	yes	Chloroplastida	Chlorophyta	ICM0076_COSAG.1_Chlorodendrophyceae	PF	Chlorodendrophyceae	TRUE	bold('ICM0076_COSAG.1_Chlorodendrophyceae')	bold('ICM0076')	Archaeplastida	Archaeplastida
+ICM0140-Chlorodendrophyceae	ICM0140-COSAG1-Chlorodendrophyceae	yes	Chloroplastida	Chlorophyta	ICM0140_COSAG.1_Chlorodendrophyceae	PF	Chlorodendrophyceae	TRUE	bold('ICM0140_COSAG.1_Chlorodendrophyceae')	bold('ICM0140')	Archaeplastida	Archaeplastida
+Picosali	Picocystis salinarum	yes	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Picocystis salinarum')	italic('Picocystis')	Archaeplastida	ref
+Nephpyri	Nephroselmis pyriformis	yes	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Nephroselmis pyriformis')	italic('Nephroselmis')	Archaeplastida	ref
+Prassing	Prasinoderma singulare	yes	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Prasinoderma singulare')	italic('Prasinoderma')	Archaeplastida	ref
+Prascaps	Prasinococcus capsulatus	no	Chloroplastida	Chlorophyta	NA	NA	NA	FALSE	italic('Prasinococcus capsulatus')	italic('Prasinococcus')	Archaeplastida	ref
+Oryzsati	Oryza sativa	no	Chloroplastida	Streptophyta	NA	NA	NA	FALSE	italic('Oryza sativa')	italic('Oryza')	Archaeplastida	ref
+Arabthal	Arabidopsis thaliana	yes	Chloroplastida	Streptophyta	NA	NA	NA	FALSE	italic('Arabidopsis thaliana')	italic('Arabidopsis')	Archaeplastida	ref
+Physpate	Physcomitrella patens	no	Chloroplastida	Streptophyta	NA	NA	NA	FALSE	italic('Physcomitrella patens')	italic('Physcomitrella')	Archaeplastida	ref
+Charbrau	Chara braunii	no	Chloroplastida	Streptophyta	NA	NA	NA	FALSE	italic('Chara braunii')	italic('Chara')	Archaeplastida	ref
+Mesoviri	Mesostigma viride	no	Chloroplastida	Streptophyta	NA	NA	NA	FALSE	italic('Mesostigma viride')	italic('Mesostigma')	Archaeplastida	ref
+Gloewitr	Gloeochaete witrockiana	no	Glaucophyta	Glaucocystales	NA	NA	NA	FALSE	italic('Gloeochaete witrockiana')	italic('Gloeochaete')	Archaeplastida	ref
+Glauincr	Glaucocystis incrassata	no	Glaucophyta	Glaucocystales	NA	NA	NA	FALSE	italic('Glaucocystis incrassata')	italic('Glaucocystis')	Archaeplastida	ref
+Cyanpara	Cyanophora paradoxa	yes	Glaucophyta	Cyanophorales	NA	NA	NA	FALSE	italic('Cyanophora paradoxa')	italic('Cyanophora')	Archaeplastida	ref
+Cyangloe	Cyanoptyche gloeocystis	no	Glaucophyta	Glaucocystales	NA	NA	NA	FALSE	italic('Cyanoptyche gloeocystis')	italic('Cyanoptyche')	Archaeplastida	ref
+Guilthet	Guillardia theta	yes	Cryptista	Crytomonadales	NA	NA	NA	FALSE	italic('Guillardia theta')	italic('Guillardia')	Cryptista	ref
+Gemicryo	Geminigera cryophila	no	Cryptista	Crytomonadales	NA	NA	NA	FALSE	italic('Geminigera cryophila')	italic('Geminigera')	Cryptista	ref
+Rhodsali	Rhodomonas salina	no	Cryptista	Crytomonadales	NA	NA	NA	FALSE	italic('Rhodomonas salina')	italic('Rhodomonas')	Cryptista	ref
+Bafffrig	Baffinella frigidus	no	Cryptista	Crytomonadales	NA	NA	NA	FALSE	italic('Baffinella frigidus')	italic('Baffinella')	Cryptista	ref
+Hemirufe	Hemiselmis rufescens	no	Cryptista	Crytomonadales	NA	NA	NA	FALSE	italic('Hemiselmis rufescens')	italic('Hemiselmis')	Cryptista	ref
+Cryppara	Cryptomonas paramecium	no	Cryptista	Crytomonadales	NA	NA	NA	FALSE	italic('Cryptomonas paramecium')	italic('Cryptomonas')	Cryptista	ref
+Goniavon	Goniomonas avonlea	no	Cryptista	Cyathomonadacea	NA	NA	NA	FALSE	italic('Goniomonas avonlea')	italic('Goniomonas')	Cryptista	ref
+Roomtrun	Roombia truncata	no	Cryptista	Katablepharidacea	NA	NA	NA	FALSE	italic('Roombia truncata')	italic('Roombia')	Cryptista	ref
+Palpbili	Palpitomonas bilix	yes	Cryptista	Palpitomonas	NA	NA	NA	FALSE	italic('Palpitomonas bilix')	italic('Palpitomonas')	Cryptista	ref
+Gratturu	Grateloupia turuturu	no	Rhodophyta	Eurhodophytina	NA	NA	NA	FALSE	italic('Grateloupia turuturu')	italic('Grateloupia')	Archaeplastida	ref
+Gracchor	Gracilariopsis chorda	no	Rhodophyta	Eurhodophytina	NA	NA	NA	FALSE	italic('Gracilariopsis chorda')	italic('Gracilariopsis')	Archaeplastida	ref
+Choncris	Chondrus crispus	yes	Rhodophyta	Eurhodophytina	NA	NA	NA	FALSE	italic('Chondrus crispus')	italic('Chondrus')	Archaeplastida	ref
+Cerakond	Ceramium kondoi	no	Rhodophyta	Eurhodophytina	NA	NA	NA	FALSE	italic('Ceramium kondoi')	italic('Ceramium')	Archaeplastida	ref
+Calltube	Calliarthron tuberculosum	no	Rhodophyta	Eurhodophytina	NA	NA	NA	FALSE	italic('Calliarthron tuberculosum')	italic('Calliarthron')	Archaeplastida	ref
+Pyroyezo	Pyropia yezoensis	no	Rhodophyta	Eurhodophytina	NA	NA	NA	FALSE	italic('Pyropia yezoensis')	italic('Pyropia')	Archaeplastida	ref
+Porpumbi	Porphyra umbilicalus	no	Rhodophyta	Eurhodophytina	NA	NA	NA	FALSE	italic('Porphyra umbilicalus')	italic('Porphyra')	Archaeplastida	ref
+Porppurp	Porphyra purpurea	no	Rhodophyta	Proteorhodophytina	NA	NA	NA	FALSE	italic('Porphyra purpurea')	italic('Porphyra')	Archaeplastida	ref
+Porpaeru	Porphyridium aerugineum	no	Rhodophyta	Proteorhodophytina	NA	NA	NA	FALSE	italic('Porphyridium aerugineum')	italic('Porphyridium')	Archaeplastida	ref
+Compcoer	Compsopogon coeruleus	no	Rhodophyta	Proteorhodophytina	NA	NA	NA	FALSE	italic('Compsopogon coeruleus')	italic('Compsopogon')	Archaeplastida	ref
+Rhodmacu	Rhodella maculata	no	Rhodophyta	Proteorhodophytina	NA	NA	NA	FALSE	italic('Rhodella maculata')	italic('Rhodella')	Archaeplastida	ref
+Rhodmari	Rhodosorus marinus	no	Rhodophyta	Proteorhodophytina	NA	NA	NA	FALSE	italic('Rhodosorus marinus')	italic('Rhodosorus')	Archaeplastida	ref
+Galdsulp	Galdieria sulphuraria	no	Rhodophyta	Cyanidiales	NA	NA	NA	FALSE	italic('Galdieria sulphuraria')	italic('Galdieria')	Archaeplastida	ref
+Galdphle	Galdieria phlegrea	no	Rhodophyta	Cyanidiales	NA	NA	NA	FALSE	italic('Galdieria phlegrea')	italic('Galdieria')	Archaeplastida	ref
+Cyanmero	Cyanidioschyzon merolae	yes	Rhodophyta	Cyanidiales	NA	NA	NA	FALSE	italic('Cyanidioschyzon merolae')	italic('Cyanidioschyzon')	Archaeplastida	ref
+Rhodlimn	Rhodelphis limneticus	no	Rhodelphidia	Rhodelphis	NA	NA	NA	FALSE	italic('Rhodelphis limneticus')	italic('Rhodelphis')	Archaeplastida	ref
+Rhodemar	Rhodelphis marinus	yes	Rhodelphidia	Rhodelphis	NA	NA	NA	FALSE	italic('Rhodelphis marinus')	italic('Rhodelphis')	Archaeplastida	ref
+PB58411a	Picozoa MS584-11	yes	Picozoa	Picozoa	NA	NA	Picozoa	FALSE	'Picozoa MS584-11'	"""MS584-11"""	Archaeplastida	ref
+ICM0040-Picozoa	ICM0040-SAG1-Picozoa	yes	Picozoa	Picozoa	ICM0040_SAG.1_Picozoa	HF	Picozoa	TRUE	bold('ICM0040_SAG.1_Picozoa')	bold('ICM0040')	Archaeplastida	Archaeplastida
+ICM0036-Picozoa	ICM0036-COSAG1-Picozoa	yes	Picozoa	Picozoa	ICM0036_COSAG.1_Picozoa	HF	Picozoa	TRUE	bold('ICM0036_COSAG.1_Picozoa')	bold('ICM0036')	Archaeplastida	Archaeplastida
+ICM0055-Picozoa	ICM0055-SAG1-Picozoa	yes	Picozoa	Picozoa	ICM0055_SAG.1_Picozoa	HF	Picozoa	TRUE	bold('ICM0055_SAG.1_Picozoa')	bold('ICM0055')	Archaeplastida	Archaeplastida
+ICM0147-Picozoa	ICM0147-SAG1-Picozoa	yes	Picozoa	Picozoa	ICM0147_SAG.1_Picozoa	HF	Picozoa	TRUE	bold('ICM0147_SAG.1_Picozoa')	bold('ICM0147')	Archaeplastida	Archaeplastida
+SpirCILI	Spironema cf. Ciliatum	yes	Hemimastigophora	Spironema	NA	NA	NA	FALSE	"paste(italic('Spironema '),'cf. ',italic('Ciliatum'))"	italic('Spironema')	Hemimastigophora	ref
+Hemikukw	Hemimastix kukwesjijk	yes	Hemimastigophora	Hemimastix	NA	NA	NA	FALSE	italic('Hemimastix kukwesjijk')	italic('Hemimastix')	Hemimastigophora	ref
+Ancytwis	Ancoracysta twista	yes	Alveida	Ancoracysta	NA	NA	NA	FALSE	italic('Ancoracysta twista')	italic('Ancoracysta')	Provora	ref
+Leptpyrr	Leptomonas pyrrhocoris	no	Discoba	Euglenozoa	NA	NA	Kinetoplastea	FALSE	italic('Leptomonas pyrrhocoris')	italic('Leptomonas')	Discoba	ref
+Leismajo	Leishmania major	no	Discoba	Euglenozoa	NA	NA	Kinetoplastea	FALSE	italic('Leishmania major')	italic('Leishmania')	Discoba	ref
+Trypbruc	Trypanosoma brucei	no	Discoba	Euglenozoa	NA	NA	Kinetoplastea	FALSE	italic('Trypanosoma brucei')	italic('Trypanosoma')	Discoba	ref
+Paraconf	Paratrypanosoma confusum	no	Discoba	Euglenozoa	NA	NA	Kinetoplastea	FALSE	italic('Paratrypanosoma confusum')	italic('Paratrypanosoma')	Discoba	ref
+Bodosalt	Bodo saltans	yes	Discoba	Euglenozoa	NA	NA	Kinetoplastea	FALSE	italic('Bodo saltans')	italic('Bodo')	Discoba	ref
+Neobdesi	Neobodo designis	yes	Discoba	Euglenozoa	NA	NA	Kinetoplastea	FALSE	italic('Neobodo designis')	italic('Neobodo')	Discoba	ref
+ICM0133-Kinetoplastea	ICM0133-SAG1-Kinetoplastea	yes	Discoba	Euglenozoa	ICM0133_SAG.1_Kinetoplastea	HF	Kinetoplastea	TRUE	bold('ICM0133_SAG.1_Kinetoplastea')	bold('ICM0133')	Discoba	Discoba
+Flecnera	Flectonema neradi	no	Discoba	Euglenozoa	NA	NA	NA	FALSE	italic('Flectonema neradi')	italic('Flectonema')	Discoba	ref
+Diplambu	Diplonema ambulator	yes	Discoba	Euglenozoa	NA	NA	NA	FALSE	italic('Diplonema ambulator')	italic('Diplonema')	Discoba	ref
+Eugllong	Euglena longa	yes	Discoba	Euglenozoa	NA	NA	NA	FALSE	italic('Euglena longa')	italic('Euglena')	Discoba	ref
+Euglgrac	Euglena gracilis	no	Discoba	Euglenozoa	NA	NA	NA	FALSE	italic('Euglena gracilis')	italic('Euglena')	Discoba	ref
+Eutrgymn	Eutreptiella gymnastica	no	Discoba	Euglenozoa	NA	NA	NA	FALSE	italic('Eutreptiella gymnastica')	italic('Eutreptiella')	Discoba	ref
+Pharkirb	Pharyngomonas kirbyi	no	Discoba	Heterolobosea	NA	NA	NA	FALSE	italic('Pharyngomonas kirbyi')	italic('Pharyngomonas')	Discoba	ref
+HeterBB2	Heterolobosean isolate BB2	no	Discoba	Heterolobosea	NA	NA	NA	FALSE	'Heterolobosean isolate BB2'	'Heterolobosean BB2'	Discoba	ref
+Naeggrub	Naegleria gruberi	yes	Discoba	Heterolobosea	NA	NA	NA	FALSE	italic('Naegleria gruberi')	italic('Naegleria')	Discoba	ref
+Tsukglob	Tsukubamonas globosa	yes	Discoba	Tsukubomonadea	NA	NA	NA	FALSE	italic('Tsukubamonas globosa')	italic('Tsukubamonas')	Discoba	ref
+Reclamer	Reclinomonas americana	no	Discoba	Jakobida	NA	NA	NA	FALSE	italic('Reclinomonas americana')	italic('Reclinomonas')	Discoba	ref
+Jakolibe	Jakoba libera	no	Discoba	Jakobida	NA	NA	NA	FALSE	italic('Jakoba libera')	italic('Jakoba')	Discoba	ref
+Styginca	Stygiella incarcerata	no	Discoba	Jakobida	NA	NA	NA	FALSE	italic('Stygiella incarcerata')	italic('Stygiella')	Discoba	ref
+Andagodo	Andalucia godoyi	yes	Discoba	Jakobida	NA	NA	NA	FALSE	italic('Andalucia godoyi')	italic('Andalucia')	Discoba	ref
+Spirsalm	Spironucleus salmonicida	no	Metamonada	Fornicata	NA	NA	NA	FALSE	italic('Spironucleus salmonicida')	italic('Spironucleus')	Metamonada	ref
+Giarlamb	Giardia lamblia	no	Metamonada	Fornicata	NA	NA	NA	FALSE	italic('Giardia lamblia')	italic('Giardia')	Metamonada	ref
+Kipfbial	Kipferlia bialata	no	Metamonada	Fornicata	NA	NA	NA	FALSE	italic('Kipferlia bialata')	italic('Kipferlia')	Metamonada	ref
+Adunpalu	Aduncisulcus paluster	no	Metamonada	Fornicata	NA	NA	NA	FALSE	italic('Aduncisulcus paluster')	italic('Aduncisulcus')	Metamonada	ref
+Ergocypr	Ergobibamus cyprinoides	yes	Metamonada	Fornicata	NA	NA	NA	FALSE	italic('Ergobibamus cyprinoides')	italic('Ergobibamus')	Metamonada	ref
+Carpmemb	Carpediemonas membranifera	no	Metamonada	Fornicata	NA	NA	NA	FALSE	italic('Carpediemonas membranifera')	italic('Carpediemonas')	Metamonada	ref
+Tricvagi	Trichomonas vaginalis	no	Metamonada	Parabasalia	NA	NA	NA	FALSE	italic('Trichomonas vaginalis')	italic('Trichomonas')	Metamonada	ref
+Parapyri	Paratrimastix pyriformis	no	Metamonada	Preaxostyla	NA	NA	NA	FALSE	italic('Paratrimastix pyriformis')	italic('Paratrimastix')	Metamonada	ref
+Monoexil	Monocercomonoides exilis	no	Metamonada	Preaxostyla	NA	NA	NA	FALSE	italic('Monocercomonoides exilis')	italic('Monocercomonoides')	Metamonada	ref
+Trimmari	Trimastix marina	yes	Metamonada	Preaxostyla	NA	NA	NA	FALSE	italic('Trimastix marina')	italic('Trimastix')	Metamonada	ref
+Taensoli	Taenia solium	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Taenia solium')	italic('Taenia')	Obazoa	ref
+Schimans	Schistosoma mansoni	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Schistosoma mansoni')	italic('Schistosoma')	Obazoa	ref
+Aplycali	Aplysia californica	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Aplysia californica')	italic('Aplysia')	Obazoa	ref
+Drosmela	Drosophila melanogaster	yes	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Drosophila melanogaster')	italic('Drosophila')	Obazoa	ref
+Apismell	Apis mellifera	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Apis mellifera')	italic('Apis')	Obazoa	ref
+Caeneleg	Caenorhabditis elegans	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Caenorhabditis elegans')	italic('Caenorhabditis')	Obazoa	ref
+Homosapi	Homo sapiens	yes	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Homo sapiens')	italic('Homo')	Obazoa	ref
+Gallgall	Gallus gallus	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Gallus gallus')	italic('Gallus')	Obazoa	ref
+Branflor	Branchiostoma floridae	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Branchiostoma floridae')	italic('Branchiostoma')	Obazoa	ref
+Tricadha	Trichoplax adhaerens	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Trichoplax adhaerens')	italic('Trichoplax')	Obazoa	ref
+Nemavect	Nematostella vectensis	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Nematostella vectensis')	italic('Nematostella')	Obazoa	ref
+Amphquee	Amphimedon queenslandica	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Amphimedon queenslandica')	italic('Amphimedon')	Obazoa	ref
+Mnemleid	Mnemiopsis leidyi	no	Obazoa	Metazoa	NA	NA	NA	FALSE	italic('Mnemiopsis leidyi')	italic('Mnemiopsis')	Obazoa	ref
+ICM0145-Choanoflagellata	ICM0145-SAG1-Choanoflagellata	yes	Obazoa	Choanoflagellata	ICM0145_SAG.1_Choanoflagellata	HF	Choanoflagellata	TRUE	bold('ICM0145_SAG.1_Choanoflagellata')	bold('ICM0145')	Obazoa	Obazoa
+ICM0056-Choanoflagellata	ICM0056-SAG1-Choanoflagellata	yes	Obazoa	Choanoflagellata	ICM0056_SAG.1_Choanoflagellata	HF	Choanoflagellata	TRUE	bold('ICM0056_SAG.1_Choanoflagellata')	bold('ICM0056')	Obazoa	Obazoa
+ICM0143-Choanoflagellata	ICM0143-SAG1-Choanoflagellata	yes	Obazoa	Choanoflagellata	ICM0143_SAG.1_Choanoflagellata	HF	Choanoflagellata	TRUE	bold('ICM0143_SAG.1_Choanoflagellata')	bold('ICM0143')	Obazoa	Obazoa
+Salprose	Salpingoeca rosetta	yes	Obazoa	Choanoflagellata	NA	NA	Choanoflagellata	FALSE	italic('Salpingoeca rosetta')	italic('Salpingoeca')	Obazoa	ref
+Monobrev	Monosiga brevicollis	yes	Obazoa	Choanoflagellata	NA	NA	Choanoflagellata	FALSE	italic('Monosiga brevicollis')	italic('Monosiga')	Obazoa	ref
+ICM0019-Choanoflagellata	ICM0019-COSAG1-Choanoflagellata	yes	Obazoa	Choanoflagellata	ICM0019_COSAG.1_Choanoflagellata	HF	Choanoflagellata	TRUE	bold('ICM0019_COSAG.1_Choanoflagellata')	bold('ICM0019')	Obazoa	Obazoa
+ICM0008-Choanoflagellata	ICM0008-SAG1-Choanoflagellata	yes	Obazoa	Choanoflagellata	ICM0008_SAG.1_Choanoflagellata	HF	Choanoflagellata	TRUE	bold('ICM0008_SAG.1_Choanoflagellata')	bold('ICM0008')	Obazoa	Obazoa
+Pigoviet	Pigoraptor vietnamica	no	Obazoa	Filasterea	NA	NA	NA	FALSE	italic('Pigoraptor vietnamica')	italic('Pigoraptor')	Obazoa	ref
+Capsowcz	Capsaspora owczarzaki	yes	Obazoa	Filasterea	NA	NA	NA	FALSE	italic('Capsaspora owczarzaki')	italic('Capsaspora')	Obazoa	ref
+Minivibr	Ministeria vibrans	yes	Obazoa	Filasterea	NA	NA	NA	FALSE	italic('Ministeria vibrans')	italic('Ministeria')	Obazoa	ref
+ICM0137-Tunicaraptor	ICM0137-SAG1-Tunicaraptor	yes	Obazoa	Tunicaraptor	ICM0137_SAG.1_Tunicaraptor	HF	Tunicaraptor	TRUE	bold('ICM0137_SAG.1_Tunicaraptor')	bold('ICM0137')	Obazoa	Obazoa
+Syssmult	Syssomonas multiformis	yes	Obazoa	Pluriformea	NA	NA	NA	FALSE	italic('Syssomonas multiformis')	italic('Syssomonas')	Obazoa	ref
+Coralima	Corallochytrium limacisporum	yes	Obazoa	Pluriformea	NA	NA	NA	FALSE	italic('Corallochytrium limacisporum')	italic('Corallochytrium')	Obazoa	ref
+Sphaarct	Sphaeroforma arctica	no	Obazoa	Icthyosporea	NA	NA	NA	FALSE	italic('Sphaeroforma arctica')	italic('Sphaeroforma')	Obazoa	ref
+Creofrag	Creolimax fragrantissima	yes	Obazoa	Icthyosporea	NA	NA	NA	FALSE	italic('Creolimax fragrantissima')	italic('Creolimax')	Obazoa	ref
+Amoepara	Amoebidium parasiticum	no	Obazoa	Icthyosporea	NA	NA	NA	FALSE	italic('Amoebidium parasiticum')	italic('Amoebidium')	Obazoa	ref
+Sphadest	Sphaerothecum destruens	yes	Obazoa	Icthyosporea	NA	NA	NA	FALSE	italic('Sphaerothecum destruens')	italic('Sphaerothecum')	Obazoa	ref
+Sacccere	Saccharomyces cerevisiae	yes	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Saccharomyces cerevisiae')	italic('Saccharomyces')	Obazoa	ref
+Debahans	Debaryomyces hansenii	no	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Debaryomyces hansenii')	italic('Debaryomyces')	Obazoa	ref
+Neurcras	Neurospora crassa OR74A	no	Obazoa	Fungi	NA	NA	NA	FALSE	"paste(italic('Neurospora crassa'),' OR74A')"	italic('Neurospora')	Obazoa	ref
+Aspefumi	Aspergillus fumigatus Af293	no	Obazoa	Fungi	NA	NA	NA	FALSE	"paste(italic('Aspergillus fumigatus'),' Af293')"	italic('Aspergillus')	Obazoa	ref
+Schizpom	Schizosaccharomyces pombe	no	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Schizosaccharomyces pombe')	italic('Schizosaccharomyces')	Obazoa	ref
+ICM0061-Basidiomycota	ICM0061-SAG1-Basidiomycota	yes	Obazoa	Fungi	ICM0061_SAG.1_Basidiomycota	HF	Basidiomycota	TRUE	bold('ICM0061_SAG.1_Basidiomycota')	bold('ICM0061')	Obazoa	Obazoa
+Coprcine	Coprinus cinereus	yes	Obazoa	Fungi	NA	NA	Basidiomycota	FALSE	italic('Coprinus cinereus')	italic('Coprinus')	Obazoa	ref
+Ustimayd	Ustilago maydis	yes	Obazoa	Fungi	NA	NA	Basidiomycota	FALSE	italic('Ustilago maydis')	italic('Ustilago')	Obazoa	ref
+Rhizdele	Rhizopus delemar	yes	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Rhizopus delemar')	italic('Rhizopus')	Obazoa	ref
+Blasemer	Blastocladiella emersonii	no	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Blastocladiella emersonii')	italic('Blastocladiella')	Obazoa	ref
+Blasbrit	Blastocladiella britannica	no	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Blastocladiella britannica')	italic('Blastocladiella')	Obazoa	ref
+Allomacr	Allomyces macrogynus	yes	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Allomyces macrogynus')	italic('Allomyces')	Obazoa	ref
+Spizpunc	Spizellomyces punctatus	no	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Spizellomyces punctatus')	italic('Spizellomyces')	Obazoa	ref
+Batrdend	Batrachochytrium dendrobatidis	no	Obazoa	Fungi	NA	NA	NA	FALSE	italic('Batrachochytrium dendrobatidis')	italic('Batrachochytrium')	Obazoa	ref
+Parasacc	Paramicrosporidium saccamoebae	yes	Obazoa	Microsporidia	NA	NA	NA	FALSE	italic('Paramicrosporidium saccamoebae')	italic('Paramicrosporidium')	Obazoa	ref
+Mitodaph	Mitosporidium daphniae	no	Obazoa	Microsporidia	NA	NA	NA	FALSE	italic('Mitosporidium daphniae')	italic('Mitosporidium')	Obazoa	ref
+Rozeallo	Rozella allomycis	yes	Obazoa	Rozellida	NA	NA	NA	FALSE	italic('Rozella allomycis')	italic('Rozella')	Obazoa	ref
+Parvatla	Parvularia atlantis	no	Obazoa	Rotosphaerida	NA	NA	NA	FALSE	italic('Parvularia atlantis')	italic('Parvularia')	Obazoa	ref
+Fontalba	Fonticula alba	yes	Obazoa	Rotosphaerida	NA	NA	NA	FALSE	italic('Fonticula alba')	italic('Fonticula')	Obazoa	ref
+Thectrah	Thecamonas trahens	yes	Obazoa	Apusomonadida	NA	NA	NA	FALSE	italic('Thecamonas trahens')	italic('Thecamonas')	Obazoa	ref
+Mancberm	Manchomonas bermudensis	no	Obazoa	Apusomonadida	NA	NA	NA	FALSE	italic('Manchomonas bermudensis')	italic('Manchomonas')	Obazoa	ref
+Thecoxon	Thecamonas oxoniensis	no	Obazoa	Apusomonadida	NA	NA	NA	FALSE	italic('Thecamonas oxoniensis')	italic('Thecamonas')	Obazoa	ref
+Multmedi	Multimonas media	yes	Obazoa	Apusomonadida	NA	NA	NA	FALSE	italic('Multimonas media')	italic('Multimonas')	Obazoa	ref
+Pygsbifo	Pygsuia biforma	yes	Obazoa	Breviatea	NA	NA	NA	FALSE	italic('Pygsuia biforma')	italic('Pygsuia')	Obazoa	ref
+Lenilimo	Lenisia limosa	no	Obazoa	Breviatea	NA	NA	NA	FALSE	italic('Lenisia limosa')	italic('Lenisia')	Obazoa	ref
+Brevanat	Breviata anathema	yes	Obazoa	Breviatea	NA	NA	NA	FALSE	italic('Breviata anathema')	italic('Breviata')	Obazoa	ref
+Schivulg	Schizoplasmodiopsis vulgaris	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Schizoplasmodiopsis vulgaris')	italic('Schizoplasmodiopsis')	Amoebozoa	ref
+Cavoapop	Cavostelium apophysatum	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Cavostelium apophysatum')	italic('Cavostelium')	Amoebozoa	ref
+Tychacut	Tychosporium acutostipes	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Tychosporium acutostipes')	italic('Tychosporium')	Amoebozoa	ref
+Soliirre	Soliformovum irregularis	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Soliformovum irregularis')	italic('Soliformovum')	Amoebozoa	ref
+Protfung	Protostelium aurantium var. fungivorum	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	"paste(italic('Protostelium aurantium '),'var. ',italic('fungivorum'))"	italic('Protostelium')	Amoebozoa	ref
+Filanola	Filamoeba nolandi	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Filamoeba nolandi')	italic('Filamoeba')	Amoebozoa	ref
+Phalsoli	Phalansterium solitarium	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Phalansterium solitarium')	italic('Phalansterium')	Amoebozoa	ref
+Physpoly	Physarum polycephalum	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Physarum polycephalum')	italic('Physarum')	Amoebozoa	ref
+Echibisp	Echinostelium bisporum	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Echinostelium bisporum')	italic('Echinostelium')	Amoebozoa	ref
+Hetepall	Heterostelium pallidum	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Heterostelium pallidum')	italic('Heterostelium')	Amoebozoa	ref
+Dictdisc	Dictyostelium discoideum	yes	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Dictyostelium discoideum')	italic('Dictyostelium')	Amoebozoa	ref
+Rhizelon	Rhizomastix elongata	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Rhizomastix elongata')	italic('Rhizomastix')	Amoebozoa	ref
+Masteilh	Mastigella eilhardi	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Mastigella eilhardi')	italic('Mastigella')	Amoebozoa	ref
+Squajapo	Squamamoeba japonica	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Squamamoeba japonica')	italic('Squamamoeba')	Amoebozoa	ref
+Armalang	Armaparvus languidus	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Armaparvus languidus')	italic('Armaparvus')	Amoebozoa	ref
+Sapochin	Sapocribrum chincoteaguense	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Sapocribrum chincoteaguense')	italic('Sapocribrum')	Amoebozoa	ref
+Idiovort	Idionectes vortex	no	Amoebozoa	Evosea	NA	NA	NA	FALSE	italic('Idionectes vortex')	italic('Idionectes')	Amoebozoa	ref
+ThecSK13	Thecamoeba sp.	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	"paste(italic('Thecamoeba '),'sp.')"	italic('Thecamoeba')	Amoebozoa	ref
+Sapppeda	Sappinia pedata	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Sappinia pedata')	italic('Sappinia')	Amoebozoa	ref
+Stensten	Stenamoeba stenopodia	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Stenamoeba stenopodia')	italic('Stenamoeba')	Amoebozoa	ref
+Paralevi	Paradermamoeba levis	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Paradermamoeba levis')	italic('Paradermamoeba')	Amoebozoa	ref
+Mayocant	Mayorella cantabrigiensis	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Mayorella cantabrigiensis')	italic('Mayorella')	Amoebozoa	ref
+Veximinu	Vexillifera minutissima	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Vexillifera minutissima')	italic('Vexillifera')	Amoebozoa	ref
+Cuneruss	Cunea russae	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Cunea russae')	italic('Cunea')	Amoebozoa	ref
+Vannfimi	Vannella fimicola	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Vannella fimicola')	italic('Vannella')	Amoebozoa	ref
+Gocefonb	Gocevia fonbrunei	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Gocevia fonbrunei')	italic('Gocevia')	Amoebozoa	ref
+Endozona	Endostelium zonatum ATCC PRA191	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	"paste(italic('Endostelium zonatum '),'ATCC PRA191')"	italic('Endostelium')	Amoebozoa	ref
+Pellcata	Pellita catalonica	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Pellita catalonica')	italic('Pellita')	Amoebozoa	ref
+Luaphula	Luapelamoeba hula	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Luapelamoeba hula')	italic('Luapelamoeba')	Amoebozoa	ref
+Dracjorm	Dracoamoeba jormungandri	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Dracoamoeba jormungandri')	italic('Dracoamoeba')	Amoebozoa	ref
+Acancast	Acanthamoeba castellanii	yes	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Acanthamoeba castellanii')	italic('Acanthamoeba')	Amoebozoa	ref
+Ovaldese	Ovalopodium desertum	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Ovalopodium desertum')	italic('Ovalopodium')	Amoebozoa	ref
+Cochminu	Cochliopodium minutoideum	no	Amoebozoa	Discosea	NA	NA	NA	FALSE	italic('Cochliopodium minutoideum')	italic('Cochliopodium')	Amoebozoa	ref
+Coprprot	Copromyxa protea CF08-5	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	"paste(italic('Copromyxa protea '),'CF08-5')"	italic('Copromyxa')	Amoebozoa	ref
+Amoeprot	Amoeba proteus	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	italic('Amoeba proteus')	italic('Amoeba')	Amoebozoa	ref
+Arcevulg	Arcella intermedia	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	italic('Arcella intermedia')	italic('Arcella')	Amoebozoa	ref
+NolaAFSM	Nolandella sp.	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	"paste(italic('Nolandella '),'sp.')"	italic('Nolandella')	Amoebozoa	ref
+Rhizsaxo	Rhizamoeba saxonica	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	italic('Rhizamoeba saxonica')	italic('Rhizamoeba')	Amoebozoa	ref
+Flabcita	Flabellula citata	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	italic('Flabellula citata')	italic('Flabellula')	Amoebozoa	ref
+MicrA134	Micriamoeba sp	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	"paste(italic('Micriamoeba '),'sp.')"	italic('Micriamoeba')	Amoebozoa	ref
+Echiexud	Echinamoeba exudans	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	italic('Echinamoeba exudans')	italic('Echinamoeba')	Amoebozoa	ref
+Vermverm	Vermamoeba vermiformis	no	Amoebozoa	Tubulinea	NA	NA	NA	FALSE	italic('Vermamoeba vermiformis')	italic('Vermamoeba')	Amoebozoa	ref
+Diphrota	Diphylleia rotans	no	CRuMs	Collodictyonidae	NA	NA	NA	FALSE	italic('Diphylleia rotans')	italic('Diphylleia')	CRuMs	ref
+Colltric	Collodictyon triciliatum	yes	CRuMs	Collodictyonidae	NA	NA	NA	FALSE	italic('Collodictyon triciliatum')	italic('Collodictyon')	CRuMs	ref
+Rigiramo	Rigifila ramosa	yes	CRuMs	Rigifilida	NA	NA	NA	FALSE	italic('Rigifila ramosa')	italic('Rigifila')	CRuMs	ref
+Mantplas	Mantamonas plastica	no	CRuMs	Mantamonas	NA	NA	NA	FALSE	italic('Mantamonas plastica')	italic('Mantamonas')	CRuMs	ref
+Nutolong	Nutomonas longa	no	Ancyromonadida	Nutomonas	NA	NA	NA	FALSE	italic('Nutomonas longa')	italic('Nutomonas')	Ancyromonadida	ref
+Nutohowe	Nutomonas howeae	no	Ancyromonadida	Nutomonas	NA	NA	NA	FALSE	italic('Nutomonas howeae')	italic('Nutomonas')	Ancyromonadida	ref
+Ancysigm	Ancyromonas sigmoides B70	yes	Ancyromonadida	Ancyromonas	NA	NA	NA	FALSE	"paste(italic('Ancyromonas sigmoides'),' B70')"	italic('Ancyromonas')	Ancyromonadida	ref
+Fabotrop	Fabomonas tropica	yes	Ancyromonadida	Fabomonas	NA	NA	NA	FALSE	italic('Fabomonas tropica')	italic('Fabomonas')	Ancyromonadida	ref
+Malajako	Malawimonas jakobiformis	no	Malawimonadida	Malawimonas	NA	NA	NA	FALSE	italic('Malawimonas jakobiformis')	italic('Malawimonas')	Malawimonadida	ref
+Malacali	Malawimonas californiana	yes	Malawimonadida	Malawimonas	NA	NA	NA	FALSE	italic('Malawimonas californiana')	italic('Malawimonas')	Malawimonadida	ref
+Gefiokel	Gefionella okellyi	yes	Malawimonadida	Gefionella	NA	NA	NA	FALSE	italic('Gefionella okellyi')	italic('Gefionella')	Malawimonadida	ref

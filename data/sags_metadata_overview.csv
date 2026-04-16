@@ -1,0 +1,148 @@
+SAG_id,Group,Supergroup,Cultured match,Mb (≥1kb),contigs (≥1Kb),GC (%),N50,Completeness (%)
+ICM0124_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina simplex (99.4%),37.51,5408,61.44,16461,52.94
+ICM0031_SAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Paraphysomonas imperforata (91.9%),5.17,954,50.83,12821,19.61
+ICM0100_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina scutellum (98.5%),31.95,7028,62.79,8221,21.57
+ICM0086_SAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Ochromonas triangulata (90.7%),14.14,1132,42.9,39296,54.9
+ICM0109_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Prymnesium palpebrale (99.2%),39.07,6249,63.29,15234,47.45
+ICM0028_COSAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Micromonas pusilla (98.3%),10.31,2123,66.91,11161,44.31
+ICM0018_SAG.1_MALV-I,MALV-I,Alveolata,Gymnodinium galatheanum (88%),12.51,2172,43.93,15186,16.86
+ICM0041_COSAG.1_Chlorarachnea,Chlorarachnea,Rhizaria,Minorisa minuta (99.9%),30.57,6408,56.77,9831,86.67
+ICM0099_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina acantha (97.2%),20.31,2716,65.72,17826,30.98
+ICM0115_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina acantha (97.1%),38.3,6371,65.09,14884,54.9
+ICM0026_COSAG.1_MAST-1,MAST-1,Stramenopiles,Pirsonia guinardiae (91.2%),16.93,5091,60.24,4871,11.37
+ICM0013_COSAG.1_MAST-1,MAST-1,Stramenopiles,Hyphochytrium catenoides (91.4%),35.45,9540,63.09,5982,44.31
+ICM0062_COSAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Micromonas bravo (100%),23.59,3168,65.2,37068,88.24
+ICM0023_SAG.1_MAST-8,MAST-8,Stramenopiles,Mastreximonas tlaamin (91.2%),5.65,1322,58.17,7477,9.41
+ICM0008_SAG.1_Choanoflagellata,Choanoflagellata,Opisthokonta,Monosiga brevicollis (89.5%),2.47,744,55.65,4914,12.16
+ICM0066_SAG.1_Pinguiophyceae,Pinguiophyceae,Stramenopiles,Phaeomonas parva (99.5%),9.47,1602,62.19,11840,23.14
+ICM0069_SAG.1_Dictyochophyceae,Dictyochophyceae,Stramenopiles,Florenciella parvula (99.3%),28.45,5646,57.26,9404,32.94
+ICM0092_COSAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Mallomonas annulata (93.2%),41.75,7184,39.98,9641,83.53
+ICM0040_SAG.1_Picozoa,Picozoa,Archaeplastida,Picomonas judraskeda (97.9%),8.24,1905,54.72,8738,10.2
+ICM0104_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Phaeocystis jahnii (98%),44.06,9015,64.14,9289,36.47
+ICM0075_COSAG.1_MOCH-2,MOCH-2,Stramenopiles,Haramonas viridis (91%),13.74,3731,67.64,6632,39.22
+ICM0036_COSAG.1_Picozoa,Picozoa,Archaeplastida,Picomonas judraskeda (96.9%),45.18,11788,58.96,6462,46.27
+ICM0055_SAG.1_Picozoa,Picozoa,Archaeplastida,Picomonas judraskeda (97.1%),12.39,1577,52.2,15361,20.78
+ICM0140_COSAG.1_Chlorodendrophyceae,Chlorodendrophyceae,Archaeplastida,Tetraselmis sp. RCC 500 (99.3%),13.88,9049,61.33,1509,19.61
+ICM0065_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Phaeocystis cordata (99.6%),59.32,16757,67.04,5123,58.43
+ICM0146_SAG.1_Ciliophora,Ciliophora,Alveolata,Spirotontonia grandis (97.2%),6.48,4687,43.29,1337,3.92
+ICM0084_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Haptolina fragaria (95.5%),38.25,9729,58.03,6198,27.45
+ICM0020_SAG.1_MALV-II,MALV-II,Alveolata,Prorocentrum triestinum (88.4%),13.77,2051,50.59,19311,24.31
+ICM0032_SAG.1_MALV-II,MALV-II,Alveolata,Kirithra sigma (90.4%),15.25,2584,49.04,19812,14.9
+ICM0070_SAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Ochromonas villosa (97%),27.46,4367,42.58,11958,60.39
+ICM0053_COSAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Mallomonas annulata (93.3%),36.95,7535,41.03,7343,76.86
+ICM0056_SAG.1_Choanoflagellata,Choanoflagellata,Opisthokonta,Savillea micropora (94.7%),19.59,3083,52.39,11725,48.63
+ICM0101_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina simplex (98.2%),76.97,16711,60.83,7657,76.47
+ICM0129_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina scutellum (97.5%),32.21,4861,60.82,15908,43.53
+ICM0142_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina scutellum (97.3%),11.84,7939,59.71,1466,10.98
+ICM0073_SAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Mantoniella tinhauana (97.4%),8.59,1920,59.01,8462,21.18
+ICM0015_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Syracosphaera pulchra (96.1%),3.85,635,63.81,12775,16.86
+ICM0007_COSAG.1_MAST-3,MAST-3,Stramenopiles,Incisomonas marina (94.5%),18.97,3025,52.06,14602,59.22
+ICM0137_SAG.1_Tunicaraptor,Tunicaraptor,Opisthokonta,Tunicaraptor unikontum (98.1%),9.26,6025,59.04,1512,33.33
+ICM0039_SAG.1_Telonemia,Telonemia,Telonemia,Telonema antarcticum (96.3%),15.2,3706,53.19,7943,10.59
+ICM0042_COSAG.1_MAST-4,MAST-4,Stramenopiles,Vomastramonas tehuelche (90.9%),38.91,6791,40.94,12237,87.45
+ICM0052_COSAG.1_MAST-7,MAST-7,Stramenopiles,Hyphochytrium catenoides (89.1%),37.36,8775,54.77,7164,66.27
+ICM0082_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina andersonii (97.4%),35.56,5261,63.73,16336,61.18
+ICM0025_SAG.1_Dictyochophyceae,Dictyochophyceae,Stramenopiles,Pseudopedinella elastica (93%),9.31,2356,56.61,6588,12.94
+ICM0121_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina scutellum (97.7%),22.28,4401,64.5,9728,22.75
+ICM0076_COSAG.1_Chlorodendrophyceae,Chlorodendrophyceae,Archaeplastida,Tetraselmis sp. RCC7299 (99.9%),11.63,3481,53.45,4888,8.63
+ICM0095_COSAG.1_Centroplasthelida,Centroplasthelida,Haptista,Meringosphaera mediterranea (97.9%),16.67,3231,45.59,9297,32.16
+ICM0090_SAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Crustomastix stigmatica (97%),3.17,793,67.11,8759,12.55
+ICM0125_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina acantha (99.2%),44.87,7919,62.08,11589,50.98
+ICM0145_SAG.1_Choanoflagellata,Choanoflagellata,Opisthokonta,Acanthoeca spectabilis (96%),7.48,5586,46.73,1300,15.69
+ICM0144_SAG.1_MAST-3,MAST-3,Stramenopiles,Incisomonas marina (91.2%),7.24,5133,41.66,1377,21.96
+ICM0088_SAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Dolichomastix tenuilepis (97.1%),16.81,4962,60.1,4890,27.45
+ICM0136_SAG.1_MAST-3,MAST-3,Stramenopiles,Solenicola setigera (95.1%),16.4,11178,41.7,1435,17.25
+ICM0079_COSAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Mallomonas doignonii (92.4%),21.03,3396,52.9,15574,75.29
+ICM0006_COSAG.1_MAST-3,MAST-3,Stramenopiles,Incisomonas marina (94.5%),24.27,3673,52.82,14704,73.73
+ICM0130_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina scutellum (97.4%),34.18,5215,63.41,14594,47.84
+ICM0063_COSAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Micromonas bravo (98.4%),20.03,1451,66.33,34877,81.18
+ICM0064_SAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Micromonas bravo (98.4%),6.99,990,66.53,20022,31.76
+ICM0138_SAG.1_MAST-9,MAST-9,Stramenopiles,Vomastramonas tehuelche (89.4%),25.28,11926,54.74,2307,53.73
+ICM0048_COSAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Hydrurus foetidus (92.5%),19.57,3681,34.87,16845,63.92
+ICM0038_SAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Paraphysomonas imperforata (99.1%),13.53,2650,38.46,11464,29.8
+ICM0087_SAG.1_Diatomea,Diatomea,Stramenopiles,Chaetoceros tenuissimus (100%),28.37,3798,38.74,21957,72.94
+ICM0003_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Prymnesium parvum (95.6%),22.64,3736,70.56,15069,46.67
+ICM0005_SAG.1_MALV-I,MALV-I,Alveolata,Amphidinium crassum (89.2%),13.6,2647,39.39,12802,11.76
+ICM0077_COSAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Ostreococcus sp. RCC 143 (100%),13.65,579,59.5,120475,86.27
+ICM0043_COSAG.1_MAST-7,MAST-7,Stramenopiles,Mallomonas annulata (88.2%),26.67,5750,57.34,7478,44.31
+ICM0019_COSAG.1_Choanoflagellata,Choanoflagellata,Opisthokonta,Acanthocorbis camarensis (91.7%),28.77,7180,51.69,5881,77.65
+ICM0122_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina simplex (99.8%),74.16,15955,62.87,8150,67.06
+ICM0127_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina simplex (100%),28.97,4428,63.1,16066,33.33
+ICM0037_SAG.1_MAST-3,MAST-3,Stramenopiles,Incisomonas marina (92.9%),10.08,2538,58.89,6793,17.25
+ICM0126_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina acantha (99.3%),28.82,4727,64.73,14084,40.39
+ICM0022_SAG.1_MALV-II,MALV-II,Alveolata,Prorocentrum micans (91.2%),16.2,4116,53.32,6790,7.45
+ICM0010_COSAG.1_MAST-4,MAST-4,Stramenopiles,Brockmanniella brockmannii (87.7%),27.53,10896,34.85,2814,58.82
+ICM0134_COSAG.1_MAST-7,MAST-7,Stramenopiles,Pseudophyllomitus vesiculosus (89.9%),35.01,16106,55.33,2389,53.73
+ICM0002_COSAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Mallomonas annulata (93.1%),26.22,6594,39.08,6497,57.65
+ICM0054_COSAG.1_Labyrinthulomycetes,Labyrinthulomycetes,Stramenopiles,Mastreximonas tlaamin (87.1%),25.12,7763,46.3,4442,78.04
+ICM0024_COSAG.1_MAST-8,MAST-8,Stramenopiles,Pseudophyllomitus vesiculosus (91%),29.14,6856,62.39,7696,42.75
+ICM0016_COSAG.1_Dictyochophyceae,Dictyochophyceae,Stramenopiles,Pseudopedinella elastica (93.4%),64.86,11953,51.55,10114,74.51
+ICM0033_SAG.1_MALV-II,MALV-II,Alveolata,Prorocentrum micans (91.6%),13.05,2740,50.96,10706,6.27
+ICM0102_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina acantha (98.2%),32.1,4537,63.78,17954,49.8
+ICM0110_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina campanulifera (98.7%),61.3,13083,61.6,9197,46.67
+ICM0097_SAG.1_Diatomea,Diatomea,Stramenopiles,Chaetoceros muellerii (99.2%),19.46,1481,35.91,32667,77.65
+ICM0071_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina scutellum (98.2%),28.24,6517,59.16,7415,17.25
+ICM0078_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Haptolina fragaria (96%),31.26,7066,62.24,7464,39.61
+ICM0044_SAG.1_Labyrinthulomycetes,Labyrinthulomycetes,Stramenopiles,Labyrinthuloides haliotidis (89%),10.36,1664,51.36,14430,35.69
+ICM0068_COSAG.1_Diatomea,Diatomea,Stramenopiles,Pseudo-nitzschia galaxiae (99.9%),27.93,1466,46.28,65020,80.39
+ICM0091_COSAG.1_Bolidophyceae,Bolidophyceae,Stramenopiles,Triparma mediterranea (99.7%),21.37,6041,51.62,5376,57.25
+ICM0011_COSAG.1_Chlorarachnea,Chlorarachnea,Rhizaria,Cryothecomonas longipes (87.1%),28.79,7886,55.91,5880,18.82
+ICM0045_COSAG.1_MAST-3,MAST-3,Stramenopiles,Incisomonas marina (91.2%),41.11,8960,40.55,8862,80.78
+ICM0135_SAG.1_Cercozoa,Cercozoa,Rhizaria,Cryothecomonas longipes (98.7%),3.52,2618,50.74,1262,1.57
+ICM0021_SAG.1_MALV-I,MALV-I,Alveolata,Karlodinium micrum (87.7%),18.23,3164,38.08,14947,25.88
+ICM0009_SAG.1_Labyrinthulomycetes,Labyrinthulomycetes,Stramenopiles,Thraustochytrium multirudimentale (92.2%),3.76,908,47.18,7895,12.94
+ICM0051_COSAG.1_MAST-3,MAST-3,Stramenopiles,Mastreximonas tlaamin (89.9%),16.55,2629,55.85,16939,30.59
+ICM0114_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Phaeocystis jahnii (96.8%),34.56,5836,67.37,14004,33.73
+ICM0139_SAG.1_Chlorarachnea,Chlorarachnea,Rhizaria,Chlorarachnion reptans (99.2%),20.1,11429,47.3,1814,33.73
+ICM0083_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Prymnesium kappa (99.7%),28.35,5161,63.57,11083,26.27
+ICM0067_COSAG.1_Diatomea,Diatomea,Stramenopiles,Pseudo-nitzschia delicatissima (99.4%),29.98,5661,45.09,11359,76.86
+ICM0074_SAG.1_Diatomea,Diatomea,Stramenopiles,Cylindrotheca closterium (98.7%),13.88,2343,41.28,11156,47.84
+ICM0050_SAG.1_MAST-7,MAST-7,Stramenopiles,Mastreximonas tlaamin (90.8%),17.15,2560,44.66,12941,38.82
+ICM0085_SAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Ochromonas villosa (96.8%),7.68,1528,36.1,14495,24.71
+ICM0001_COSAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Micromonas bravo (99.8%),17.73,2255,67.14,25749,79.61
+ICM0034_SAG.1_MALV-II,MALV-II,Alveolata,Karenia mikimotoi (89.3%),30.69,6350,51.37,12408,18.82
+ICM0017_SAG.1_MAST-8,MAST-8,Stramenopiles,Pseudophyllomitus vesiculosus (90.9%),10.87,2408,60.96,8517,18.04
+ICM0081_SAG.1_MAST-12,MAST-12,Stramenopiles,Hyphochytrium catenoides (88.2%),14.95,2849,42.1,9451,32.94
+ICM0012_SAG.1_MALV-I,MALV-I,Alveolata,Gymnodinium mikimotoi (90.4%),8.65,2161,43.21,8735,9.02
+ICM0061_SAG.1_Basidiomycota,Basidiomycota,Opisthokonta,Fuscoporia contigua (99.7%),10.21,1636,50.45,11237,33.33
+ICM0058_SAG.1_Cercozoa,Cercozoa,Rhizaria,Cryothecomonas longipes (93.5%),7.86,1737,55.87,7045,14.12
+ICM0096_SAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,Bathycoccus prasinos (100%),4.16,746,48.28,8708,25.88
+ICM0111_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina simplex (98.7%),42,8001,66.85,11681,40.39
+ICM0106_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina simplex (99.4%),77.46,19008,60.33,6670,68.63
+ICM0128_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina strobilus (98.3%),26.07,5092,65.34,11087,33.73
+ICM0147_SAG.1_Picozoa,Picozoa,Archaeplastida,Picomonas judraskeda (96.1%),6.42,4759,53.36,1308,7.45
+ICM0049_SAG.1_MAST-7,MAST-7,Stramenopiles,Mastreximonas tlaamin (93%),10.38,1380,44.63,18694,21.18
+ICM0027_SAG.1_Dictyochophyceae,Dictyochophyceae,Stramenopiles,Pseudopedinella elastica (94.8%),10.59,2459,56.78,7561,15.69
+ICM0133_SAG.1_Kinetoplastea,Kinetoplastea,Discoba,Neobodo sp. HFCC731 (94.6%),31.62,14855,54.04,2335,41.57
+ICM0035_SAG.1_MAST-2,MAST-2,Stramenopiles,Theileria (87.5%),6.18,2082,53.93,4247,4.31
+ICM0094_SAG.1_Centroplasthelida,Centroplasthelida,Haptista,Chlamydaster sterni (95.4%),6.12,1096,56.49,10383,14.9
+ICM0072_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina simplex (94.8%),9.4,1258,62.52,16130,16.86
+ICM0117_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina campanulifera (98.6%),49.55,10077,60.24,9681,37.65
+ICM0141_SAG.1_Diatomea,Diatomea,Stramenopiles,Pseudo-nitzschia brasiliana (100%),12.99,8221,45.25,1583,34.12
+ICM0098_SAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,Hydrurus foetidus (93.2%),14.28,1160,51.84,30443,62.75
+ICM0108_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina andersonii (98.9%),36.05,7570,62.57,8701,32.94
+ICM0120_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina simplex (98.1%),91.7,23903,62.65,5621,72.55
+ICM0014_SAG.1_MAST-1,MAST-1,Stramenopiles,Florenciella sp (90.6%),3.08,1216,51.58,3190,2.35
+ICM0119_SAG.1_Dinoflagellata,Dinoflagellata,Alveolata,Prorocentrum bidens (94.9%),92.52,32941,52.59,3751,6.67
+ICM0113_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina leadbeateri (97.6%),25.98,5228,64.63,10653,27.84
+ICM0089_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina leadbeateri (98.6%),12.34,2261,65.91,12301,21.57
+ICM0116_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina scutellum (99.4%),38.73,7666,59.02,9766,43.14
+ICM0004_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,NA (NA%),8.36,1588,64.24,10701,36.86
+ICM0029_SAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,NA (NA%),3.75,727,42.86,10126,15.69
+ICM0030_SAG.1_Mamiellophyceae,Mamiellophyceae,Archaeplastida,NA (NA%),2,226,48.42,28002,12.55
+ICM0046_SAG.1_MAST-3,MAST-3,Stramenopiles,NA (NA%),11.19,2512,49.77,7541,27.45
+ICM0047_SAG.1_Cercozoa,Endomyxa,Rhizaria,NA (NA%),13.62,1994,58.88,16789,52.55
+ICM0057_COSAG.1_Unknown,Unknown,Unknown,Basal to Haptophyta (NA%),3.45,914,50.29,5153,9.41
+ICM0059_SAG.1_MAST-7,MAST-7,Stramenopiles,NA (NA%),13.07,2018,49.71,12148,30.98
+ICM0060_SAG.1_MAST-1,MAST-1,Stramenopiles,NA (NA%),2.31,377,58.92,11560,4.31
+ICM0080_SAG.1_Chrysophyceae,Chrysophyceae,Stramenopiles,NA (NA%),16.91,3183,50.73,10601,36.47
+ICM0093_SAG.1_Chlorophyta,Chlorophyta,Archaeplastida,NA (NA%),1.54,348,58.27,6105,13.73
+ICM0103_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,NA (NA%),31.45,5151,65.13,14232,42.35
+ICM0105_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,NA (NA%),21.65,4342,68.23,11295,27.45
+ICM0112_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,NA (NA%),30.09,5095,66.66,13534,31.76
+ICM0132_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,NA (NA%),28.16,4772,61.32,12584,36.08
+ICM0107_COSAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina acantha (98.4%),47.75,11332,65.69,7539,53.73
+ICM0118_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina acantha (98.4%),41.8,6146,62.24,14735,48.63
+ICM0123_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina scutellum (97.6%),26.37,5146,67.61,11675,39.22
+ICM0131_SAG.1_Prymnesiophyceae,Prymnesiophyceae,Haptista,Chrysochromulina andersonii (98.1%),9.59,2177,67.61,7262,15.69
+ICM0143_SAG.1_Choanoflagellata,Choanoflagellata,Opisthokonta,Didymoeca costata (96.1%),6.4,4891,51.44,1271,11.76

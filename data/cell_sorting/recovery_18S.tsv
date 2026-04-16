@@ -1,0 +1,19 @@
+Fraction	total_cells	18S recovery	ncells	type	perc
+pico-PP	24	Both	7	18S in sequenced cells	29.166666666666668
+pico-HP	24	Both	15	18S in sequenced cells	62.5
+nano-HP	24	Both	15	18S in sequenced cells	62.5
+pico-PP	24	PCR only	0	18S in sequenced cells	0
+pico-HP	24	PCR only	2	18S in sequenced cells	8.333333333333334
+nano-HP	24	PCR only	0	18S in sequenced cells	0
+pico-PP	24	Illumina only	0	18S in sequenced cells	0
+pico-HP	24	Illumina only	5	18S in sequenced cells	20.833333333333332
+nano-HP	24	Illumina only	7	18S in sequenced cells	29.166666666666668
+pico-PP	24	Not recovered	17	18S in sequenced cells	70.83333333333333
+pico-HP	24	Not recovered	2	18S in sequenced cells	8.333333333333334
+nano-HP	24	Not recovered	2	18S in sequenced cells	8.333333333333334
+pico-PP	48	PCR	11	18S in positive WGA cells	22.916666666666668
+pico-PP	48	Not recovered	37	18S in positive WGA cells	77.08333333333333
+pico-HP	125	PCR	69	18S in positive WGA cells	55.2
+pico-HP	125	Not recovered	56	18S in positive WGA cells	44.8
+nano-HP	71	PCR	43	18S in positive WGA cells	60.563380281690144
+nano-HP	71	Not recovered	28	18S in positive WGA cells	39.436619718309856

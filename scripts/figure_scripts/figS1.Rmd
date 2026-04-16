@@ -1,0 +1,163 @@
+---
+title: "SAGs technical results - ANI"
+author: "Aleix Obiol"
+date: "2026-03-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+```
+
+## Helper functions
+
+```{r}
+scale_ani_identity <- function() {
+  scale_x_discrete(
+    breaks = function(x) {
+      vals <- as.numeric(sub(".*,", "", gsub("\\(|\\]", "", x)))
+      x[vals %in% c(70, 80, 90, 100)]
+    },
+    labels = function(x) sub(".*,", "", gsub("\\(|\\]", "%", x)),
+    drop = FALSE
+  )
+}
+
+plot_ani_hist <- function(data, facet_var, ncol = NULL, nrow = NULL, annotate_col = NULL) {
+  
+  plot <- 
+    ggplot(data, aes(x = bin_pident, y = bin_length / 1e6)) +
+    geom_col(color = 'white', linewidth = .2) +
+    theme_sags() +
+    theme(strip.text = element_markdown(size = 8)) +
+    labs(y = 'Size (Mbp)', x = 'Percentage of identity') +
+    scale_ani_identity()
+    
+  if (!missing(annotate_col)) {
+    annotations <- 
+      data |> 
+      group_by({{facet_var}}, label = {{annotate_col}}) |> 
+      summarise(
+        y = max(bin_length) / (1.2 * 1e6)
+      ) |> 
+      mutate(x = if_else(
+        str_detect({{facet_var}},'ICM0067.*ICM0068|ICM0053.*ICM0092|ICM0102.*ICM0110'), 
+        factor('(88,89]'), # label to right
+        factor('(70,71]') # label to left
+        )
+        )
+    
+    plot <- 
+      plot + 
+      geom_richtext(
+        data = annotations,
+        aes(label = label, x = x, y = y),
+        fill = NA,
+        label.color = NA,
+        size = 2.5,
+        hjust = 0
+      )
+  }
+  
+  plot <- 
+    plot +
+    facet_wrap(vars({{facet_var}}), scales = 'free_y', ncol = ncol, nrow = nrow) +
+    force_panelsizes(rows = unit(4, 'cm'), cols = unit(6, 'cm'), respect = T)
+  
+  return(plot)
+}
+
+ncol = 8
+```
+
+
+## Read data
+
+```{r}
+ani_df <- 
+  read_tsv('../../data/ani/ani_data.tsv.gz')
+
+comparisons_data <- 
+  read_tsv('../../data/ani/ani_comparisons.tsv')
+
+ani_comparison_df <- 
+  read_tsv('../../data/ani/ani_data_diff_species.tsv.gz') |> 
+  mutate(
+    name = paste0(comparison, ' (',group,')'),
+    additional_data = paste0('*Comp:* ',`%-compared genomes`,'%<br>*18S:* ',`%-18S`,'%'),
+         name = str_replace(name, '-%','-'),
+         comparison = factor(comparison, levels = comparisons_data$comparison)) |> 
+  arrange(comparison) |> 
+  mutate(name = str_replace(name, 'ICM', '**ICM'),
+         name = str_replace(name, ' vs ','** vs **'),
+         name = str_replace(name, ' \\(','** ('),
+         name = fct_inorder(name))
+
+figure_legends <- 
+  readxl::read_excel('../../data/aux/figure_legends.xlsx')
+```
+
+## ANI within COSAGs
+
+```{r}
+comparisons_per_sag <- # all comparisons, not just unique pairs (i.e., A vs B but also B vs A)
+  ani_df |> 
+  distinct(sag_id, query_id, subject_id) |> 
+  count(sag_id, name = 'n_comparisons')
+
+ani_df_len <- 
+  ani_df |> 
+  mutate(bin_pident = cut_width(pident, width = 1, boundary = 100)) |> 
+  summarise(bin_length_raw = sum(len), .by = c(sag_id, bin_pident)) |> 
+  left_join(comparisons_per_sag) |> 
+  mutate(bin_length = bin_length_raw / n_comparisons)
+
+p_ani_hist_len <- 
+  plot_ani_hist(ani_df_len, facet_var = sag_id, ncol = ncol)
+```
+
+## ANI between different SAGs
+
+```{r}
+ani_comparison_length_df <- 
+  ani_comparison_df |> 
+  mutate(bin_pident = cut_width(pident, width = 1, boundary = 100)) |> 
+  group_by(comparison, bin_pident, type, name, additional_data) |> 
+  summarise(bin_length = sum(len))
+
+p_ani_comparison_len <- 
+  plot_ani_hist(ani_comparison_length_df, facet_var = name, ncol = ncol, annotate_col = additional_data)
+```
+
+## Fig supp
+
+```{r}
+fig <- 'S1'
+caption <- figure_legends |> filter(figure == fig) |> pull()
+
+figS1 <- 
+  wrap_plots(
+    p_ani_hist_len,
+    p_ani_comparison_len +
+      labs(caption = caption) +
+      theme(
+        plot.caption = element_textbox_simple(
+          margin = margin(30,0,5,0),
+          size = 12
+          )
+        ),
+    ncol = 1
+  ) +
+  plot_annotation(tag_levels = list(paste0('**',letters[1:2],'**'))) &
+  theme(
+    plot.tag = element_markdown()
+  )
+
+ggsave(plot = figS1,
+       filename = '../../figures/figS1.pdf',
+       height = 17,
+       width = 23)
+
+```
+

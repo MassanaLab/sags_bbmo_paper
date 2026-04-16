@@ -1,0 +1,468 @@
+---
+title: "SAGs in other datasets - Figures S1 & 3"
+author: "Aleix Obiol"
+date: "2026-02-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+```
+
+## Read data
+
+### sags metadata
+
+```{r}
+sags_metadata <-
+  read_tsv("../../data/sags/sags_metadata.tsv")
+```
+
+
+### amplicon data
+
+```{r}
+sags_correspondence <-
+  read_tsv("../../data/amplicons/sags_amplicons_correspondence.tsv")
+
+bbmo_phy <-
+  readRDS("../../data/amplicons/bbmo_2018-2020.phy")
+
+osd_phy <-
+  readRDS("../../data/amplicons/osd_nobbmo.phy")
+
+eukbank_file <- # I created this file in the process_eukbank.Rmd script
+  readRDS("../../data/amplicons/eukbank_filtered.rds")
+
+eukbank_marine_asvs_ranked_pico <-
+  read_tsv("../../data/amplicons/eukbank_marine_asvs_ranked_pico.tsv")
+```
+
+### metagenomics data
+
+```{r}
+metag_recruitment <-
+  readRDS("../../data/metag/metag_recruitment_sags_marferret.rds")
+
+overlap_sags_marferret <-
+  readRDS("../../data/metag/metag_recruitment_overlap_sags_marferret.rds")
+
+sags_otutab <-
+  read_tsv("../../data/metag/metag_recruitment_sags_otutab_perc.tsv")
+```
+
+## Figure S1
+
+### Create amplicons merged dataset
+
+```{r}
+blanes_counts <-
+  bbmo_phy |>
+  transform_sample_counts(percentage) |>
+  prune_taxa(taxa = sags_correspondence$BBMO) |>
+  otu_table() |>
+  as_tibble() |>
+  select(asv = .otu, sample = .sample, perc = .abundance) |>
+  left_join(sags_correspondence |> select(sag_id, asv = BBMO)) |>
+  mutate(
+    envplot = factor("BBMO", levels = c("BBMO", "OSD", names(envplot_colors))),
+    dataset = "BBMO"
+  )
+
+osd_counts <-
+  osd_phy |>
+  counts_to_percent(total_col = "reads_corrected_total") |>
+  prune_taxa(taxa = sags_correspondence$OSD) |>
+  otu_table() |>
+  as_tibble() |>
+  select(asv = .otu, sample = .sample, perc = .abundance) |>
+  left_join(sags_correspondence |> select(sag_id, asv = OSD)) |>
+  mutate(
+    envplot = factor("OSD", levels = c("BBMO", "OSD", names(envplot_colors))),
+    dataset = "OSD"
+  )
+
+eukbank_counts_all <-
+  eukbank_file |>
+  ungroup() |>
+  filter(amplicon %in% sags_correspondence$EukBank) |>
+  select(asv = amplicon, sample, perc = relabun, envplot) |>
+  left_join(sags_correspondence |> select(sag_id, asv = EukBank)) |>
+  mutate(
+    dataset = "EukBank_all",
+    envplot = factor(envplot, levels = c("BBMO", "OSD", names(envplot_colors)))
+  )
+
+eukbank_counts_pico <-
+  eukbank_file |>
+  ungroup() |>
+  filter(
+    amplicon %in% sags_correspondence$EukBank,
+    envplot == "marine_water",
+    size_fraction_lower_threshold <= 0.8,
+    size_fraction_upper_threshold <= 5 | is.na(size_fraction_upper_threshold),
+    depth <= 100,
+    !is.na(size_fraction_upper_threshold)
+  ) |>
+  select(asv = amplicon, sample, perc = relabun, envplot) |>
+  left_join(sags_correspondence |> select(sag_id, asv = EukBank)) |>
+  mutate(
+    dataset = "EukBank_pico",
+    envplot = factor(envplot, levels = c("BBMO", "OSD", names(envplot_colors)))
+  )
+
+merged_counts <-
+  blanes_counts |>
+  bind_rows(osd_counts) |>
+  bind_rows(eukbank_counts_all) |>
+  bind_rows(eukbank_counts_pico) |>
+  mutate(
+    dataset = factor(dataset, levels = c("BBMO", "OSD", "EukBank_pico", "EukBank_all")),
+    sag_id = factor(sag_id, sags_correspondence$sag_id)
+  )
+```
+
+### Plot
+
+```{r}
+figure_legends <-
+  readxl::read_excel("../../data/aux/figure_legends.xlsx")
+
+fig <- "S3"
+
+caption <-
+  figure_legends |>
+  filter(figure == fig) |>
+  pull()
+
+merged_counts_eukbank_all <-
+  merged_counts |>
+  filter(dataset != "EukBank_pico")
+
+min_perc <-
+  merged_counts_eukbank_all |>
+  filter(perc > 0) |>
+  pull(perc) |>
+  min()
+
+envplot_colors_bbmo <-
+  c(BBMO = "deeppink3", OSD = "coral4", envplot_colors)
+
+figS3 <-
+  merged_counts_eukbank_all |>
+  mutate(sag_id = str_replace(sag_id, ";", "\n")) |>
+  ggplot(aes(x = envplot, y = perc + min_perc)) +
+  geom_point_rast(
+    raster.dpi = 150,
+    aes(color = envplot),
+    position = position_jitter(width = 0.2, height = 0, seed = 123),
+    alpha = 0.4
+  ) +
+  geom_boxplot(aes(fill = envplot), alpha = 0.5, outlier.shape = NA) +
+  scale_color_manual(
+    values = envplot_colors_bbmo,
+    labels = c("BBMO", "OSD", "EB:Marine water", "EB:Marine sediment", "EB:Freshwater", "EB:Freshwater sediment", "EB:Soil")
+  ) +
+  scale_fill_manual(
+    values = envplot_colors_bbmo,
+    guide = guide_legend(override.aes = list(alpha = 1, size = 10), nrow = 1),
+    name = "",
+    labels = c("BBMO", "OSD", "EB:Marine water", "EB:Marine sediment", "EB:Freshwater", "EB:Freshwater sediment", "EB:Soil")
+  ) +
+  facet_wrap(~sag_id,
+    ncol = 9
+  ) +
+  scale_y_log10(labels = scales::label_number(drop0trailing = T)) +
+  labs(
+    x = "",
+    y = "Relative read abundance (%)"
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_blank(),
+    legend.position = "top",
+    panel.grid = element_blank(),
+    strip.background = element_rect(fill = NA),
+    axis.ticks.x = element_blank(),
+    axis.text.y = element_text(size = 10),
+    legend.text = element_text(size = 12)
+  ) +
+  scale_x_discrete(drop = FALSE) +
+  guides(color = "none") +
+  labs(
+    caption = caption
+  ) +
+  theme(
+    plot.caption = element_textbox_simple(
+      margin = margin(10, 0, 5, 0),
+      width = unit(1, "npc"),
+      size = 12
+    )
+  )
+
+
+ggsave(plot = figS3, filename = "../../figures/figS3.pdf", height = 30, width = 25)
+```
+
+## Figure 3
+
+### a
+
+#### Calculate summaries
+
+```{r}
+summary_sags_to_plot <-
+  merged_counts |>
+  filter(
+    dataset %in% c("BBMO", "EukBank_pico"),
+    envplot %in% c("BBMO", "marine_water")
+  ) |>
+  group_by(sag_id, dataset) |>
+  summarise(
+    occurrence = 100 * sum(perc > 0) / n_distinct(sample),
+    mean_perc = mean(perc),
+  ) |>
+  pivot_longer(names_to = "var", values_to = "value", where(is.double)) |>
+  arrange(dataset) |>
+  mutate(
+    dataset = str_replace(dataset, "EukBank_pico", "EukBank"),
+    dataset = fct_inorder(dataset)
+  )
+```
+
+#### Plot
+
+```{r}
+datasets_colors <-
+  c(
+    "BBMO" = "deeppink3",
+    "EukBank" = "lightskyblue"
+  )
+
+fig3a <-
+  summary_sags_to_plot |>
+  ggplot(aes(x = dataset, y = value + min_perc)) +
+  geom_point(aes(fill = dataset),
+    shape = 21,
+    color = "black",
+    position = position_jitter(width = 0.2, height = 0, seed = 123),
+    size = 1.5,
+    stroke = 0.2
+  ) +
+  geom_boxplot(aes(fill = dataset),
+    alpha = 0.5,
+    outlier.shape = NA,
+    linewidth = 0.3
+  ) +
+  scale_fill_manual(
+    values = datasets_colors,
+    guide = guide_legend(override.aes = list(alpha = 1), nrow = 1),
+    name = ""
+  ) +
+  facet_wrap(~var,
+    scales = "free_y",
+    ncol = 2,
+    labeller = as_labeller(
+      c(
+        mean_perc = "Mean rel. abun. (%)",
+        occurrence = "Occurrence (%)"
+      )
+    )
+  ) +
+  theme_sags() +
+  theme(
+    legend.position = "bottom",
+  ) +
+  labs(
+    x = "",
+    y = ""
+  ) +
+  scale_x_discrete(drop = FALSE) +
+  scale_y_log10(labels = scales::label_log()) +
+  guides(fill = "none")
+```
+
+### b
+
+#### Calculate summaries
+
+```{r}
+sags_metag_abundance <-
+  sags_otutab |>
+  filter(!str_detect(lca_taxonomy, "^lca:")) |> # keep only unique hits
+  group_by(lca_taxonomy) |>
+  summarise(mean_perc = mean(perc))
+```
+
+#### Plot
+
+```{r}
+fig3b <-
+  sags_metag_abundance |>
+  mutate(strip = "Recruitment (%)") |>
+  ggplot(aes(x = "", y = mean_perc)) +
+  geom_point(
+    fill = "darkviolet",
+    shape = 21,
+    color = "black",
+    position = position_jitter(width = 0.2, height = 0, seed = 123),
+    size = 1.5,
+    stroke = 0.2
+  ) +
+  geom_boxplot(
+    fill = "darkviolet",
+    alpha = 0.5,
+    outlier.shape = NA,
+    linewidth = 0.3
+  ) +
+  labs(x = NULL, y = NULL) +
+  theme_sags() +
+  theme(
+    axis.ticks.x = element_blank()
+  ) +
+  scale_y_log10(labels = scales::label_log()) +
+  facet_wrap(~strip)
+```
+
+### c
+
+#### Dynamics
+
+```{r}
+db_colors <-
+  c(
+    SAGs = "firebrick1",
+    "Only in SAGs" = "#efb0b0",
+    MarFERReT = "midnightblue",
+    "Only in MarFERReT" = "#a5b3e3",
+    "MarFERReT + SAGs" = "seagreen3",
+    # Shared = "goldenrod1"
+    Shared = "#e8c366"
+  )
+
+p_recruitment_dynamics <-
+  metag_recruitment |>
+  ggplot(aes(x = sample2, y = perc_mapped)) +
+  geom_vline(
+    xintercept = c(13, 22),
+    linetype = "dotted"
+  ) +
+  geom_line(aes(color = db, group = db), linewidth = 1) +
+  geom_point(aes(color = db)) +
+  theme_sags() +
+  scale_color_manual(values = db_colors) +
+  scale_x_discrete(labels = ~ str_sub(.x, 1, 1)) +
+  guides(color = guide_legend(
+    title = "",
+    position = "inside"
+  )) +
+  theme(
+    legend.position.inside = c(.85, .8),
+  ) +
+  labs(x = "", y = "Recruitment (%)") +
+  coord_cartesian(clip = "off", ylim = c(0, 5))
+```
+
+#### Contribution
+
+```{r}
+year_annotation <-
+  tibble(
+    year = c(2018, 2019, 2020),
+    y = rep(5, 3),
+    x = c(6.5, 17.5, 27)
+  )
+
+lines_years <-
+  tibble(
+    x = c(13, 22),
+    ymin = 0,
+    ymax = 130
+  )
+
+p_recruitment_contribution <-
+  overlap_sags_marferret |>
+  group_by(sample2) |>
+  mutate(
+    perc = 100 * nreads / sum(nreads),
+    type = factor(type, levels = c("Only in SAGs", "Only in MarFERReT", "Shared"))
+  ) |>
+  ggplot(aes(x = sample2, y = perc)) +
+  geom_col(aes(fill = fct_rev(type)),
+    color = "gray20",
+    linewidth = .2
+  ) +
+  geom_segment(
+    data = lines_years,
+    aes(x = x, xend = x, y = ymin, yend = ymax),
+    linetype = "dotted",
+    inherit.aes = FALSE
+  ) +
+  theme_sags() +
+  scale_fill_manual(
+    values = db_colors,
+  ) +
+  scale_x_discrete(labels = ~ str_sub(.x, 1, 1)) +
+  guides(fill = guide_legend(
+    title = "",
+    keywidth = unit(4, "mm"),
+    keyheight = unit(4, "mm"),
+    position = "bottom",
+    reverse = T
+  )) +
+  labs(x = "", y = "% mapped") +
+  scale_y_continuous(expand = c(0, 0)) +
+  geom_richtext(
+    data = year_annotation,
+    aes(
+      x = x,
+      y = Inf,
+      label = year
+    ),
+    hjust = 0.5,
+    vjust = 0,
+    fill = NA,
+    label.color = NA,
+    size = 3
+  ) +
+  coord_cartesian(clip = "off", ylim = c(0, 100))
+```
+
+#### Plot
+
+```{r}
+fig3c <-
+  ((p_recruitment_dynamics +
+    # guides(color = "none") +
+    theme(axis.ticks.x = element_blank(), axis.text.x = element_blank())) /
+    plot_spacer() /
+    (p_recruitment_contribution + labs(x = "Month"))) +
+    plot_layout(
+      heights = c(0.7, -.10, 0.3),
+      # guides = "collect"
+    ) &
+    theme(legend.position = "top")
+```
+
+
+### Plot
+
+```{r}
+fig3ab <-
+  wrap_plots(fig3a, fig3b) +
+  plot_layout(widths = c(.7, .3))
+
+fig3 <-
+  (fig3ab / plot_spacer() / fig3c) +
+    plot_layout(heights = c(.3, -.07, .7)) +
+    plot_annotation(tag_levels = list(c("**a**", "**b**", "**c**"))) &
+    theme(
+      plot.tag = ggtext::element_markdown(),
+    )
+
+ggsave(
+  plot = fig3,
+  filename = "../../figures/fig3.pdf", width = 180, height = 150, units = "mm"
+)
+```

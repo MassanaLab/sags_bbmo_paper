@@ -1,0 +1,89 @@
+---
+title: "SAGs functional enrichment. Prepare files"
+author: "Aleix Obiol"
+date: "2025-02-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+```
+
+## Read data
+
+### sags metadata
+
+```{r}
+sags_metadata <-
+  read_tsv("../../data/sags/sags_metadata.tsv")
+```
+
+### functional genes
+
+```{r}
+sags_annotation_df <-
+  read_tsv("../../data/functional_genes/sags_interproscan_annotation.tsv.gz")
+```
+
+## Prepare data for enrichment analysis
+
+### Annotations per SAG
+
+```{r}
+sags_list <- 
+  sags_annotation_df |>
+  pull(sag_id) |>
+  unique() 
+
+sags_annotation_df_clean <-
+  sags_annotation_df |>
+  filter(go_terms != "-") |>
+  mutate(
+    go_terms = str_remove_all(go_terms, "\\(InterPro\\)"),
+    go_terms = str_split(go_terms, "\\|"),
+    group = str_remove(sag_id, '.*_')
+  ) |> 
+  select(-pfam_id) |> 
+  unnest(go_terms)
+
+sag_goterms <-
+  sags_list |>
+  set_names() |>
+  map(
+    ~ sags_annotation_df_clean |>
+      filter(sag_id == .x) |> 
+      distinct(gene, go_terms) |>
+      group_by(gene) |> 
+      summarise(go_terms = list(go_terms)) |> 
+      deframe()
+  )
+
+sags_list |> 
+  walk(~ saveRDS(sag_goterms[[.x]], paste0('../../data/enrichment/enrichment_files/',.x,'.rds')))
+```
+
+### Annotations per fraction
+
+```{r}
+sags_go_terms_fractions_mincomp15 <- 
+  sags_annotation_df_clean |>
+  left_join(sags_metadata) |>
+  filter(completeness >= 15) |> 
+  arrange(fraction) |> 
+  distinct(gene, go_terms, fraction) |> 
+  group_by(fraction, gene) |> 
+  summarise(go_terms = list(go_terms)) |> 
+  group_split(fraction, .keep = F) |> 
+  set_names(c('HF','PF')) |> 
+  map(deframe)
+
+sags_go_terms_fractions_mincomp15 |> 
+  iwalk(~ saveRDS(.x, paste0('../../data/enrichment/enrichment_files/',.y,'_sags_mincomp15.rds')))
+
+sags_metadata |> 
+  filter(completeness >= 15) |> 
+  pull(sag_id) |> 
+  write_lines('../../data/enrichment/enrichment_files/sags_list_mincomp15.txt')
+```
+

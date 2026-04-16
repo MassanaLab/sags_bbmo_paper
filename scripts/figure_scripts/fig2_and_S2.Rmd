@@ -1,0 +1,713 @@
+---
+title: "SAGs stats and taxonomy - Figure 2"
+author: "Aleix Obiol"
+date: "2026-02-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+```
+
+## Read data
+
+### sags metadata
+
+```{r}
+sags_fractions <-
+  readxl::read_excel("~/Documents/Coautories/David/sags_paper/data/Table-S2.xlsx") |>
+  select(sag_id = 1, Fraction = Sort_FINAL)
+
+# sags_stats <-
+#   readRDS("../../data/sags/sags_stats.rds") |>
+#   select(-Fraction) |>
+#   left_join(sags_fractions) |>
+#   arrange(name) |>
+#   mutate(name = str_replace(name, 'Genome size', 'Assembly size'),
+#          name = fct_inorder(name),
+#          Fraction = factor(Fraction, levels = c('pico-PP','nano-PP','pico-HP','nano-HP'))
+#   )
+
+sags_stats <-
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
+  select(
+    sag_id = 1,
+    Fraction = Sort_FINAL,
+    `Assembly size (Mbp)` = `Mb (≥1kb)`,
+    `Completeness (%)` = `Completeness (%) (out of 255)`,
+    `N50 (kbp)` = N50,
+    `Num. genes (x10<sup>3</sup>)` = `Genes (>50AA)`
+  ) |>
+  mutate(
+    Coassembly = str_detect(sag_id, "_COSAG\\."),
+    across(c(`N50 (kbp)`, `Num. genes (x10<sup>3</sup>)`), ~ .x / 1e3)
+  ) |>
+  pivot_longer(-c(sag_id, Fraction, Coassembly)) |>
+  mutate(
+    name =
+      factor(
+        name,
+        levels = c("Assembly size (Mbp)", "N50 (kbp)", "Completeness (%)", "Num. genes (x10<sup>3</sup>)")
+      ),
+    Fraction = factor(Fraction, levels = c("pico-PP", "nano-PP", "pico-HP", "nano-HP"))
+  )
+
+sags_metadata <-
+  read_tsv("../../data/sags/sags_metadata.tsv")
+
+sags_taxonomy <-
+  readxl::read_excel("~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx") |>
+  select(sag_id = 1, Group, Species, subgroup = Subgroup)
+
+sags_species <-
+  sags_taxonomy |>
+  mutate(perc_id = as.numeric(str_remove(Species, ".*_")))
+
+sags_subgroups <-
+  sags_taxonomy |>
+  filter(
+    subgroup != "-",
+    str_detect(Group, "Choanoflagellata|Chrysophyceae|MAST|Dictyochophyceae|Mamiellophyceae|Prymnesiophyceae"),
+    sag_id != "ICM0069_SAG.1_Dictyochophyceae" # remove florenciella
+  ) |>
+  group_by(subgroup) |>
+  mutate(
+    subclade =
+      case_when(
+        str_detect(subgroup, "MAST") ~ str_c("clade ", str_match(subgroup, "MAST-(.*[A-Z])")[, 2]),
+        Group == "Chrysophyceae" ~ str_c("clade ", str_remove(subgroup, ".*-")),
+        n() > 1 & str_detect(subgroup, "sp\\.$") ~ str_replace(subgroup, "sp\\.$", "spp\\."),
+        str_detect(subgroup, "Prymnesium") ~ "Prymnesium spp.",
+        TRUE ~ subgroup
+      )
+  )
+
+figure_legends <-
+  readxl::read_excel("../../data/aux/figure_legends.xlsx")
+```
+
+### tree data
+
+```{r}
+phylofisher_metadata <-
+  read_tsv("../../data/trees/phylofisher_metadata.tsv")
+
+phylofisher_occupancy <-
+  read_tsv("../../data/trees/phylofisher_occupancy.tsv") |>
+  pivot_longer(names_to = "gene", values_to = "n", -...1) |>
+  dplyr::rename(species = ...1)
+
+genes_per_species <-
+  phylofisher_occupancy |>
+  filter(n > 0) |>
+  count(species)
+
+tree_file <-
+  "../../data/trees/PF.SAGs.LGC60GCF-PMSF.treefile"
+
+metadata_tree_raw <-
+  read_tsv("../../data/trees/tree_metadata.tsv")
+
+pf_tree <-
+  read.tree(tree_file)
+```
+
+## Rename tree to export
+
+```{r}
+pf_tree_rooted <-
+  pf_tree |>
+  ape::rotate(node = 605) |>
+  root(pf_tree, node = 464)
+
+renamed_tree <- pf_tree_rooted
+
+new_names_tree <-
+  tibble("Unique ID" = renamed_tree$tip.label) |>
+  left_join(phylofisher_metadata) |>
+  mutate(
+    name =
+      str_c(
+        str_replace_all(`Long Name`, " ", "_"),
+        `Lower Taxonomy`,
+        `Higher Taxonomy`,
+        sep = "_"
+      )
+  )
+
+renamed_tree$tip.label <- new_names_tree$name
+
+write.tree(renamed_tree, str_replace(tree_file, "\\.treefile", "_rooted_renamed.tre"))
+```
+
+## Add metadata to tree
+
+```{r}
+metadata_tree <-
+  metadata_tree_raw |>
+  left_join(sags_subgroups) |>
+  mutate(
+    subclade =
+      case_when(
+        str_detect(id, "ChrysoH[12]") ~ "clade H",
+        str_detect(id, "MAST04A[12]") ~ "clade 4A",
+        str_detect(id, "MAST004C") ~ "clade 4C",
+        str_detect(id, "MAST003F") ~ "clade 3F",
+        species == "Paraphysomonas vestita" ~ "clade F1",
+        species == "Phaeocystis globosa" ~ "Phaeocystis spp.",
+        species == "Chrysochromulina rotalis" ~ "Chrysochromulina spp.",
+        str_detect(species, "Prymnesium") ~ "Prymnesium spp.",
+        str_detect(species, "Micromonas") ~ "Micromonas spp.",
+        str_detect(species, "Ostreococcus") ~ "Ostreococcus spp.",
+        str_detect(species, "Salpingoeca|Monosiga") ~ "Craspedida",
+        str_detect(species, "Pedospumella|Ochromonadaceae|Dinobryon|Poteriochromonas") ~ "clade C",
+        str_detect(subclade, "Ostreococcus") ~ "Ostreococcus spp.",
+        str_detect(subclade, "Mantoniella") ~ "Mantoniella spp.",
+        TRUE ~ subclade
+      )
+  ) |>
+  mutate(
+    subclade = if_else(str_detect(subclade, "sp\\.$|spp\\.$"),
+      paste0("paste(italic('", str_remove(subclade, " .*"), "'), ' spp.')"),
+      subclade
+    )
+  )
+
+supergroup_node_nums <- # get node numbers of supergroups
+  metadata_tree |>
+  filter(!is.na(supergroup)) |>
+  group_by(supergroup) |>
+  filter(supergroup != "unassigned") |>
+  summarise(node_num = MRCA(pf_tree_rooted, id))
+
+group_node_nums <-
+  metadata_tree |>
+  filter(
+    !is.na(tax_group),
+    (sag_id != "ICM0014_SAG.1_MAST-1" | is.na(sag_id)), # only has 2 genes in the matrix and is not well positioned
+    !tax_group %in% c("Unknown", "Telonemia", "Chlorophyta")
+  ) |>
+  group_by(tax_group) |>
+  summarise(
+    node_num = if (n() > 1) {
+      MRCA(pf_tree_rooted, id)
+    } else {
+      get_node_group_of_single_tip(pf_tree_rooted, tax_group)
+    },
+    .groups = "drop"
+  )
+
+subclade_node_nums <-
+  metadata_tree |>
+  filter(
+    !is.na(subclade)
+  ) |>
+  group_by(tax_group, subclade) |>
+  summarise(
+    node_num = if (n() > 1) {
+      MRCA(pf_tree_rooted, id)
+    } else {
+      get_node_group_of_single_tip(pf_tree_rooted, id)
+    },
+    .groups = "drop"
+  )
+
+supergroup_node_nums_list <- # used to group clades, clades with only one tip not allowed
+  metadata_tree |>
+  filter(!is.na(supergroup)) |>
+  group_by(supergroup) |>
+  filter(n() > 1) |>
+  summarise(node_num = MRCA(pf_tree_rooted, id)) |>
+  deframe()
+
+species_tree_with_metadata <- # create a copy and group supergroups
+  groupClade(pf_tree_rooted, supergroup_node_nums_list)
+
+species_tree_with_metadata %<>%
+  dplyr::left_join(
+    metadata_tree,
+    by = c("label" = "id")
+  )
+
+species_tree_with_metadata_and_bootstraps <-
+  species_tree_with_metadata |>
+  mutate(
+    shalrt = as.numeric(str_remove(label, "\\/.*")),
+    ufboot = as.numeric(str_remove(label, ".*\\/")),
+    support =
+      case_when(
+        ufboot == 100 & shalrt == 100 ~ "UFBoot = 100 & SH-aLRT = 100",
+        ufboot >= 95 & shalrt >= 80 ~ "UFBoot ≥ 95 & SH-aLRT ≥ 80"
+      ),
+  )
+
+supergroup_colors <-
+  c(
+    "Archaeplastida" = "darkolivegreen4",
+    "Haptista" = "seagreen",
+    "Cryptista" = "mediumorchid",
+    "Picozoa" = "indianred3",
+    "Centrohelida" = "deepskyblue",
+    "Telonemia" = "burlywood3",
+    "Stramenopiles" = "goldenrod3",
+    "Rhizaria" = "deeppink3",
+    "Ancyromonadida" = "olivedrab",
+    "Alveolata" = "royalblue",
+    "Metamonada" = "orangered4",
+    "Discoba" = "orangered2",
+    "Hemimastigophora" = "aquamarine4",
+    "Obazoa" = "slateblue",
+    "Amoebozoa" = "darkgoldenrod4",
+    "CRuMs" = "maroon",
+    "Malawimonadida" = "chocolate",
+    "Apusomonadida" = "darkorchid4",
+    "Provora" = "turquoise",
+    "ref" = "gray60"
+  )
+```
+
+## Filtered version for main text
+
+```{r}
+tips_to_remove <-
+  metadata_tree |>
+  filter(in_main_tree == "no") |>
+  pull(id)
+
+pf_tree_rooted_main <-
+  pf_tree_rooted |>
+  drop.tip(tip = tips_to_remove)
+
+metadata_tree_main <-
+  metadata_tree |>
+  filter(in_main_tree == "yes")
+
+supergroup_node_nums_main <-
+  metadata_tree_main |>
+  filter(!is.na(supergroup)) |>
+  group_by(supergroup) |>
+  filter(supergroup != "unassigned") |>
+  summarise(node_num = MRCA(pf_tree_rooted_main, id))
+
+group_node_nums_main <-
+  metadata_tree_main |>
+  filter(
+    !is.na(tax_group),
+    !tax_group %in% c("Unknown", "Telonemia", "Chlorophyta")
+  ) |>
+  group_by(tax_group) |>
+  summarise(
+    node_num = if (n() > 1) {
+      MRCA(pf_tree_rooted_main, id)
+    } else {
+      get_node_group_of_single_tip(pf_tree_rooted_main, tax_group)
+    },
+    .groups = "drop"
+  )
+
+supergroup_node_nums_main_list <- # used to group clades, clades with only one tip not allowed
+  metadata_tree_main |>
+  filter(!is.na(supergroup)) |>
+  group_by(supergroup) |>
+  filter(n() > 1) |>
+  summarise(node_num = MRCA(pf_tree_rooted_main, id)) |>
+  deframe()
+
+species_tree_with_metadata_main <-
+  groupClade(pf_tree_rooted_main, supergroup_node_nums_main_list)
+
+species_tree_with_metadata_main %<>% dplyr::left_join(metadata_tree_main, by = c("label" = "id"))
+```
+
+
+## Fig S2
+
+```{r}
+p_tree_base <-
+  ggtree(species_tree_with_metadata_and_bootstraps,
+    aes(color = group.x),
+    linewidth = 0.4
+  ) +
+  scale_color_manual(values = supergroup_colors) +
+  guides(color = "none") +
+  ggnewscale::new_scale_color() +
+  geom_tiplab(
+    parse = T,
+    aes(
+      label = name_long,
+      color = supergroup,
+      alpha = sag
+    ),
+    linesize = 0.2
+  ) +
+  scale_color_manual(values = supergroup_colors, na.value = "black") +
+  scale_alpha_manual(values = c(.7, 1)) +
+  guides(color = "none", fill = "none", alpha = "none") +
+  ggnewscale::new_scale_color() +
+  geom_nodepoint(
+    aes(color = support),
+    size = 2
+  ) +
+  scale_color_manual(
+    values = c(
+      "UFBoot = 100 & SH-aLRT = 100" = "black",
+      "UFBoot ≥ 95 & SH-aLRT ≥ 80" = "gray70"
+    ),
+    na.value = NA,
+    na.translate = F,
+    name = NULL
+  ) +
+  theme(
+    legend.position = "bottom",
+    # legend.background = element_rect(color = "gray20"),
+    legend.text = element_text(size = 12)
+  ) +
+  coord_cartesian(xlim = c(0, 3.05), clip = "off") +
+  guides(color = guide_legend(override.aes = list(size = 4)))
+
+p_tree <-
+  flip(tree_view = p_tree_base, node1 = 640, node2 = 606)
+
+## add subclade labels
+
+subclades_with_single_tip <-
+  metadata_tree |>
+  group_by(subclade) |>
+  filter(
+    n() == 1,
+  ) |>
+  pull(subclade)
+
+for (sub in subclade_node_nums$subclade) {
+  node_num <- subclade_node_nums |>
+    filter(subclade == sub) |>
+    pull(node_num)
+
+  supergroup <- metadata_tree |>
+    filter(subclade == sub) |>
+    pull(supergroup) |>
+    head(1)
+
+  node_color <- supergroup_colors[[supergroup]]
+
+  if (sub %in% subclades_with_single_tip) {
+    if (str_detect(sub, "^paste\\(")) {
+      label <- str_replace(sub, "paste\\(", "paste(' |  ',")
+      offset <- 0.6
+    } else {
+      label <- paste0(" |  ", sub) # add bar as geom_cladelab does not do it for single-tip clades
+      offset <- 0.45
+    }
+  } else {
+    label <- paste0(" ", sub)
+    offset <- 0.45
+  }
+
+  if (str_detect(sub, "paste")) {
+    parse <- T
+  } else {
+    parse <- F
+  }
+
+  if (sub == "clade 1C") {
+    p_tree <-
+      p_tree +
+      geom_strip(
+        "ICM0026-MAST-1",
+        "ICM0014-MAST-1",
+        label = str_c("   ", sub),
+        color = alpha(node_color, 0.8),
+        offset = -1.2,
+        barsize = .6,
+        fontsize = 4,
+        parse = parse
+      )
+  } else if (sub == "clade 7B") {
+    p_tree <-
+      p_tree +
+      geom_strip(
+        "ICM0050-MAST-7",
+        "ICM0049-MAST-7",
+        label = str_c("   ", sub),
+        color = alpha(node_color, 0.8),
+        offset = -1.2,
+        barsize = .6,
+        fontsize = 4,
+        parse = parse
+      )
+  } else {
+    p_tree <-
+      p_tree +
+      geom_cladelabel(
+        node = node_num,
+        label = label,
+        # textcolor = node_color,
+        color = node_color,
+        # barcolor = node_color,
+        offset = offset,
+        barsize = .6,
+        fontsize = 4,
+        alpha = 0.8,
+        parse = parse
+      )
+  }
+}
+
+## add group labels
+
+groups_with_single_tip <-
+  metadata_tree |>
+  group_by(tax_group) |>
+  filter(
+    n() == 1,
+    !tax_group %in% c("Unknown", "Telonemia", "Chlorophyta")
+  ) |>
+  pull(tax_group)
+
+for (group in group_node_nums$tax_group) {
+  node_num <- group_node_nums |>
+    filter(tax_group == group) |>
+    pull(node_num)
+  supergroup <- metadata_tree |>
+    filter(tax_group == group) |>
+    pull(supergroup) |>
+    head(1)
+  node_color <- supergroup_colors[[supergroup]]
+
+  if (group %in% groups_with_single_tip) {
+    label <- paste0(" |  ", group) # add bar as geom_cladelab does not do it for single-tip clades
+  } else {
+    label <- paste0(" ", group)
+  }
+
+  if (group %in% c("Dictyochophyceae", "Prymnesiophyceae")) {
+    offset <- 0.8
+  } else if (group %in% subclade_node_nums$tax_group) {
+    offset <- 0.7
+  } else {
+    offset <- 0.55
+  }
+
+  p_tree <-
+    p_tree +
+    geom_cladelab(
+      node = node_num,
+      label = label,
+      textcolor = node_color,
+      barcolor = node_color,
+      offset = offset,
+      barsize = .6,
+      fontsize = 5,
+    )
+}
+
+## add supergroup labels
+
+for (sp in supergroup_node_nums$supergroup) {
+  node_num <- supergroup_node_nums |>
+    filter(supergroup == sp) |>
+    pull(node_num)
+  node_color <- supergroup_colors[[sp]]
+
+  if (sp == "Provora") {
+    label <- paste0(" |   Provora")
+    offset <- .2615
+  } else {
+    label <- paste0(" ", sp)
+    offset <- .3
+  }
+
+  p_tree <-
+    p_tree +
+    geom_cladelab(
+      node = node_num,
+      label = label,
+      textcolor = node_color,
+      barcolor = node_color,
+      align = T,
+      offset = offset,
+      barsize = .6,
+      fontsize = 5.5
+    )
+}
+
+fig <- "S2"
+caption <- figure_legends |>
+  filter(figure == fig) |>
+  pull()
+
+p_tree_highlight <-
+  p_tree +
+  geom_highlight(
+    data = supergroup_node_nums,
+    aes(node = node_num, fill = supergroup),
+    align = "right",
+    type = "gradient",
+    gradient.direction = "tr",
+    extend = 0.3,
+    alpha = 0.1
+  ) +
+  scale_fill_manual(values = supergroup_colors) +
+  guides(fill = "none") +
+  labs(
+    caption = caption
+  ) +
+  theme(
+    plot.caption = element_textbox_simple(
+      margin = margin(30, 0, 5, 0),
+      width = unit(.95, "npc"),
+      size = 12
+    )
+  )
+
+ggsave(
+  plot = p_tree_highlight,
+  filename = "../../figures/figS2.pdf",
+  height = 65,
+  width = 22,
+  limitsize = F
+)
+```
+
+## Figure 2
+
+I created a and b figures separately and then merged them with Adobe Illustrator (`fig2.ai`). There I also created supergroup labels for fig2b and group curved lines for groups with only one representative, as ggtree does not create them.  
+
+### a
+
+```{r}
+p_stats_list <-
+  sags_stats$name |>
+  levels() |>
+  map(~ stats_plotter(df = sags_stats, stat = .x))
+
+fig2a <-
+  (wrap_plots(p_stats_list, nrow = 1) / plot_spacer() / guide_area()) +
+    plot_layout(guides = "collect", heights = c(0.99, -.2, 0.01)) +
+    plot_annotation(tag_levels = list(c("**a**"))) &
+    theme(
+      plot.tag = ggtext::element_markdown(),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      legend.title = element_blank(),
+      panel.background = element_blank(),
+      panel.grid = element_blank(),
+      plot.background = element_blank(),
+      strip.text = element_markdown()
+    )
+
+ggsave(plot = fig2a, filename = "../../figures/fig2a.pdf", height = 55, width = 180, unit = "mm")
+```
+
+### b
+
+```{r}
+p_tree_circular_base <-
+  ggtree(species_tree_with_metadata_main,
+    aes(color = group),
+    linewidth = 0.3,
+    layout = "circular"
+  ) +
+  scale_color_manual(values = supergroup_colors) +
+  guides(color = "none") +
+  ggnewscale::new_scale_color() +
+  geom_tiplab2(
+    size = 1.5,
+    parse = T,
+    align = T,
+    aes(
+      label = name_short,
+      color = supergroup,
+      alpha = sag
+    ),
+    offset = 0,
+    linesize = 0.2
+  ) +
+  scale_color_manual(values = supergroup_colors, na.value = "black") +
+  scale_fill_manual(values = supergroup_colors, na.value = "transparent") +
+  scale_alpha_manual(values = c(.7, 1)) +
+  guides(color = "none", fill = "none", alpha = "none")
+
+p_tree_circular <-
+  flip(tree_view = p_tree_circular_base, node1 = 505, node2 = 506)
+
+offset_text_cladelab <-
+  c(
+    Cercozoa = 0.15,
+    Ciliophora = 0.15,
+    # Chlorodendrophyceae= 0.15,
+    # Mamiellophyceae= 0.15,
+    Bolidophyceae = 0.15,
+    `MAST-8` = 0.12,
+    Tunicaraptor = 0.15,
+    `MOCH-2` = 0.15,
+    Labyrinthulomycetes = 0.16,
+    Dinoflagellata = 0.15,
+    `MAST-2` = 0.12
+  )
+
+## add group labels
+
+for (group in group_node_nums_main$tax_group) {
+  node_num <- group_node_nums_main |>
+    filter(tax_group == group) |>
+    pull(node_num)
+  supergroup <- metadata_tree_main |>
+    filter(tax_group == group) |>
+    pull(supergroup) |>
+    head(1)
+  node_color <- supergroup_colors[[supergroup]]
+
+  if (group %in% names(offset_text_cladelab)) {
+    offset.text <- offset_text_cladelab[[group]]
+  } else {
+    offset.text <- 0.05
+  }
+
+  label <- group
+  hjust <- 0.5
+  angle <- "auto"
+
+  if (group %in% c("Dictyochophyceae", "MAST-7", "Chlorodendrophyceae")) {
+    hjust <- 0.4
+  } else if (group %in% c("Centroplasthelida")) {
+    hjust <- 0.6
+  } else if (group %in% c("Mamiellophyceae", "Labyrinthulomycetes")) {
+    hjust <- 0.7
+  } else if (group %in% c("Picozoa")) {
+    hjust <- 0.3
+  }
+
+  if (group == "Labyrinthulomycetes") {
+    angle <- 345
+  }
+
+  p_tree_circular <-
+    p_tree_circular +
+    geom_cladelab(
+      node = node_num,
+      label = label,
+      textcolor = node_color,
+      barcolor = node_color,
+      align = T,
+      offset = 0.28,
+      offset.text = offset.text,
+      angle = angle,
+      hjust = hjust,
+      barsize = .3,
+      fontsize = 2,
+      fontface = "bold",
+      horizontal = F
+    )
+}
+
+ggsave(
+  plot =
+    p_tree_circular,
+  filename = "../../figures/fig2b.pdf",
+  units = "mm",
+  height = 190,
+  width = 190
+)
+```

@@ -1,0 +1,110 @@
+annot	type	PF	HF	n_subgroups	pfam_id	clan_id	clan_name	Function?	pfam_description
+EGF	HF	NA	19	9	PF00008	CL0001	EGF	Signalling	EGF-like domain
+hEGF	HF	NA	14	10	PF12661	CL0001	EGF	Signalling	Human growth factor-like EGF
+Glyco_hydro_59	HF	NA	11	8	PF02057	CL0036	TIM_barrel	GH	Glycosyl hydrolase family 59
+Glyco_hydro_2	HF	NA	10	7	PF00703	CL0159	E-set	GH	Glycosyl hydrolases family 2
+FAD_oxidored	HF	NA	9	7	PF12831	CL0063	NADP_Rossmann	Oxidoreductase	FAD dependent oxidoreductase
+Glyco_hydro_20	HF	NA	9	8	PF00728	CL0036	TIM_barrel	GH	Glycosyl hydrolase family 20, catalytic domain
+Glyco_hydro_31_2nd	HF	NA	9	6	PF01055	CL0036	TIM_barrel	GH	Glycosyl hydrolases family 31 TIM-barrel domain
+MT	HF	NA	9	6	PF12777	NA	NA	Microtubule-binding	Microtubule-binding stalk of dynein motor
+WSC	HF	NA	9	8	PF01822	NA	NA	NA	WSC domain
+AAA_7	HF	NA	8	5	PF12775	CL0023	P-loop_NTPase	Microtubule-binding	P-loop containing dynein motor region
+Ig_Rha78A_N	HF	NA	8	7	PF25788	CL0159	E-set	Binding	Rha78A-like, N-terminal immunoglobulin domain
+Polycystin_dom	HF	NA	8	3	PF20519	CL0030	Ion_channel	Ion channel	Polycystin domain
+SUEL_Lectin	HF	NA	8	5	PF02140	CL0881	SUEL-RBL_sf	Binding domain	D-galactoside/L-rhamnose binding SUEL lectin domain
+AAA_lid_11	HF	NA	7	4	PF18198	CL0671	AAA_lid	Microtubule-binding	Dynein heavy chain AAA lid domain
+Alpha_L_fucos	HF	NA	7	5	PF01120	CL0036	TIM_barrel	GH	Alpha-L-fucosidase
+EcKL	HF	NA	7	5	PF02958	CL0016	PKinase	Signalling	Ecdysteroid kinase-like family
+Pect-lyase_RHGA_epim	HF	NA	7	6	PF12708	CL0268	Pec_lyase-like	GH	Rhamnogalacturonase A/epimerase, pectate lyase-like
+AAA_8	HF	NA	6	4	PF12780	CL0023	P-loop_NTPase	Microtubule-binding	P-loop containing dynein motor region D4
+AAA_9	HF	NA	6	4	PF12781	CL0023	P-loop_NTPase	Microtubule-binding	ATP-binding dynein motor region
+Bac_rhamnosid	HF	NA	6	5	PF05592	CL0004	Concanavalin	GH	Bacterial alpha-L-rhamnosidase concanavalin-like domain
+CAP_GLY	HF	NA	6	3	PF01302	CL0010	SH3	Microtubule-binding	CAP-Gly domain
+Calx-beta	HF	NA	6	4	PF03160	CL0159	E-set	Ca2+ Signaling	Calx-beta domain
+Collagen	HF	NA	6	5	PF01391	NA	NA	Ex matrix	Collagen triple helix repeat (20 copies)
+Dynein_C	HF	NA	6	3	PF18199	NA	NA	Microtubule-binding	Dynein heavy chain C-terminal domain
+Dynein_heavy	HF	NA	6	4	PF03028	CL0023	P-loop_NTPase	Microtubule-binding	Dynein heavy chain region D6 P-loop domain
+NMO	HF	NA	6	5	PF03060	CL0036	TIM_barrel	Anti-toxin	Nitronate monooxygenase
+Chlam_PMP	HF	NA	5	5	PF02415	CL0268	Pec_lyase-like	GH	Chlamydia polymorphic membrane protein (Chlamydia_PMP) repeat
+Glyco_hydro_59M	HF	NA	5	4	PF17387	CL0369	GHD	GH	Glycosyl hydrolase family 59 central domain
+Glycohydro_20b2	HF	NA	5	5	PF14845	CL0546	Hexosaminidase	GH	beta-acetyl hexosaminidase like
+SH3_9	HF	NA	4	4	PF14604	CL0010	SH3	Signalling	Variant SH3 domain
+AA_permease	HF	NA	3	3	PF00324	CL0062	APC	Transport	Amino acid permease
+FKBP_C	PF	45	NA	6	PF00254	CL0487	FKBP		FKBP-type peptidyl-prolyl cis-trans isomerase
+Glyco_transf_29	PF	45	NA	6	PF00777	CL0948	GT29-like	GH	Glycosyltransferase family 29 (sialyltransferase)
+Bestrophin_2	PF	44	NA	7	PF25539	CL0897	Bestrophin	Ion channel	Bacterial/Fungal Bestrophin protein
+PP-binding	PF	44	NA	9	PF00550	CL0314	PP-binding		Phosphopantetheine attachment site
+ketoacyl-synt	PF	40	NA	8	PF00109	CL0046	Thiolase	Secondary metabolism	Beta-ketoacyl synthase, N-terminal domain
+Ketoacyl-synt_C	PF	39	NA	7	PF02801	CL0046	Thiolase	Secondary metabolism	Beta-ketoacyl synthase, C-terminal domain
+Mpv17_PMP22	PF	38	NA	7	PF04117	NA	NA		Mpv17 / PMP22 family
+Bestrophin	PF	34	NA	5	PF01062	CL0897	Bestrophin	Ion channel	Bestrophin, RFP-TM, chloride channel
+DiatomPyrShell	PF	34	NA	5	PF25192	NA	NA		Diatom pyrenoid shell protein
+TPT	PF	33	NA	4	PF03151	CL0184	DMT		Triose-phosphate Transporter family
+TylF	PF	33	NA	4	PF05711	CL0063	NADP_Rossmann		Macrocin-O-methyltransferase (TylF)
+FSH1	PF	30	NA	4	PF03959	CL0028	AB_hydrolase		Serine hydrolase (FSH1)
+PC-Esterase	PF	29	NA	5	PF13839	CL0264	SGNH_hydrolase		GDSL/SGNH-like Acyl-Esterase family found in Pmr5 and Cas1p
+ADPrib_exo_Tox	PF	28	NA	4	PF03496	CL0084	ADP-ribosyl		ADP-ribosyltransferase exoenzyme
+ART	PF	28	NA	4	PF01129	CL0084	ADP-ribosyl		NAD:arginine ADP-ribosyltransferase
+PS-DH	PF	25	NA	6	PF14765	CL0050	HotDog		Polyketide synthase dehydratase N-terminal domain
+CS	PF	24	NA	4	PF04969	CL0190	HSP20		CS domain
+EamA	PF	24	NA	6	PF00892	CL0184	DMT		EamA-like transporter family
+HPAT	PF	24	NA	4	PF23452	CL0110	GT-A		Hydroxyproline O-arabinosyltransferase family N-terminal domain
+PAP_fibrillin	PF	24	NA	8	PF04755	CL0116	Calycin		PAP_fibrillin
+His_Phos_1	PF	23	NA	4	PF00300	CL0071	His_phosphatase		Histidine phosphatase superfamily (branch 1)
+Methyltransf_32	PF	21	NA	5	PF13679	CL0063	NADP_Rossmann		Methyltransferase domain
+TauD	PF	17	NA	4	PF02668	CL0029	Cupin		Taurine catabolism dioxygenase TauD, TfdA family
+PseudoU_synth_2	PF	14	NA	6	PF00849	CL0649	PseudoU_synth		RNA pseudouridylate synthase
+TOD1_MUCI70	PF	13	NA	6	PF04765	CL0110	GT-A		TOD1/MUCI70, glycosyltransferase-like domain
+Methyltransf_11	PF	11	NA	5	PF08241	CL0063	NADP_Rossmann		Methyltransferase domain
+Methyltransf_23	PF	8	NA	4	PF13489	CL0063	NADP_Rossmann		Methyltransferase domain
+Glyco_trans_1_2	PF	6	NA	4	PF13524	CL0113	GT-B		Glycosyl transferase-like
+Glyco_trans_1_4	PF	6	NA	4	PF13692	CL0113	GT-B		Glycosyl transferases group 1
+Gly_transporter	PF	5	NA	5	PF03458	NA	NA		Glycine transporter
+LRR_6	shared	59	37	36	PF13516	CL0022	LRR		Leucine Rich repeat
+Ephrin_rec_like	shared	29	34	29	PF07699	CL0001	EGF		Tyrosine-protein kinase ephrin type A/B receptor-like
+EF-hand_7	shared	59	33	30	PF13499	CL0220	EF_hand		EF-hand domain pair
+Ank_2	shared	59	32	34	PF12796	CL0465	Ank		Ankyrin repeats (3 copies)
+IQ	shared	16	32	27	PF00612	CL0220	EF_hand		IQ calmodulin-binding motif
+WD40	shared	63	30	31	PF00400	CL0186	Beta_propeller		WD domain, G-beta repeat
+EF-hand_5	shared	51	30	24	PF13202	CL0220	EF_hand		EF hand
+MORN	shared	45	29	35	PF02493	CL0251	MORN		MORN repeat
+WW	shared	40	29	22	PF00397	CL0680	WW		WW domain
+RRM_1	shared	51	28	28	PF00076	CL0221	RRM		RNA recognition motif
+TIG	shared	33	28	24	PF01833	CL0159	E-set		IPT/TIG domain
+Sel1	shared	76	27	35	PF08238	CL0020	TPR		Sel1 repeat
+PK_Tyr_Ser-Thr	shared	64	27	32	PF07714	CL0016	PKinase		Protein tyrosine and serine/threonine kinase
+Sulfatase	shared	38	27	21	PF00884	CL0088	Alk_phosphatase		Sulfatase
+Ion_trans	shared	58	25	26	PF00520	CL0030	Ion_channel		Ion transport protein
+cNMP_binding	shared	42	21	17	PF00027	CL0029	Cupin		Cyclic nucleotide-binding domain
+DUF285	shared	39	20	27	PF03382	CL0022	LRR		Mycoplasma protein of unknown function, DUF285
+PhyH	shared	46	19	19	PF05721	CL0029	Cupin		Phytanoyl-CoA dioxygenase (PhyH)
+DUF4116	shared	24	19	21	PF13475	NA	NA		Domain of unknown function (DUF4116)
+EGF_2	shared	12	19	18	PF07974	CL0001	EGF		EGF-like domain
+Cupin_8	shared	42	18	18	PF13621	CL0029	Cupin		Cupin-like domain
+Pkinase	shared	39	18	27	PF00069	CL0016	PKinase		Protein kinase domain
+PAN_4	shared	10	18	15	PF14295	CL0168	PAN		PAN domain
+EGF_Teneurin	shared	28	17	14	PF23106	CL0001	EGF		Teneurin-like EGF domain
+fn3	shared	8	17	16	PF00041	CL0159	E-set		Fibronectin type III domain
+Melibiase_2	shared	7	17	13	PF16499	CL0036	TIM_barrel		Alpha galactosidase A
+Guanylate_cyc	shared	45	16	22	PF00211	CL0276	Nucleot_cyclase		Adenylate and Guanylate cyclase catalytic domain
+Ank	shared	36	16	25	PF00023	CL0465	Ank		Ankyrin repeat
+LRR_1	shared	23	16	26	PF00560	CL0022	LRR		Leucine Rich Repeat
+zf-C2H2	shared	35	15	23	PF00096	CL0361	C2H2-zf		Zinc finger, C2H2 type
+RVT_2	shared	22	14	21	PF07727	CL0027	RdRP		Reverse transcriptase (RNA-dependent DNA polymerase)
+Kinesin	shared	12	11	12	PF00225	CL0023	P-loop_NTPase		Kinesin motor domain
+RCC1	shared	5	11	11	PF00415	CL0186	Beta_propeller		Regulator of chromosome condensation (RCC1) repeat
+Ras	shared	51	10	17	PF00071	CL0023	P-loop_NTPase		Ras family
+Lectin_C	shared	19	10	12	PF00059	CL0056	C_Lectin		Lectin C-type domain
+PPR	shared	7	9	11	PF01535	CL0020	TPR		PPR repeat
+Beta-lactamase	shared	8	8	10	PF00144	CL0013	Beta-lactamase		Beta-lactamase
+RVT_1	shared	8	8	13	PF00078	CL0027	RdRP		Reverse transcriptase (RNA-dependent DNA polymerase)
+Mito_carr	shared	18	7	11	PF00153	NA	NA		Mitochondrial carrier protein
+PT	shared	14	7	12	PF04886	NA	NA		PT disordered repeat
+Cellulase	shared	38	3	8	PF00150	CL0036	TIM_barrel		Cellulase (glycosyl hydrolase family 5)
+Bromodomain	shared	6	3	7	PF00439	NA	NA		Bromodomain
+2OG-FeII_Oxy_3	shared	53	3	10	PF13640	CL0029	Cupin		2OG-Fe(II) oxygenase superfamily
+Methyltransf_16	shared	49	3	12	PF10294	CL0063	NADP_Rossmann		Lysine methyltransferase
+Sulfotransfer_1	shared	20	4	11	PF00685	CL0023	P-loop_NTPase		Sulfotransferase domain
+ShK	shared	49	5	10	PF01549	CL0213	ShK-like		ShK domain-like
+zf-CCHC	shared	5	7	12	PF00098	CL0511	Retroviral_zf		Zinc knuckle
+zf-MYND	shared	10	6	12	PF01753	CL0175	TRASH		MYND finger

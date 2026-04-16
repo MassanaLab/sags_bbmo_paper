@@ -1,0 +1,16 @@
+pfam_id	type	pfam_name	pfam_description	module_abb	module_type	ref
+PF00109	Type I	ketoacyl-synt	"Beta-ketoacyl synthase, N-terminal domain"	KS	core	https://www.nature.com/articles/nature13423
+PF02801	Type I	Ketoacyl-synt_C	"Beta-ketoacyl synthase, C-terminal domain"	KS	core	https://www.nature.com/articles/nature13424
+PF16197	Type I	KAsynt_C_assoc	Ketoacyl-synthetase C-terminal extension	KS	core	https://www.nature.com/articles/nature13425
+PF00698	Type I	Acyl_transf_1	Acyl transferase domain	AT	core	https://www.nature.com/articles/nature13426
+PF21089	Type I	PKS_DH_N	Polyketide synthase dehydratase domain	DH	additional	https://www.nature.com/articles/nature13427
+PF14765	Type I	PS-DH	Polyketide synthase dehydratase N-terminal domain	DH	additional	https://www.nature.com/articles/nature13428
+PF08240	Type I	ADH_N	Alcohol dehydrogenase GroES-like domain	ADH	additional	https://www.nature.com/articles/nature13429
+PF00107	Type I	ADH_zinc_N	Zinc-binding dehydrogenase	ADH	additional	https://www.nature.com/articles/nature13430
+PF08659	Type I	KR	KR domain	KR	additional	https://www.nature.com/articles/nature13431
+PF00550	Type I	PP-binding	Phosphopantetheine attachment site	ACP	core	https://www.nature.com/articles/nature13432
+PF14573	Type I	PP-binding_2	Acyl-carrier	ACP	core	https://www.nature.com/articles/nature13433
+PF23297	Type I	ACP_SdgA_C	"Highly reducing polyketide synthase sdgA, C-terminal ACP domain"	ACP	core	https://www.nature.com/articles/nature13434
+PF00668	Type II	Condensation	Condensation domain			
+PF00195	Type III	Chal_sti_synt_N	"Chalcone and stilbene synthases, N-terminal domain"			
+PF02797	Type III	Chal_sti_synt_C	"Chalcone and stilbene synthases, C-terminal domain"			

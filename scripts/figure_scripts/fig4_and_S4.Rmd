@@ -1,0 +1,635 @@
+---
+title: "SAGs genomic architectures - Figure 4"
+author: "Aleix Obiol"
+date: "2026-02-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+```
+
+## Read data
+
+### sags metadata
+
+```{r}
+# sags_metadata <-
+#   read_tsv("../../data/sags/sags_metadata.tsv")
+
+sags_metadata <- 
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |> 
+  select(
+    sag_id = 1, 
+    sort = 3,
+    Group,
+    Supergroup,
+    completeness = `Completeness (%) (out of 255)`,
+    estimated_genome_size = `Estimated size (Mb)`,
+    perc_intronic = `Percent Intronic`,
+    perc_exonic = `Percent Exonic`,
+    perc_intergenic = `Percent Intergenic`,
+  ) |> 
+  mutate(fraction = str_remove(sort,'.*-'), .before = sort) |> 
+  select(-sort)
+
+sags_old_clusters <- 
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
+  select(sag_id = 1, `Cluster in Fig. 4`)
+
+order_subgroups <- 
+  c("MAST-1D", "Novel Isochrysidales", "Chrysophyceae-H", "MAST-3C/F/G", "Labyrinthulomycetes", "MAST-8", "MAST-7", "Mamiellophyceae", "Centroplasthelida", "MAST-4", "Novel dictyochophyte", "Diatomea", "Chrysophyceae-C", "Picozoa", "Chrysochromulina", "Acanthoecida", "Phaeocystis", "Prymnesium", "MALV-II", "MAST-1C", "Chrysophyceae-G", "MAST-3IK", "MALV-I", "Chlorodendrophyceae", "Cercozoa")
+
+sags_subgroups <- 
+  readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx') |> 
+  select(sag_id = 1, subgroup = Subgroup_Figure_4...12) |>
+  filter(subgroup != '-') |> 
+  mutate(subgroup = factor(subgroup, levels = order_subgroups))
+
+sags_fractions <- 
+  readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Table-S2.xlsx') |> 
+  select(sag_id = 1, fraction = Sort_FINAL)
+
+sags_subgroups_all <-
+  readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx') |>
+  select(sag_id = 1, subgroup = Subgroup_Figure_5...11) |>
+  left_join(sags_metadata |> select(sag_id, Group, Supergroup)) |>
+  arrange(Supergroup, Group, subgroup) |>
+  mutate(subgroup = fct_inorder(subgroup))
+# 
+# sags_fraction <- 
+#   readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx') |> 
+#   select(sag_id = 1, Sort) |>
+#   mutate(fraction = str_remove(Sort, '\\(.*'))
+# 
+# sags_pp_fractions_individual <- 
+#   readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Table-S1_sortedPP.xlsx', sheet = 2) |> 
+#   select(cell_name = 1, new_sort = Sort_FINAL)
+# 
+# sags_made_with <- 
+#   read_tsv('../../data/sags/sags_made_with.tsv', col_names = c('sag_id','cell_name'))
+# 
+# sags_pp_fractions_final <- 
+#   sags_fraction |> 
+#   filter(fraction == 'PP') |> 
+#   left_join(sags_made_with) |> 
+#   left_join(sags_pp_fractions_individual) |> 
+#   filter(!is.na(new_sort)) |> 
+#   distinct(sag_id, new_sort)
+# 
+# final_sags_fractions <- 
+#   sags_fraction |> 
+#   left_join(sags_pp_fractions_final) |> 
+#   mutate(
+#     final_fraction = 
+#       case_when(
+#         !is.na(new_sort) ~ new_sort,
+#         is.na(new_sort) ~ fraction
+#       )
+#   )
+  
+```
+
+### tree
+
+```{r}
+prym_tree_rooted <-
+  read.tree("../../data/trees/PF.prymnesiophyceae.LGC60GCF-PMSF_rooted.treefile")
+
+phylofisher_metadata <-
+  read_tsv("../../data/trees/phylofisher_metadata.tsv")
+
+highlight_nodes <-
+  read_tsv("../../data/trees//nodes_clustering_prym_tree.tsv", col_types = "nc")
+```
+
+### metagenomics data
+
+```{r}
+sags_otutab <-
+  read_tsv("../../data/metag/metag_recruitment_sags_otutab_perc.tsv")
+```
+
+## SAGs metaG abundance
+
+Add a discrete value representing abundance (high, mid, low).
+
+```{r}
+sags_mean_abundance <-
+  sags_otutab |>
+  filter(!str_detect(lca_taxonomy, "^lca:")) |>
+  mutate(sag_id = paste0(str_remove(lca_taxonomy, ".*;"), "_", str_remove(lca_taxonomy, ";.*"))) |>
+  group_by(sag_id) |>
+  summarise(mean_abun = mean(perc)) |>
+  left_join(sags_metadata |> select(sag_id, completeness)) |>
+  mutate(mean_abun_corrected = 100 * mean_abun / completeness) |>
+  arrange(-mean_abun_corrected) |>
+  mutate(
+    abundance =
+      case_when(
+        mean_abun_corrected >= 5e-3 ~ "high",
+        mean_abun_corrected >= 0.001 ~ "mid",
+        TRUE ~ "low"
+      ),
+    abundance = factor(abundance, levels = c("high", "mid", "low"))
+  )
+```
+
+## Cluster SAGs based on genome architectures
+
+```{r}
+sags_architectures <-
+  sags_metadata |>
+  select(sag_id,
+    Intronic = perc_intronic,
+    Exonic = perc_exonic,
+    Intergenic = perc_intergenic,
+    `Genome size` = estimated_genome_size
+  ) |>
+  filter(!sag_id %in% c("ICM0146_SAG.1_Ciliophora", "ICM0119_SAG.1_Dinoflagellata")) # outliers
+
+pca <- prcomp(sags_architectures |> column_to_rownames("sag_id"), scale. = TRUE)
+scores <- as_tibble(pca$x, rownames = "sag_id")
+# set.seed(4)
+# set.seed(123)
+set.seed(1234)
+
+
+clusters <-
+  c(3, 4, 5, 10) |>
+  map(
+    ~ tibble(!!paste0("k", .x) := kmeans(scores[, c("PC1", "PC2")], centers = .x)$cluster)
+  ) |>
+  purrr::reduce(bind_cols) |>
+  mutate(across(everything(), as.factor)) |>
+  mutate(sag_id = scores$sag_id, .before = 1) |> 
+  # reorder clusters
+  mutate(
+    k5 =
+      factor(
+      case_when(
+        k5 == 5 ~ 1,
+        k5 == 3 ~ 2,
+        k5 == 1 ~ 3,
+        k5 == 2 ~ 4,
+        k5 == 4 ~ 5
+      ))
+  )
+
+# write_tsv(clusters, 'data/sags/sags_clusters.tsv')
+
+scores_clusters <-
+  scores |>
+  left_join(clusters)
+
+sags_architectures_clusters <-
+  sags_architectures |>
+  left_join(clusters)
+
+sags_architectures_tidy_clusters <-
+  sags_architectures |>
+  pivot_longer(names_to = "region", values_to = "perc", -c(sag_id, `Genome size`)) |>
+  left_join(clusters)
+```
+
+## Rename Prymnesiophyceae tree and add metadata
+
+```{r}
+prym_tree_metadata_pf <-
+  tibble(id = prym_tree_rooted$tip.label) |>
+  left_join(
+    phylofisher_metadata |>
+      select(
+        id = `Unique ID`,
+        species = `Long Name`
+      ) |>
+      mutate(species = str_replace(species, " sp$", " sp."))
+  ) |>
+  mutate(
+    name = if_else(str_detect(species, "^ICM"), str_remove(id, "-.*"), species)
+  ) |>
+  select(-species) |>
+  left_join(
+    clusters |>
+      mutate(id = str_replace(sag_id, "_.*SAG.1_", "-")) |>
+      select(id, cluster = k5)
+  ) |>
+  mutate(
+    cluster = as.character(cluster),
+    ref = if_else(str_detect(name, "ICM"), "no", "yes"),
+  ) |>
+  replace_na(list(ref = "no")) |>
+  mutate(
+    name_short_ggtree =
+      case_when(
+        ref == "no" ~ paste0("bold('", name, "')"),
+        !str_detect(name, "sp\\.$") ~ paste0("italic('", name, "')"),
+        str_detect(name, "sp\\.$") ~ paste0("paste(italic('", str_remove(name, " .*"), "'),' sp.')")
+      )
+  )
+
+prym_tree_rooted_with_metadata <-
+  prym_tree_rooted
+
+prym_tree_rooted_with_metadata %<>% dplyr::left_join(prym_tree_metadata_pf, by = c("label" = "id"))
+
+prym_tree_rooted_with_metadata %<>%
+  left_join(
+    highlight_nodes |> dplyr::rename(cluster_highlight = cluster),
+    by = "node"
+  )
+```
+
+## Figure 4
+
+### a
+
+```{r}
+pc_explained <-
+  round(summary(pca)$importance[2, 1:2], 3) * 100
+
+pca_loadings <-
+  as_tibble(pca$rotation, rownames = "region") |>
+  mutate(hjust = c(0.5, .8, 0.5, 0))
+
+cluster_colors <-
+  set_names(
+    c("#4dbbd5ff", "#e64b35", "#00a087", "#3c5488", "#f39b7f"),
+    as.character(1:5)
+  )
+
+fig4a <-
+  scores_clusters |>
+  pca_plotter(
+    cluster_col = "k5", 
+    point_size = 2, 
+    loadings = T, 
+    text_size = 2.5, 
+    fill_points = cluster_colors,
+    hulls = T,
+    fill_hulls = cluster_colors
+    ) +
+  guides(fill = "none")
+
+figure_legends <- 
+  readxl::read_excel('../../data/aux/figure_legends.xlsx')
+
+fig <- 'S4'
+
+caption <- 
+  figure_legends |> filter(figure == fig) |> pull() 
+
+figS4 <- 
+  scores_clusters |>
+  left_join(sags_subgroups_all) |> 
+  pca_plotter(
+    cluster_col = "k5", 
+    point_size = 2, 
+    loadings = F, 
+    text_size = 2.5, 
+    fill_points = cluster_colors,
+    hulls = F
+    ) +
+  guides(fill = "none") +
+  geom_mark_hull(
+    data = scores_clusters,
+    aes(fill = k5),
+    concavity = 3, 
+    expand = 0.018, 
+    radius = unit(2.5, "mm"), 
+    color = NA, 
+    alpha = 0.2
+  ) +
+  facet_wrap(~ subgroup) +
+  labs(
+    caption = caption
+  ) +
+  theme(
+    plot.caption = element_textbox_simple(
+      margin = margin(20, 0, 5, 0),
+      width = unit(1, "npc"),
+      size = 12
+    )
+  )
+
+ggsave(plot = figS4, filename = '../../figures/figS4.pdf', height = 10, width = 15)
+```
+
+### b
+
+```{r}
+fig4b <-
+  scores_clusters |>
+  left_join(sags_mean_abundance |> mutate(abundance = fct_rev(abundance))) |>
+  pca_plotter(
+    cluster_col = "abundance", 
+    loadings = F, 
+    point_size = 2,  
+    fill_points = rev(c("sienna", "khaki", "pink")), 
+    hulls = T,
+    fill_hulls = cluster_colors
+    ) +
+  guides(fill = guide_legend(
+    position = "inside",
+    ncol = 1,
+    reverse = T,
+    keywidth = unit(3, "mm"),
+    override.aes = list(shape = 22)
+  )) +
+  theme(
+    legend.title = element_blank(),
+    legend.key.spacing.x = unit(-1, "mm"),
+    legend.key.spacing.y = unit(-1, "mm"),
+    legend.background = element_rect(color = "black", linewidth = 0.2, fill = NA),
+    legend.margin = margin(.5, 5, .5, 5),
+    legend.key = element_rect(fill = NA),
+    legend.position.inside = c(.135, .81)
+  )
+
+sags_clusters_and_abundance <-
+  scores_clusters |>
+  select(sag_id, cluster = k5) |>
+  left_join(sags_mean_abundance |> mutate(abundance = fct_rev(abundance))) |>
+  count(cluster, abundance) |>
+  group_by(cluster) |>
+  mutate(
+    perc = percentage(n),
+    abundance = factor(abundance, levels = rev(c("high", "mid", "low")))
+  )
+
+fig_clusters_abundance_n <-
+  sags_clusters_and_abundance |>
+  ggplot(aes(y = fct_rev(cluster), x = n)) +
+  geom_col(aes(fill = abundance), color = "gray20", linewidth = 0.2) +
+  theme_sags() +
+  scale_x_continuous(expand = 0) +
+  scale_y_discrete(expand = 0) +
+  labs(y = "Cluster", x = "Number of SAGs") +
+  scale_fill_manual(values = c(
+    "low" = "pink",
+    "mid" = "khaki",
+    "high" = "sienna"
+  )) +
+  guides(fill = guide_legend(reverse = T, title = "Abundance"))
+
+
+
+# fig_clusters_abundance <-
+#   wrap_plots(
+#     fig_clusters_abundance_n,
+#     fig_clusters_abundance_perc,
+#     nrow = 2,
+#     guides = "collect"
+#   ) &
+#     theme(legend.position = "bottom")
+# 
+# ggsave(
+#   plot = fig_clusters_abundance,
+#   filename = "../../figures/cluster_and_abundance.pdf", units = "mm", width = 120, height = 100
+# )
+```
+
+### c
+
+```{r}
+p_clust_abun <-
+  sags_clusters_and_abundance |>
+  ggplot(aes(y = fct_rev(cluster), x = perc)) +
+  geom_col(aes(fill = abundance), color = "gray20", linewidth = 0.2) +
+  theme_sags() +
+  scale_x_continuous(expand = 0) +
+  scale_y_discrete(expand = 0) +
+  labs(y = "Cluster", x = "% SAGs") +
+  scale_fill_manual(values = c(
+    "low" = "pink",
+    "mid" = "khaki",
+    "high" = "sienna"
+  )) +
+  guides(fill = guide_legend(reverse = T, title = "Abundance"))
+```
+
+### c (old)
+
+```{r}
+summary_clusters_length <-
+  sags_architectures_tidy_clusters |>
+  mutate(length = `Genome size` * perc / 100) |>
+  group_by(region, cluster = k5) |>
+  summarise(length = mean(length))
+
+fig4c <-
+  summary_clusters_length |>
+  ggplot(aes(y = fct_rev(cluster), x = length)) +
+  geom_col(aes(fill = cluster, alpha = fct_rev(region)), color = "gray20", linewidth = 0.2) +
+  theme_sags() +
+  scale_x_continuous(expand = 0) +
+  scale_y_discrete(expand = 0) +
+  labs(y = "Cluster", x = "Genome length (Mbp)") +
+  scale_fill_manual(values = cluster_colors) +
+  guides(
+    fill = "none",
+    alpha = guide_legend(
+      title = NULL,
+      keywidth = unit(3, "mm"),
+      keyheight = unit(3, "mm"),
+      reverse = T
+    )
+  ) +
+  scale_alpha_manual(values = c(0.333, 0.6666, 1)) +
+  theme(
+    legend.key.spacing.x = unit(-1, "mm"),
+    legend.key.spacing.y = unit(1, "mm"),
+    legend.margin = margin(1, 1, 1, 1),
+  )
+```
+
+### d (now b)
+
+```{r}
+fig4d <-
+  sags_architectures_tidy_clusters |>
+  summary_architecure_plotter_cluster(
+    # plot_spacer_length = -.115
+    plot_spacer_length = -.1
+    )
+```
+
+### e (old)
+
+```{r}
+# fig4e <-
+#   ggtree(prym_tree_rooted_with_metadata, linewidth = 0.2) +
+#   geom_point2(
+#     aes(
+#       subset = !is.na(cluster_highlight),
+#       fill   = as.character(cluster_highlight)
+#     ),
+#     shape = 21,
+#     size = 2,
+#     stroke = 0.2,
+#     color = "black"
+#   ) +
+#   geom_tiplab(
+#     aes(
+#       color = cluster, label = name_short_ggtree,
+#       size = ref
+#     ),
+#     parse = TRUE
+#   ) +
+#   scale_color_manual(
+#     values = cluster_colors,
+#     na.value = "gray70"
+#   ) +
+#   scale_fill_manual(
+#     values = cluster_colors,
+#     guide = "none"
+#   ) +
+#   geom_treescale(x = .04, y = 15, linesize = .2, fontsize = 3) +
+#   ggplot2::xlim(c(0, 1.5)) +
+#   theme(legend.position.inside = c(.1, .8)) +
+#   guides(color = "none", size = "none") +
+#   coord_cartesian(clip = "off") +
+#   scale_size_manual(values = c(no = 2, yes = 1.8))
+```
+
+### e
+
+```{r}
+clusters_per_subgroup <- 
+  scores_clusters |> 
+  select(sag_id, cluster = k5) |> 
+  left_join(sags_subgroups) |> 
+  filter(!is.na(subgroup)) |> 
+  count(subgroup, cluster)
+
+clusters_per_fraction <- 
+  scores_clusters |> 
+  select(sag_id, cluster = k5) |> 
+  left_join(sags_fractions) |> 
+  count(fraction, cluster)
+
+clusters_per_subgroup_and_fraction <- 
+  clusters_per_subgroup |> 
+  mutate(type = 'subgroup') |> 
+  bind_rows(
+    clusters_per_fraction |> 
+      mutate(type = 'fraction', subgroup = fraction)
+  ) |> 
+  mutate(
+    subgroup = factor(subgroup, levels = c('pico-HP','pico-PP','nano-PP','nano-HP', order_subgroups))
+  )
+
+fig4e <- 
+  # clusters_per_subgroup_and_fraction |> 
+  clusters_per_subgroup |> 
+  ggplot(aes(x = cluster, y = fct_rev(subgroup))) +
+  geom_point(aes(fill = cluster, size = n), color = "gray20", stroke = 0.2, shape = 21) +
+  theme_bw() +
+  theme(
+    strip.background = element_blank(),
+    panel.grid.major.x = element_blank(),
+    strip.text = element_blank(),
+    legend.text = element_text(size = 8),
+    axis.text = element_text(size = 8),
+    legend.title = element_text(size = 9),
+    axis.title = element_text(size = 9),
+    legend.background = element_blank(),
+    plot.background = element_blank(),
+    legend.position = 'top',
+    legend.justification = 'left',
+    legend.location = "plot",      
+    legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    panel.border = element_blank(), 
+    panel.background = element_rect(color = "gray20", fill = NA, linewidth = 0.3),
+    legend.key = element_blank()
+  ) +
+  # ggh4x::facet_grid2(type ~ ., space = 'free', scales = 'free') +
+  scale_fill_manual(values = cluster_colors) +
+  guides(
+    fill = 'none',
+    size = guide_legend(nrow = 1, title = 'Nº SAGs')
+    ) +
+  labs(y= NULL, x = 'Cluster') +
+  scale_size(breaks = c(1,5,10,15,20), name = 'SAGs') +
+  coord_cartesian(clip = 'off')
+```
+
+
+### Plot
+
+```{r}
+# fig4ab <-
+#   fig4a | fig4b
+# 
+# fig4cd <-
+#   wrap_plots(free(fig4c, side = "r"), fig4d, ncol = 1) +
+#   plot_layout(heights = c(0.2, 0.8))
+# 
+# fig4ef <- 
+#   wrap_plots(
+#     free(p_clust_abun, type = 'label') + guides(fill = 'none'), 
+#     fig4e + theme(legend.position = 'top'), ncol = 1
+#     ) +
+#   plot_layout(heights = c(0.2, 0.8), axes = 'keep')
+# 
+# fig4cdef <-
+#   (fig4cd | fig4ef)
+# 
+# fig4 <-
+#   (fig4ab / fig4cdef) +
+#     plot_layout(heights = c(.3, .7)) +
+#     plot_annotation(tag_levels = list(c("**a**", "**d**", "**b**", "**c**", "","**e**","**f**"))) &
+#     theme(
+#       plot.tag = ggtext::element_markdown(),
+#     )
+# 
+# ggsave(plot = fig4, filename = "../../figures/fig4_.pdf", units = "mm", width = 160, height = 215)
+```
+
+### Plot v2
+
+```{r}
+fig4 <-
+  wrap_plots(
+    fig4a,
+    fig4b,
+    free(fig4c, side = "r"),
+    p_clust_abun + guides(fill = 'none'),
+    free(fig4d, side = 'rt'),
+    free(fig4e, side = 'l'),
+    ncol = 2,
+    nrow = 3,
+    heights = c(.32,.1,.58)
+  ) +
+  plot_annotation(
+    tag_levels = list(c("**a**", "**d**", "**b**", "**e**", "**c**","","**f**"))
+  ) &
+  theme(plot.tag = element_markdown())
+
+ggsave(plot = fig4, filename = "../../figures/fig4.pdf", units = "mm", width = 170, height = 215)
+```
+
+### Plot (old)
+
+```{r}
+# fig4ab <-
+#   fig4a | fig4b
+# 
+# fig4cd <-
+#   wrap_plots(free(fig4c, side = "r"), fig4d, ncol = 1) +
+#   plot_layout(heights = c(0.2, 0.8))
+# 
+# fig4cde <-
+#   (fig4cd | fig4e) + plot_layout(widths = c(.44, .56))
+# 
+# fig4 <-
+#   (fig4ab / fig4cde) +
+#     plot_layout(heights = c(.3, .7)) +
+#     plot_annotation(tag_levels = list(c("**a**", "**b**", "**c**", "**d**", "", "**e**"))) &
+#     theme(
+#       plot.tag = ggtext::element_markdown(),
+#     )
+# 
+# ggsave(plot = fig4, filename = "../../figures/fig4.pdf", units = "mm", width = 160, height = 215)
+```
