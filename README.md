@@ -99,6 +99,6 @@ Raw data can be found here:
 |:----------|:--------------------|
 |SAGs       |[PRJEB108838](https://www.ebi.ac.uk/ena/browser/view/PRJEB108838)                  |
 |BBMO metaG |[PRJEB51979](https://www.ebi.ac.uk/ena/browser/view/PRJEB51979)                  |
-|BBMO metaT |XXX                  |
+|BBMO metaT |[10.5281/zenodo.18922885](https://doi.org/10.5281/zenodo.18922885)                  |
 
 For SAGs, a metadata table showing the correspondence between ENA accession numbers and sample names can be found [here](data/sags/sags_bbmo_ena_metadata.tsv).
