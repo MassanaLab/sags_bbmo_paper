@@ -1,0 +1,326 @@
+SAG_id,Sort,Species,Group,Supergroup,Size (Mb),Contigs,GC (%),N50,Completeness (%)
+AH6138,pico-HP,MALV-II sp1,MALV-II,Alveolata,14.04,2123,50.6,19078,23.92
+AH6134,pico-HP,MAST-8B sp3,MAST-8,Stramenopiles,11.2,2583,60.96,8117,17.25
+AH6135,pico-HP,MALV-II sp2,MALV-II,Alveolata,15.66,2709,49.04,19264,14.9
+AH6136,pico-HP,MALV-I sp1,MALV-I,Alveolata,12.84,2257,43.95,14843,16.86
+AH6137,pico-HP,Acanthocorbis camarensis (91.7%),Choanoflagellata,Opisthokonta,5.73,1464,51.73,6302,15.69
+AH6144,pico-HP,MAST-3C sp2,MAST-3,Stramenopiles,7.54,1225,52.43,15017,28.63
+AH2993,pico-HP,MAST-3C sp1,MAST-3,Stramenopiles,4.6,985,51.95,9160,13.33
+AH6139,pico-HP,MALV-I sp2,MALV-I,Alveolata,18.44,3257,38.11,14796,21.96
+AH6140,pico-HP,MALV-II sp3,MALV-II,Alveolata,16.32,4183,53.32,6728,6.67
+AH6141,pico-HP,MAST-8D_sp15,MAST-8,Stramenopiles,5.75,1372,58.16,7249,9.41
+AH2991,pico-HP,MALV-I sp3,MALV-I,Alveolata,13.83,2731,39.42,12587,11.37
+AH2992,pico-HP,MAST-3C sp2,MAST-3,Stramenopiles,5.55,1039,52.61,11248,19.61
+AH6146,pico-HP,MALV-II sp4,MALV-II,Alveolata,13.3,2813,50.95,10534,6.27
+AH6147,pico-HP,MAST-3C sp1,MAST-3,Stramenopiles,7.47,1408,51.93,11234,25.49
+AH6149,pico-HP,MAST-4A sp1,MAST-4,Stramenopiles,9.29,2057,32.85,10903,20.78
+AH2994,pico-HP,MAST-3C sp1,MAST-3,Stramenopiles,8.68,1620,52.11,10736,31.37
+AH3000,pico-HP,MALV-I sp4,MALV-I,Alveolata,8.95,2254,43.28,8435,8.24
+AH2996,pico-HP,Monosiga brevicollis (89.5%),Choanoflagellata,Opisthokonta,2.61,804,55.69,4798,12.55
+AH6153,pico-HP,MAST-3C sp1,MAST-3,Stramenopiles,4.8,1099,51.81,10513,15.69
+AH2997,pico-HP,Thraustochytrium multirudimentale (92.2%),Labyrinthulomycetes,Stramenopiles,3.85,957,47.17,7633,13.33
+AH2998,pico-HP,MAST-4A sp1,MAST-4,Stramenopiles,5.72,1391,32.68,8922,20
+AH2999,pico-HP,Cryothecomonas longipes (87.1%),Chlorarachnea,Rhizaria,6.88,2031,55.71,5292,5.1
+AP7860,pico-HP,Cryothecomonas longipes (87.1%),Chlorarachnea,Rhizaria,4.14,1281,55.31,5265,2.75
+AP7859,pico-HP,Cryothecomonas longipes (87.1%),Chlorarachnea,Rhizaria,6.28,1967,55.32,5050,1.96
+AP7861,pico-HP,Cryothecomonas longipes (87.1%),Chlorarachnea,Rhizaria,3.88,1152,55.8,5799,0.39
+AP7862,pico-HP,Cryothecomonas longipes (87.1%),Chlorarachnea,Rhizaria,13.12,3543,55.84,6266,7.45
+AH6165,nano-HP,MAST-1C sp1,MAST-1,Stramenopiles,12.2,3754,59.96,4679,7.45
+AH6166,nano-HP,MAST-1C sp1,MAST-1,Stramenopiles,6.54,2036,60.38,4795,4.71
+AH6158,nano-HP,MAST-1D sp2,MAST-1,Stramenopiles,19.03,5069,62.75,6327,27.84
+AH6159,nano-HP,MAST-1D sp2,MAST-1,Stramenopiles,6.04,1906,61.03,4759,9.8
+AH6160,nano-HP,MAST-8B sp1,MAST-8,Stramenopiles,23.45,5335,62.33,8665,33.73
+AH6161,nano-HP,MAST-1D sp2,MAST-1,Stramenopiles,4.67,1282,62.47,6474,7.06
+AH6163,nano-HP,Pseudopedinella elastica (93.0%),Dictyochophyceae,Stramenopiles,9.48,2442,56.59,6481,12.55
+AH6174,nano-HP,MAST-8B sp1,MAST-8,Stramenopiles,9.59,2425,62.35,6802,12.94
+AH6175,nano-HP,MAST-3G sp5,MAST-3,Stramenopiles,10.56,2667,58,6840,16.08
+AH6167,nano-HP,MALV-II sp5,MALV-II,Alveolata,31.14,6497,51.41,12111,16.86
+AH3001,nano-HP,MAST-1D sp2,MAST-1,Stramenopiles,7.26,2187,61.74,5042,8.63
+AH6169,nano-HP,MAST-2 sp8,MAST-2,Stramenopiles,6.56,2231,53.91,4106,2.75
+AH6170,nano-HP,MAST-1D sp2,MAST-1,Stramenopiles,11.07,3084,62.51,5851,14.9
+AH3002,nano-HP,MAST-1C sp8,MAST-1,Stramenopiles,3.2,1281,51.57,3090,2.35
+AH6172,nano-HP,MAST-1D sp2,MAST-1,Stramenopiles,7.58,2086,62.25,6197,11.37
+AH6173,nano-HP,Picomonas judraskeda (96.9%),Picozoa,Archaeplastida,16.37,4173,58.72,7004,16.08
+AH6178,nano-HP,Paraphysomonas imperforata (99.1%),Chrysophyceae,Stramenopiles,13.9,2788,38.46,11084,26.67
+AH6179,nano-HP,Telonema antarcticum (96.3%),Telonemia,Telonemia,15.66,3913,53.18,7598,7.45
+AH6181,nano-HP,Picomonas judraskeda (97.9%),Picozoa,Archaeplastida,8.54,2083,54.72,8059,9.8
+AP7863,nano-HP,Picomonas judraskeda (96.9%),Picozoa,Archaeplastida,5.41,1456,58.23,6631,6.27
+AP7864,nano-HP,Picomonas judraskeda (96.9%),Picozoa,Archaeplastida,12.4,3414,58.46,6828,14.12
+AP7865,nano-HP,Picomonas judraskeda (96.9%),Picozoa,Archaeplastida,22.26,6435,58.66,5810,21.18
+AH6115,pico-PP,Mallomonas annulata (93.1%),Chrysophyceae,Stramenopiles,7.63,1642,38.98,8316,23.92
+AH6110,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,1.19,331,63.06,5223,6.67
+AH6111,pico-PP,Syracosphaera pulchra (96.1%),Prymnesiophyceae,Haptista,2.04,363,64.05,11723,9.8
+AH6112,pico-PP,Isochrysidales sp1,Prymnesiophyceae,Haptista,5.91,972,64.1,13590,21.96
+AH6113,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,1.31,395,64.26,6062,7.06
+AH6122,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,3,656,65.81,11787,18.43
+AH2984,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,0.74,122,65.5,15228,3.53
+AH2980,pico-PP,Pseudopedinella elastica (93.4%),Dictyochophyceae,Stramenopiles,4.89,680,51.11,19599,5.88
+AH2981,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,0.56,165,61.68,6359,3.14
+AH6119,pico-PP,Pseudopedinella elastica (94.8%),Dictyochophyceae,Stramenopiles,10.79,2559,56.8,7380,14.9
+AH2988,pico-PP,Prymnesium parvum (95.6%),Prymnesiophyceae,Haptista,4.03,626,70.37,15792,9.02
+AH6130,pico-PP,Bathycoccus prasinos,Mamiellophyceae,Archaeplastida,2.02,228,48.37,24387,12.94
+AH2985,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,1.3,316,62.68,6164,10.2
+AH6125,pico-PP,Micromonas pusilla (98.3%),Mamiellophyceae,Archaeplastida,0.97,226,64.62,7561,3.14
+AH6126,pico-PP,Chrysophyceae sp1,Chrysophyceae,Stramenopiles,3.94,772,42.93,9812,16.08
+AH6127,pico-PP,Syracosphaera pulchra (96.1%),Prymnesiophyceae,Haptista,2.02,338,62.89,13248,8.24
+AH2987,pico-PP,Mallomonas annulata (93.1%),Chrysophyceae,Stramenopiles,3.19,975,38.79,4661,7.45
+AH6131,pico-PP,Paraphysomonas imperforata (91.9%),Chrysophyceae,Stramenopiles,5.25,990,50.82,12393,19.61
+AH2989,pico-PP,Isochrysidales sp1,Prymnesiophyceae,Haptista,1.58,337,64.01,8229,8.63
+AH2990,pico-PP,Isochrysidales sp1,Prymnesiophyceae,Haptista,2.8,609,63.85,8454,19.61
+GC1003827_B05,nano-HP,Neobodo sp. HFCC731 (94.6%),Kinetoplastea,Discoba,34.27,16283,53.93,2290,43.92
+GC1003827_C11,nano-HP,MAST-7C sp5,MAST-7,Stramenopiles,29.43,15329,55.19,2016,43.53
+GC1003827_D03,nano-HP,MAST-7C sp5,MAST-7,Stramenopiles,30.19,15126,55.09,2128,41.96
+GC1003827_D04,nano-HP,Cryothecomonas longipes (98.7%),Cercozoa,Rhizaria,3.62,2692,50.78,1266,2.75
+GC1003827_D12,nano-HP,MAST-3I sp1,MAST-3,Stramenopiles,17.76,12083,41.8,1438,12.55
+GC1003827_E10,pico-HP,MAST-4C sp1,MAST-4,Stramenopiles,17.48,9931,42.44,1814,46.67
+GC1003827_E11,pico-HP,Tunicaraptor unikontum (98.1%),Tunicaraptor,Opisthokonta,10.11,6579,58.94,1513,33.73
+GC1003827_E12,pico-HP,MAST-9D sp1,MAST-9,Stramenopiles,26.66,12722,54.74,2274,46.67
+GC1003827_F05,pico-HP,MAST-7D sp2,MAST-7,Stramenopiles,27.11,11630,54.86,2619,52.94
+GC1003827_F08,pico-HP,Acanthocorbis camarensis (91.7%),Choanoflagellata,Opisthokonta,20.77,10361,50.59,2075,49.8
+GC1003827_F11,pico-HP,MAST-4A sp1,MAST-4,Stramenopiles,20.28,11884,38.01,1718,32.94
+GC1003827_G01,pico-HP,MAST-3K sp5,MAST-3,Stramenopiles,30.07,15050,41.34,2137,60.39
+GC1003827_G04,pico-HP,Thraustochytrium gaertnerium (78.8%),Labyrinthulomycetes,Stramenopiles,23.31,12043,47.73,2071,67.06
+GC1003828_A01,PP,Triparma mediterranea (99.7%),Bolidophyceae,Stramenopiles,10.53,5542,51.04,2016,30.98
+GC1003828_A02,PP,Hydrurus foetidus (92.5%),Chrysophyceae,Stramenopiles,7.49,4614,37.6,1632,22.75
+GC1003828_A07,PP,Chlorarachnion reptans (99.2%),Chlorarachnea,Rhizaria,20.82,11854,47.34,1810,22.75
+GC1003828_A08,PP,Tetraselmis sp. RCC 500  (99.3%),Chlorodendrophyceae,Archaeplastida,10.77,6926,61.04,1530,10.98
+GC1003828_A09,PP,Pseudo-nitzschia delicatissima (99.4%),Diatomea,Stramenopiles,22.01,10188,45.1,2361,56.08
+GC1003828_B05,PP,Pseudo-nitzschia brasiliana,Diatomea,Stramenopiles,13.18,8347,45.26,1582,35.69
+GC1003828_B06,PP,Chrysochromulina scutellum (97.3%),Prymnesiophyceae,Haptista,12.72,8528,59.71,1471,9.41
+GC1003828_B07,PP,Tetraselmis sp. RCC 500  (99.3%),Chlorodendrophyceae,Archaeplastida,8.85,5962,61.08,1446,9.02
+GC1003828_B10,PP,Pseudo-nitzschia delicatissima (99.4%),Diatomea,Stramenopiles,22.23,10643,45.09,2275,57.25
+GC1003837_A04,nano-HP,Didymoeca costata  (96.1%),Choanoflagellata,Opisthokonta,6.9,5268,51.5,1275,14.51
+GC1003837_A07,nano-HP,MAST-4C sp1,MAST-4,Stramenopiles,10.38,7086,42.7,1444,29.8
+GC1003837_B04,nano-HP,MAST-3K sp6,MAST-3,Stramenopiles,7.76,5509,41.68,1375,23.14
+GC1003837_B07,nano-HP,Acanthoeca spectabilis (96.0%),Choanoflagellata,Opisthokonta,8.23,6128,46.76,1306,16.08
+GC1003837_C01,nano-HP,Spirotontonia grandis  (97.2%),Ciliophora,Alveolata,6.61,4777,43.34,1337,5.1
+GC1003837_C03,nano-HP,MAST-7D sp2,MAST-7,Stramenopiles,8.34,5909,52.9,1376,16.47
+GC1003837_C04,nano-HP,Chrysochromulina andersonii  (97.4%),Prymnesiophyceae,Haptista,4.05,3073,56.97,1275,3.92
+GC1003838_B04,nano-HP,Picomonas judraskeda (96.1%),Picozoa,Archaeplastida,7.03,5205,53.49,1310,7.45
+P1_05,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,12.44,1488,56.47,22110,39.61
+P1_11,pico-HP,Acanthocorbis camarensis (91.7%),Choanoflagellata,Opisthokonta,14.8,3103,51.91,8583,41.96
+P1_14,pico-HP,MAST-4C sp1,MAST-4,Stramenopiles,16.33,2783,40.99,12922,38.82
+P1_17,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,10.54,1169,56.74,22907,36.86
+P1_18,pico-HP,MAST-3C sp2,MAST-3,Stramenopiles,10.61,1486,52.92,17558,34.51
+P1_19,pico-HP,MAST-7C sp4,MAST-7,Stramenopiles,4,737,57.02,11066,7.45
+P1_27,pico-HP,MAST-4C sp1,MAST-4,Stramenopiles,14.06,2313,40.99,14443,30.59
+P1_29,pico-HP,MAST-4C sp1,MAST-4,Stramenopiles,14.04,2430,40.91,12780,37.25
+P1_33,pico-HP,MAST-4C sp1,MAST-4,Stramenopiles,18.23,2881,40.92,15588,46.27
+P1_35,pico-HP,Labyrinthuloides haliotidis (89.0%),Labyrinthulomycetes,Stramenopiles,10.49,1744,51.35,14213,35.29
+P1_38,pico-HP,MAST-3K sp5,MAST-3,Stramenopiles,29.7,4258,40.31,18375,63.14
+P1_39,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,2.91,621,56.51,8953,14.9
+P1_43,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,12.54,1581,56.6,20416,36.86
+P1_46,pico-HP,MAST-3 sp1,MAST-3,Stramenopiles,11.37,2595,49.77,7369,25.1
+P1_47,pico-HP,MAST-4C sp1,MAST-4,Stramenopiles,5.62,1420,41.17,6533,15.69
+P1_49,pico-HP,Endomyxa sp1,Endomyxa,Rhizaria,13.71,2038,58.86,16604,45.49
+P1_53,pico-HP,Hydrurus foetidus (92.5%),Chrysophyceae,Stramenopiles,11.49,1571,39.79,22149,30.98
+P1_58,pico-HP,MAST-3C sp2,MAST-3,Stramenopiles,8.39,1265,52.73,15436,31.37
+P1_60,pico-HP,MAST-7B sp4,MAST-7,Stramenopiles,10.49,1427,44.61,18527,20.39
+P1_64,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,15.26,1783,56.47,24925,50.2
+P1_65,pico-HP,MAST-3F sp2,MAST-3,Stramenopiles,11.62,1728,54.8,19596,20
+P1_83,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,12.26,1642,56.47,19219,42.75
+P1_84,pico-HP,MAST-7D sp2,MAST-7,Stramenopiles,18.32,2968,54.7,15117,34.9
+P1_88,pico-HP,Mallomonas annulata (93.1%),Chrysophyceae,Stramenopiles,17.12,2968,39.25,13363,44.71
+P1_90,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,10.44,1447,56.42,17035,36.86
+P1_91,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,12.45,1614,56.5,19921,38.43
+P1_92,pico-HP,Thraustochytrium gaertnerium (78.8%),Labyrinthulomycetes,Stramenopiles,13.51,1977,45.47,16782,54.9
+P1_93,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,2.48,296,56.75,16452,10.59
+P2_01,pico-HP,Picomonas judraskeda (97.1%),Picozoa,Archaeplastida,12.55,1655,52.21,15117,20.39
+P2_04,pico-HP,MAST-3F sp2,MAST-3,Stramenopiles,9.99,1697,55.93,12305,21.18
+P2_05,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,12.24,1668,56.45,15682,44.31
+P2_06,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,13.22,1643,56.48,17449,47.45
+P2_10,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,3.86,641,56.04,12716,20
+P2_14,pico-HP,Acanthocorbis camarensis (91.7%),Choanoflagellata,Opisthokonta,11.08,2141,51.81,8593,36.08
+P2_15,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,13.07,1431,56.6,22006,42.75
+P2_18,pico-HP,Acanthocorbis camarensis (91.7%),Choanoflagellata,Opisthokonta,9.59,1978,51.77,8038,30.59
+P2_29,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,12.66,1434,56.66,20318,43.92
+P2_31,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,8.24,779,56.51,25847,24.31
+P2_33,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,15.37,1551,56.54,24231,53.33
+P2_35,pico-HP,MAST-7C sp4,MAST-7,Stramenopiles,20.42,3954,57.29,9370,32.16
+P2_36,pico-HP,MAST-3C sp2,MAST-3,Stramenopiles,8.02,998,52.83,16675,33.73
+P2_37,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,15.42,1647,56.41,22714,47.06
+P2_39,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,3.66,472,56.74,16000,17.25
+P2_40,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,15.48,1522,56.68,25269,56.08
+P2_45,pico-HP,Mallomonas annulata (93.3%),Chrysophyceae,Stramenopiles,9.52,1735,41.05,10066,21.96
+P2_48,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,12.52,1763,56.45,14133,46.67
+P2_51,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,13.65,1494,56.56,21775,49.41
+P2_58,pico-HP,Savillea micropora (94.7%),Choanoflagellata,Opisthokonta,19.85,3229,52.4,11502,45.49
+P2_59,pico-HP,MAST-7B sp4b,MAST-7,Stramenopiles,17.32,2649,44.67,12754,37.25
+P2_64,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,7.72,1452,56.33,8284,27.84
+P2_65,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,5.07,1020,56.17,8352,16.08
+P2_69,pico-HP,MAST-7D sp2,MAST-7,Stramenopiles,9.01,1815,54.39,8370,20.39
+P2_71,pico-HP,Mallomonas annulata (93.1%),Chrysophyceae,Stramenopiles,8.34,2001,39.17,6541,19.61
+P2_72,pico-HP,Acanthocorbis camarensis (91.7%),Choanoflagellata,Opisthokonta,9.98,2398,51.23,6299,34.51
+P2_78,pico-HP,Unknown sp1,Unknown,Unknown,1.95,483,50.57,5803,5.49
+P2_79,pico-HP,Cryothecomonas longipes (93.5%),Cercozoa,Rhizaria,7.98,1802,55.87,6945,12.16
+P2_80,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,9.39,1645,56.52,10603,32.94
+P2_81,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,8.27,1442,56.44,9636,31.76
+P2_82,pico-HP,MAST-7 sp1,MAST-7,Stramenopiles,13.23,2097,49.71,12069,28.24
+P2_84,pico-HP,Acanthocorbis camarensis (91.7%),Choanoflagellata,Opisthokonta,9.9,2398,51.86,6195,29.8
+P2_85,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,7.25,1344,56.33,8969,27.45
+P2_86,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,7.16,1518,56.5,7044,29.02
+P2_89,pico-HP,Unknown sp1,Unknown,Unknown,1.78,437,49.84,5487,5.1
+P2_92,pico-HP,MAST-1 sp1,MAST-1,Stramenopiles,2.4,400,58.98,11300,3.92
+P2_94,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,10.19,1602,56.49,11712,35.69
+P3_02,pico-HP,MAST-7C sp4,MAST-7,Stramenopiles,8.69,2301,57.13,5472,15.69
+P3_03,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,5.28,1232,56.35,6444,18.82
+P3_04,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,13.94,2150,56.69,12172,46.27
+P3_08,pico-HP,Acanthocorbis camarensis (91.7%),Choanoflagellata,Opisthokonta,8.58,2116,51.79,5938,25.88
+P3_10,pico-HP,Fuscoporia contigua (99.7%),Basidiomycota,Opisthokonta,10.27,1649,50.45,11128,33.33
+P3_11,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,1.86,496,56.33,5069,8.24
+P3_13,pico-HP,Minorisa minuta (99.9%),Chlorarachnea,Rhizaria,8.75,1427,56.22,10331,34.51
+P3_14,nano-PP,Pseudopedinella elastica (93.4%),Dictyochophyceae,Stramenopiles,39.36,6009,51.07,14119,47.06
+P3_15,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,3.42,452,64.47,20427,17.25
+P3_17,pico-PP,Chrysochromulina acantha (97.2%),Prymnesiophyceae,Haptista,20.59,2839,65.72,17605,31.37
+P3_18,pico-PP,Micromonas bravo (98.4a%),Mamiellophyceae,Archaeplastida,7.85,1132,65.49,17820,41.96
+P3_20,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,16.97,3826,67.07,7714,23.92
+P3_21,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,4.7,604,65.67,18471,23.53
+P3_22,nano-PP,Chrysochromulina scutellum (98.5%),Prymnesiophyceae,Haptista,32.67,7330,62.8,8053,17.65
+P3_23,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,5.69,851,66.93,20848,29.41
+P3_24,pico-PP,Phaeomonas parva (99.5%),Pinguiophyceae,Stramenopiles,9.95,1698,62.19,11266,23.14
+P3_25,nano-PP,Chrysochromulina simplex (98.2%),Prymnesiophyceae,Haptista,39.72,6657,60.63,12988,38.43
+P3_27,nano-PP,Pseudo-nitzschia delicatissima (99.4%),Diatomea,Stramenopiles,18.43,2170,46.2,20042,50.98
+P3_28,pico-PP,Chrysochromulina acantha (98.2%),Prymnesiophyceae,Haptista,32.45,4696,63.79,17696,47.84
+P3_29,pico-PP,Hydrurus foetidus (92.5%),Chrysophyceae,Stramenopiles,6.32,671,34.62,29876,21.57
+P3_30,pico-PP,Chrysochromulina_sp1,Prymnesiophyceae,Haptista,32.39,5442,65.19,13803,40.78
+P3_31,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,10.62,1190,66.21,37588,54.9
+P3_33,nano-PP,Phaeocystis jahnii (98.0%),Prymnesiophyceae,Haptista,45.03,9444,64.16,9009,33.33
+P3_34,pico-PP,Micromonas bravo (98.4a%),Mamiellophyceae,Archaeplastida,8.05,1102,65.61,19736,43.53
+P3_35,nano-PP,Florenciella parvula (99.3%),Dictyochophyceae,Stramenopiles,28.82,5825,57.26,9264,27.84
+P3_36,pico-PP,Chrysochromulina_sp2,Prymnesiophyceae,Haptista,22.44,4611,68.23,10863,25.88
+P3_37,pico-PP,Micromonas bravo (98.4a%),Mamiellophyceae,Archaeplastida,6.64,932,65.26,18534,30.98
+P3_38,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,8.06,1100,65.64,22107,40.78
+P3_39,nano-PP,Chrysochromulina simplex (99.4a%),Prymnesiophyceae,Haptista,59.56,10192,60.41,13013,58.43
+P3_40,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,9.56,1047,66.36,25554,46.67
+P3_41,pico-PP,Micromonas bravo (98.4a%),Mamiellophyceae,Archaeplastida,8.34,1113,65.38,15899,37.25
+P3_42,pico-PP,Chrysochromulina acantha (98.4a%),Prymnesiophyceae,Haptista,26.41,4430,65.68,12587,32.16
+P3_44,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,17.01,3826,66.73,8535,21.96
+P3_45,pico-PP,Pseudopedinella elastica (93.4%),Dictyochophyceae,Stramenopiles,51.96,8341,51.6,13598,58.82
+P3_46,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,9.81,1316,66.14,30078,51.76
+P3_48,nano-PP,Chrysochromulina andersonii (98.9%),Prymnesiophyceae,Haptista,36.67,7871,62.58,8479,31.76
+P3_49,pico-PP,Ochromonas villosa (97.0%),Chrysophyceae,Stramenopiles,27.79,4534,42.59,11833,57.25
+P3_50,pico-PP,Prymnesium palpebrale (99.2%),Prymnesiophyceae,Haptista,40.45,6670,63.35,14578,48.24
+P3_51,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,13.14,1126,66.3,41746,57.25
+P3_52,pico-PP,Micromonas bravo (98.4a%),Mamiellophyceae,Archaeplastida,9.09,1258,65.76,19312,44.31
+P3_53,nano-PP,Chrysochromulina scutellum (98.2%),Prymnesiophyceae,Haptista,28.72,6750,59.18,7196,15.29
+P3_54,pico-PP,Chrysochromulina simplex (94.8%),Prymnesiophyceae,Haptista,9.53,1319,62.54,15939,17.25
+P3_55,pico-PP,Chrysochromulina andersonii  (97.4%),Prymnesiophyceae,Haptista,27.22,3846,63.37,19181,48.24
+P3_56,nano-PP,Chrysochromulina simplex (98.2%),Prymnesiophyceae,Haptista,52.85,8867,60.73,13012,60
+P3_57,pico-PP,Micromonas bravo (98.4b%),Mamiellophyceae,Archaeplastida,7.16,1022,66.55,19282,36.86
+P3_58,nano-PP,Chrysochromulina campanulifera (98.7%),Prymnesiophyceae,Haptista,62.91,13717,61.62,8929,44.31
+P3_59,nano-PP,Chrysochromulina simplex (98.7%),Prymnesiophyceae,Haptista,43.38,8475,66.86,11201,40.78
+P3_60,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,10.3,2664,66.49,6889,10.59
+P3_61,nano-PP,Chrysochromulina_sp3,Prymnesiophyceae,Haptista,30.92,5376,66.69,12968,30.2
+P3_62,pico-PP,Mantoniella tinhauana (97.4%),Mamiellophyceae,Archaeplastida,8.71,1968,59.07,8344,24.71
+P3_63,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,8.86,1209,65.72,27233,50.98
+P3_64,nano-PP,Cylindrotheca closterium (98.7%),Diatomea,Stramenopiles,14.96,2508,42.44,11316,45.1
+P3_65,nano-PP,Chrysochromulina leadbeateri (97.6%),Prymnesiophyceae,Haptista,27.17,5573,64.71,10176,25.88
+P3_66,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,8.07,1311,65.47,21392,38.82
+P3_68,nano-PP,MOCH-2 sp1,MOCH-2,Stramenopiles,6.46,1536,67.14,7892,15.69
+P3_69,nano-PP,Phaeocystis jahnii (96.8%),Prymnesiophyceae,Haptista,35.4,6169,67.38,13634,32.94
+P3_70,nano-PP,Tetraselmis sp. RCC7299 (99.9%),Chlorodendrophyceae,Archaeplastida,3.84,848,53.94,7164,3.14
+P3_71,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,11.81,1603,63.34,27426,56.47
+P3_72,nano-PP,Tetraselmis sp. RCC7299 (99.9%),Chlorodendrophyceae,Archaeplastida,8.23,1975,53.08,6503,4.71
+P3_73,pico-PP,Chrysochromulina acantha (97.1%),Prymnesiophyceae,Haptista,17.79,2291,65.11,19476,27.45
+P3_75,pico-PP,Ostreococcus sp. RCC 143,Mamiellophyceae,Archaeplastida,8.64,671,59.63,38089,58.04
+P3_79,PP,Haptolina fragaria (96.0%),Prymnesiophyceae,Haptista,21.52,4237,62.16,9922,25.49
+P3_81,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,3.58,738,65.63,13020,20.39
+P3_82,pico-PP,Mallomonas doignonii (92.4%),Chrysophyceae,Stramenopiles,9.22,776,52.85,31412,32.55
+P3_83,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,24.1,5241,67.13,8496,29.8
+P3_84,pico-PP,Micromonas bravo (98.4a%),Mamiellophyceae,Archaeplastida,5.22,781,65.18,14986,29.02
+P3_85,nano-PP,Chrysochromulina scutellum (99.4%),Prymnesiophyceae,Haptista,39.33,7958,59.08,9530,40.78
+P3_86,nano-PP,Chrysophyceae sp2,Chrysophyceae,Stramenopiles,24.79,4133,48.03,14143,38.43
+P3_87,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,17.19,3790,66.69,8822,23.14
+P3_88,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,22.86,4945,67.11,8717,29.41
+P3_89,pico-PP,Ostreococcus sp. RCC 143,Mamiellophyceae,Archaeplastida,6.96,635,59.16,31113,46.27
+P3_90,nano-PP,Chrysochromulina campanulifera (98.6%),Prymnesiophyceae,Haptista,50.19,10424,60.26,9455,35.69
+P3_91,pico-PP,Micromonas pusilla (98.3%),Mamiellophyceae,Archaeplastida,2.64,629,66.64,7814,12.55
+P3_92,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,18.81,3958,67.03,8524,24.71
+P3_93,pico-PP,Prymnesium parvum (95.6%),Prymnesiophyceae,Haptista,21.56,2739,70.63,22134,46.27
+P3_94,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,10.41,1149,66.19,29461,51.37
+P3_95,nano-PP,Chrysochromulina simplex (99.4a%),Prymnesiophyceae,Haptista,47.07,8079,60.24,13210,50.2
+P3_96,nano-PP,Chrysochromulina acantha (98.4b%),Prymnesiophyceae,Haptista,42.3,6351,62.26,14534,48.24
+P4_01,pico-PP,Ostreococcus sp. RCC 143,Mamiellophyceae,Archaeplastida,8.15,718,59.51,32560,58.04
+P4_02,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,9.23,1398,65.95,23094,47.06
+P4_03,nano-PP,MAST-12A sp1,MAST-12,Stramenopiles,15.2,2958,42.11,9270,30.59
+P4_04,nano-PP,Prorocentrum bidens (94.9%),Dinoflagellata,Alveolata,80.52,24819,53.48,4823,5.88
+P4_05,nano-PP,Chrysochromulina simplex (98.1%),Prymnesiophyceae,Haptista,56.43,12688,62.59,7873,45.49
+P4_06,pico-PP,Chrysochromulina andersonii  (97.4%),Prymnesiophyceae,Haptista,18.37,2028,63.91,27793,32.16
+P4_07,pico-PP,Micromonas pusilla (98.3%),Mamiellophyceae,Archaeplastida,2.07,425,63.24,10850,11.37
+P4_08,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,5.01,780,66.23,19236,22.75
+P4_09,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,7.51,781,66.38,25396,38.04
+P4_10,nano-PP,Chrysochromulina scutellum (97.7%),Prymnesiophyceae,Haptista,22.77,4604,64.49,9420,21.18
+P4_11,nano-PP,Chrysochromulina simplex (99.8%),Prymnesiophyceae,Haptista,55.17,10173,62.97,11874,54.9
+P4_13,pico-PP,Ostreococcus sp. RCC 143,Mamiellophyceae,Archaeplastida,7.59,693,59.43,28309,53.33
+P4_14,nano-PP,Prymnesium kappa (99.7%),Prymnesiophyceae,Haptista,29.18,5459,63.6,10681,24.31
+P4_15,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,7.28,717,66.07,31515,37.25
+P4_16,nano-PP,Haptolina fragaria (95.5%),Prymnesiophyceae,Haptista,38.98,10128,58.05,6025,23.53
+P4_17,pico-PP,Haptolina fragaria (96.0%),Prymnesiophyceae,Haptista,19.05,3913,62.16,8884,26.67
+P4_18,pico-PP,Chrysochromulina acantha (98.4a%),Prymnesiophyceae,Haptista,30.06,4977,65.83,14644,37.65
+P4_19,pico-PP,Ochromonas villosa (96.8%),Chrysophyceae,Stramenopiles,10.35,1666,38.64,21592,28.24
+P4_20,pico-PP,Mallomonas doignonii (92.4%),Chrysophyceae,Stramenopiles,5.45,802,52.89,13200,24.31
+P4_21,nano-PP,Chrysochromulina simplex (99.8%),Prymnesiophyceae,Haptista,42.26,7347,62.92,13331,41.18
+P4_22,pico-PP,Ochromonas triangulata (90.7%),Chrysophyceae,Stramenopiles,14.31,1179,42.9,38865,55.69
+P4_23,pico-PP,Chrysochromulina acantha (97.1%),Prymnesiophyceae,Haptista,28.73,3364,65.16,27720,45.49
+P4_24,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,8.95,1210,65.73,26575,43.92
+P4_25,pico-PP,Hydrurus foetidus (92.5%),Chrysophyceae,Stramenopiles,13.71,1663,34.75,28100,43.92
+P4_26,pico-PP,Micromonas pusilla (98.3%),Mamiellophyceae,Archaeplastida,3.67,769,63.46,14895,18.82
+P4_27,nano-PP,Chrysochromulina simplex (98.2%),Prymnesiophyceae,Haptista,45.38,7426,60.73,14124,45.49
+P4_28,nano-PP,Chaetoceros tenuissimus,Diatomea,Stramenopiles,28.44,3824,38.75,21920,73.33
+P4_29,pico-PP,Micromonas pusilla (98.3%),Mamiellophyceae,Archaeplastida,2.98,598,65.77,8841,14.12
+P4_30,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,4.28,811,65.16,15092,25.49
+P4_31,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,10.7,1298,66.15,28576,48.24
+P4_32,nano-PP,Chrysochromulina scutellum (97.6%),Prymnesiophyceae,Haptista,27.42,5497,67.64,11009,39.22
+P4_33,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,15.73,3478,66.73,8478,18.82
+P4_34,nano-PP,Chrysochromulina simplex (99.4b%),Prymnesiophyceae,Haptista,37.87,5582,61.44,16232,52.55
+P4_35,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,7.93,1399,65.38,19761,39.61
+P4_36,nano-PP,Dolichomastix tenuilepis (97.1%),Mamiellophyceae,Archaeplastida,17.26,5204,60.12,4713,25.1
+P4_37,nano-PP,Chrysochromulina simplex (98.1%),Prymnesiophyceae,Haptista,71.86,16280,62.48,7610,57.65
+P4_38,nano-PP,Chrysochromulina leadbeateri (98.6%),Prymnesiophyceae,Haptista,12.81,2398,65.95,11631,21.18
+P4_39,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,7.82,1132,65.21,23272,38.43
+P4_40,nano-PP,Chrysochromulina acantha (99.2%),Prymnesiophyceae,Haptista,45.48,8193,62.08,11419,49.8
+P4_41,pico-PP,Crustomastix stigmatica (97.0%),Mamiellophyceae,Archaeplastida,3.98,930,67.68,8338,14.9
+P4_42,pico-PP,Triparma mediterranea (99.7%),Bolidophyceae,Stramenopiles,12.73,1881,51.64,13468,41.96
+P4_43,nano-PP,Pseudo-nitzschia galaxiae (99.9%),Diatomea,Stramenopiles,24.06,1632,46.26,44317,73.73
+P4_44,pico-PP,Mallomonas annulata (93.3%),Chrysophyceae,Stramenopiles,22.71,4202,41.01,9279,52.55
+P4_45,pico-PP,Ostreococcus sp. RCC 143,Mamiellophyceae,Archaeplastida,9.15,703,59.21,45723,62.75
+P4_46,pico-PP,Mallomonas annulata (93.2%),Chrysophyceae,Stramenopiles,25.69,4268,40.02,12166,54.51
+P4_47,pico-PP,Triparma mediterranea (99.7%),Bolidophyceae,Stramenopiles,13.28,1927,51.55,14257,41.57
+P4_48,pico-PP,Ostreococcus sp. RCC 143,Mamiellophyceae,Archaeplastida,8.42,641,59.25,35602,58.43
+P4_49,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,8.58,1193,65.44,23834,38.04
+P4_50,nano-PP,Chrysochromulina acantha (99.3%),Prymnesiophyceae,Haptista,29.42,4957,64.75,13661,41.57
+P4_51,pico-PP,Micromonas pusilla (98.3%),Mamiellophyceae,Archaeplastida,5.04,952,64.83,13864,27.45
+P4_53,pico-PP,Micromonas bravo (99.8%),Mamiellophyceae,Archaeplastida,9.25,1322,66.99,22152,49.41
+P4_54,pico-PP,MOCH-2 sp1,MOCH-2,Stramenopiles,9.31,2033,67.18,10006,23.14
+P4_55,nano-PP,Pseudo-nitzschia galaxiae (99.9%),Diatomea,Stramenopiles,21.04,1339,46.36,51640,65.49
+P4_56,pico-PP,Chlorophyta sp1,Chlorophyta,Archaeplastida,1.57,362,58.32,5995,12.94
+P4_57,pico-PP,Mallomonas annulata (93.3%),Chrysophyceae,Stramenopiles,28.14,4922,41.05,9988,59.61
+P4_58,pico-PP,Chlamydaster sterni (95.4%),Centroplasthelida,Haptista,6.21,1146,56.51,10258,14.9
+P4_59,pico-PP,Micromonas bravo (98.4a%),Mamiellophyceae,Archaeplastida,8.4,1227,64.74,18758,43.14
+P4_61,pico-PP,Chrysochromulina simplex,Prymnesiophyceae,Haptista,29.29,4572,63.08,15772,31.76
+P4_62,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,9.8,1081,65.88,23798,45.49
+P4_63,pico-PP,Mallomonas annulata (93.2%),Chrysophyceae,Stramenopiles,17.69,3243,39.91,9759,39.61
+P4_64,pico-PP,Chrysochromulina strobilus (98.3%),Prymnesiophyceae,Haptista,26.48,5313,65.35,10826,33.73
+P4_65,pico-PP,Ostreococcus sp. RCC 143,Mamiellophyceae,Archaeplastida,3.26,542,58.38,10753,27.84
+P4_66,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,1.05,263,61.37,6902,4.31
+P4_67,pico-PP,Chrysochromulina scutellum (97.5%),Prymnesiophyceae,Haptista,32.64,5057,60.81,15745,45.1
+P4_68,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,5.25,754,65.51,17565,29.41
+P4_69,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,9.13,1037,65.52,26088,43.14
+P4_70,pico-PP,Chrysochromulina scutellum (97.4%),Prymnesiophyceae,Haptista,34.74,5479,63.41,14357,47.06
+P4_71,pico-PP,Mallomonas annulata (93.2%),Chrysophyceae,Stramenopiles,27.48,4280,40.1,11866,60
+P4_72,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,5.01,796,64.66,14639,26.27
+P4_73,pico-PP,Micromonas bravo,Mamiellophyceae,Archaeplastida,2.41,511,63.86,8894,16.47
+P4_74,nano-PP,Chrysochromulina andersonii  (98.1%),Prymnesiophyceae,Haptista,9.91,2269,67.61,7208,16.86
+P4_75,pico-PP,Meringosphaera mediterranea (97.9%),Centroplasthelida,Haptista,7.87,1751,45.73,7163,16.08
+P4_76,pico-PP,Micromonas pusilla (98.3%),Mamiellophyceae,Archaeplastida,1.56,251,58.92,19929,9.8
+P4_77,nano-PP,Tetraselmis sp. RCC7299 (99.9%),Chlorodendrophyceae,Archaeplastida,1.57,560,52.66,3446,0.78
+P4_78,pico-PP,Bathycoccus prasinos_sp2,Mamiellophyceae,Archaeplastida,4.19,756,48.29,8506,25.1
+P4_79,pico-PP,Chaetoceros muellerii  (99.2%),Diatomea,Stramenopiles,19.52,1501,35.92,32639,78.04
+P4_80,pico-PP,Mallomonas doignonii (92.4%),Chrysophyceae,Stramenopiles,15.04,1386,52.62,25240,62.75
+P4_81,pico-PP,Hydrurus foetidus (93.2%),Chrysophyceae,Stramenopiles,14.37,1200,51.83,30443,62.35
+P4_82,nano-PP,MOCH-2 sp1,MOCH-2,Stramenopiles,6.25,1300,65.88,12223,20
+P4_83,pico-PP,Mallomonas annulata (93.2%),Chrysophyceae,Stramenopiles,21.57,3265,39.92,12502,45.1
+P4_84,pico-PP,Ostreococcus sp. RCC 143,Mamiellophyceae,Archaeplastida,7.82,633,59.46,34843,50.2
+P4_85,nano-PP,Phaeocystis cordata (99.6%),Prymnesiophyceae,Haptista,13.24,3273,66.27,6854,20.78
+P4_86,pico-PP,Meringosphaera mediterranea (97.9%),Centroplasthelida,Haptista,12.81,2166,45.53,11385,27.06
+P4_87,nano-PP,Chrysochromulina_sp4,Prymnesiophyceae,Haptista,28.61,4992,61.33,12329,34.12

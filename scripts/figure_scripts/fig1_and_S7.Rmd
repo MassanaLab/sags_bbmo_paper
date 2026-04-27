@@ -28,7 +28,7 @@ index_sorts <-
   read_tsv("../../data/cell_sorting/index_sorts_2018.tsv")
 
 index_sorts_pp_2020 <-
-  readxl::read_excel('~/Downloads/Table-S1.xlsx') |> 
+  readxl::read_excel('../../data/sags/Table-S1.xlsx') |> 
   filter(`Sort-event` == 2020) |> 
   select(Fraction = Sort_FINAL, PE, PECY5) |> 
   filter(str_detect(Fraction,'-PP')) |> 
@@ -88,8 +88,7 @@ fraction_positions <-
     PECY5 = c(5000, 2500, 5000)
   )
 
-# pp_color <- "#94cc1b"
-# hp_colors <- c("#9e66e8", "#cc1b7c")
+pp_color <- "forestgreen"
 
 pp_colors <- c("turquoise3", "forestgreen")
 hp_colors <- c("goldenrod1", "indianred")

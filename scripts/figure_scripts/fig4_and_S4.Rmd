@@ -42,53 +42,21 @@ order_subgroups <-
   c("MAST-1D", "Novel Isochrysidales", "Chrysophyceae-H", "MAST-3C/F/G", "Labyrinthulomycetes", "MAST-8", "MAST-7", "Mamiellophyceae", "Centroplasthelida", "MAST-4", "Novel dictyochophyte", "Diatomea", "Chrysophyceae-C", "Picozoa", "Chrysochromulina", "Acanthoecida", "Phaeocystis", "Prymnesium", "MALV-II", "MAST-1C", "Chrysophyceae-G", "MAST-3IK", "MALV-I", "Chlorodendrophyceae", "Cercozoa")
 
 sags_subgroups <- 
-  readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx') |> 
+  readxl::read_excel("../../data/sags/Subgroup_level.xlsx") |>
   select(sag_id = 1, subgroup = Subgroup_Figure_4...12) |>
   filter(subgroup != '-') |> 
   mutate(subgroup = factor(subgroup, levels = order_subgroups))
 
 sags_fractions <- 
-  readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Table-S2.xlsx') |> 
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |> 
   select(sag_id = 1, fraction = Sort_FINAL)
 
 sags_subgroups_all <-
-  readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx') |>
+  readxl::read_excel("../../data/sags/Subgroup_level.xlsx") |>
   select(sag_id = 1, subgroup = Subgroup_Figure_5...11) |>
   left_join(sags_metadata |> select(sag_id, Group, Supergroup)) |>
   arrange(Supergroup, Group, subgroup) |>
   mutate(subgroup = fct_inorder(subgroup))
-# 
-# sags_fraction <- 
-#   readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx') |> 
-#   select(sag_id = 1, Sort) |>
-#   mutate(fraction = str_remove(Sort, '\\(.*'))
-# 
-# sags_pp_fractions_individual <- 
-#   readxl::read_excel('~/Documents/Coautories/David/sags_paper/data/Table-S1_sortedPP.xlsx', sheet = 2) |> 
-#   select(cell_name = 1, new_sort = Sort_FINAL)
-# 
-# sags_made_with <- 
-#   read_tsv('../../data/sags/sags_made_with.tsv', col_names = c('sag_id','cell_name'))
-# 
-# sags_pp_fractions_final <- 
-#   sags_fraction |> 
-#   filter(fraction == 'PP') |> 
-#   left_join(sags_made_with) |> 
-#   left_join(sags_pp_fractions_individual) |> 
-#   filter(!is.na(new_sort)) |> 
-#   distinct(sag_id, new_sort)
-# 
-# final_sags_fractions <- 
-#   sags_fraction |> 
-#   left_join(sags_pp_fractions_final) |> 
-#   mutate(
-#     final_fraction = 
-#       case_when(
-#         !is.na(new_sort) ~ new_sort,
-#         is.na(new_sort) ~ fraction
-#       )
-#   )
-  
 ```
 
 ### tree
@@ -107,8 +75,15 @@ highlight_nodes <-
 ### metagenomics data
 
 ```{r}
+total_metag_reads <-
+  read_tsv("../../data/metag/samples_metag_reads.tsv", col_names = c("sample", "total_reads"))
+
 sags_otutab <-
-  read_tsv("../../data/metag/metag_recruitment_sags_otutab_perc.tsv")
+  read_tsv("../../data/metag/otutab_sags_100id_tax_summary.tsv") |>
+  pivot_longer(names_to = "sample", values_to = "abundance", -1) |>
+  left_join(total_metag_reads) |>
+  mutate(perc = 100 * abundance / total_reads) |>
+  select(-total_reads)
 ```
 
 ## SAGs metaG abundance

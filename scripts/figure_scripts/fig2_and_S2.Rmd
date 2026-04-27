@@ -16,7 +16,7 @@ source("../aux_functions_sags.R")
 
 ```{r}
 sags_fractions <-
-  readxl::read_excel("~/Documents/Coautories/David/sags_paper/data/Table-S2.xlsx") |>
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
   select(sag_id = 1, Fraction = Sort_FINAL)
 
 # sags_stats <-
@@ -57,7 +57,7 @@ sags_metadata <-
   read_tsv("../../data/sags/sags_metadata.tsv")
 
 sags_taxonomy <-
-  readxl::read_excel("~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx") |>
+  readxl::read_excel("../../data/sags/Subgroup_level.xlsx") |>
   select(sag_id = 1, Group, Species, subgroup = Subgroup)
 
 sags_species <-

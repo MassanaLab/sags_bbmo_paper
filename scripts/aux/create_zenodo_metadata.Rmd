@@ -1,0 +1,65 @@
+---
+title: "SAGs create Zenodo metadata"
+author: "Aleix Obiol"
+date: "2026-04-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+```
+
+## Read data
+
+```{r}
+# correspondence_filenames <- 
+#   read_tsv("../../data/sags/correspondence_cell_names_and_files.tsv")
+
+individual_sags <-
+  read_excel("../../data/sags/Table-S1.xlsx")
+  # left_join(correspondence_filenames) |> 
+  # select(-`Cell name`) |> 
+  # select(`Cell name` = SAG_id, everything())
+
+# write_tsv(individual_sags, '../../data/sags/Table-S1.tsv')
+
+final_sags <-
+  read_excel("../../data/sags/Table-S2.xlsx")
+
+sags_made_with <- 
+  read_tsv("../../data/sags/sags_made_with.tsv", col_names = F)
+```
+
+## Create files
+
+```{r}
+create_metadata_files <- function(df) {
+  df |>
+    # individual_sags |>
+    mutate(
+      Species =
+        if_else(str_detect(Species, "_[0-9]"), str_c(str_replace(Species, "_", " ("), "%)"), Species)
+    ) |>
+    select(
+      SAG_id = 1,
+      Sort = Sort_FINAL,
+      Species,
+      Group,
+      Supergroup,
+      `Size (Mb)` = all_of(contains('Mb (≥1')),
+      `Contigs` = `contigs (≥1Kb)`,
+      `GC (%)`,
+      N50,
+      `Completeness (%)` = `Completeness (%) (out of 255)`
+    ) |> 
+    mutate(across(where(is.double), ~round(.x,2)))
+}
+
+metadata_individual <- create_metadata_files(individual_sags)
+metadata_final <- create_metadata_files(final_sags)
+
+write_csv(metadata_individual, '../../data/sags/metadata_sags_individual_overview.csv')
+write_csv(metadata_final, '../../data/sags/metadata_sags_final_overview.tsv')
+```

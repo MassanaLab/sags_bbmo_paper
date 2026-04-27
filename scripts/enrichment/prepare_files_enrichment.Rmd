@@ -23,7 +23,19 @@ sags_metadata <-
 
 ```{r}
 sags_annotation_df <-
-  read_tsv("../../data/functional_genes/sags_interproscan_annotation.tsv.gz")
+  read_tsv("../../data/functional_genes/sags_147_pfam.tsv.gz",
+           col_names = c("protein_accession", "sequence_md5_digest", "sequence_length", "analysis", "signature_accession", "signature_description", "start_location", "stop_location", "score", "status", "date", "interpro_accession", "interpro_description", "go_annotations", "pathways_annotations")
+) |> 
+  select(
+    gene = protein_accession,
+    pfam_id = signature_accession,
+    pfam_description = signature_description,
+    go_terms = go_annotations,
+    length = sequence_length,
+    start = start_location,
+    end = stop_location
+  ) |> 
+  mutate(sag_id = str_remove(gene, '_g[0-9].*'), .before = 1)
 ```
 
 ## Prepare data for enrichment analysis

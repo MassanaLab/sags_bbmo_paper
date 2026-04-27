@@ -42,14 +42,71 @@ eukbank_marine_asvs_ranked_pico <-
 ### metagenomics data
 
 ```{r}
-metag_recruitment <-
-  readRDS("../../data/metag/metag_recruitment_sags_marferret.rds")
+# metag_recruitment <-
+#   readRDS("../../data/metag/metag_recruitment_sags_marferret.rds")
 
-overlap_sags_marferret <-
-  readRDS("../../data/metag/metag_recruitment_overlap_sags_marferret.rds")
+marferret_sags_recruitment <-
+  read_tsv("../../data/metag/sags_marferret_totals.tsv", col_names = c("sample", "nreads"))
+
+total_metag_reads <-
+  read_tsv("../../data/metag/samples_metag_reads.tsv", col_names = c("sample", "total_reads"))
+
+metag_recruitment <- 
+  c("sags", "marferret") |>
+  set_names() |>
+  map(
+    ~ read_tsv(paste0("../../data/metag/", .x, "_100id_mapped_reads.tsv"), col_names = c("sample", "nreads"))
+  ) |>
+  bind_rows(.id = "db") |>
+  mutate(
+    db = if_else(db == 'sags', 'SAGs', 'MarFERReT')
+  ) |> 
+  bind_rows(
+    marferret_sags_recruitment |> mutate(db = "MarFERReT + SAGs")
+  ) |>
+  left_join(total_metag_reads) |>
+  mutate(
+    perc_mapped = 100 * nreads / total_reads,
+    db = factor(db, levels = c("MarFERReT + SAGs", "MarFERReT", "SAGs")),
+    sample2 = paste0(
+      month.abb[as.integer(str_match(sample, "BL..(..)")[, 2])],
+      str_match(sample, "BL(..)")[, 2]
+    ),
+    sample2 = fct_inorder(sample2)
+  )
+
+# overlap_sags_marferret <-
+#   readRDS("../../data/metag/metag_recruitment_overlap_sags_marferret.rds")
+
+no_overlap_sags_marferret <- 
+  c("sags", "marferret") |>
+  set_names() |>
+  map(
+    ~ read_tsv(paste0("../../data/metag/no-overlap_sags-vs-marferret_100id_", .x, ".tsv"), col_names = c("sample", "nreads"))
+  ) |> 
+  bind_rows(.id = "type") |> 
+  mutate(
+    type = if_else(type == 'sags', 'Only in SAGs', 'Only in MarFERReT')
+  )
+
+overlap_sags_marferret <- 
+  read_tsv('../../data/metag/overlap_sags-vs-marferret_100id.tsv', col_names = c("sample", "nreads")) |> 
+  mutate(type = "Shared") |> 
+  bind_rows(no_overlap_sags_marferret) |> 
+  mutate(
+    sample2 = paste0(
+      month.abb[as.integer(str_match(sample, "BL..(..)")[, 2])],
+      str_match(sample, "BL(..)")[, 2]
+    ),
+    sample2 = fct_inorder(sample2)
+  )  
 
 sags_otutab <-
-  read_tsv("../../data/metag/metag_recruitment_sags_otutab_perc.tsv")
+  read_tsv("../../data/metag/otutab_sags_100id_tax_summary.tsv") |>
+  pivot_longer(names_to = "sample", values_to = "abundance", -1) |>
+  left_join(total_metag_reads) |>
+  mutate(perc = 100 * abundance / total_reads) |>
+  select(-total_reads)
 ```
 
 ## Figure S1
@@ -463,6 +520,6 @@ fig3 <-
 
 ggsave(
   plot = fig3,
-  filename = "../../figures/fig3.pdf", width = 180, height = 150, units = "mm"
+  filename = "../../figures/fig3_.pdf", width = 180, height = 150, units = "mm"
 )
 ```

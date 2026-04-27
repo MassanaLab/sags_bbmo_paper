@@ -19,7 +19,7 @@ sags_metadata <-
   read_tsv("../../data/sags/sags_metadata.tsv")
 
 sags_subgroups <-
-  readxl::read_excel("~/Documents/Coautories/David/sags_paper/data/Subgroup_level.xlsx") |>
+  readxl::read_excel("../../data/sags/Subgroup_level.xlsx") |>
   select(sag_id = 1, subgroup = Subgroup_Figure_5...11) |>
   left_join(sags_metadata |> select(sag_id, fraction))
 ```
@@ -50,9 +50,17 @@ pfam_names <-
 ### metagenomics data
 
 ```{r}
+total_metag_reads <-
+  read_tsv("../../data/metag/samples_metag_reads.tsv", col_names = c("sample", "total_reads"))
+
 sags_otutab <-
-  read_tsv("../../data/metag/metag_recruitment_sags_otutab_perc.tsv")
+  read_tsv("../../data/metag/otutab_sags_100id_tax_summary.tsv") |>
+  pivot_longer(names_to = "sample", values_to = "abundance", -1) |>
+  left_join(total_metag_reads) |>
+  mutate(perc = 100 * abundance / total_reads) |>
+  select(-total_reads)
 ```
+
 ### metatranscriptomics data
 
 ```{r}
@@ -64,7 +72,19 @@ tpm_table <-
 
 ```{r}
 sags_annotation_df <-
-  read_tsv("../../data/functional_genes/sags_interproscan_annotation.tsv.gz")
+  read_tsv("../../data/functional_genes/sags_147_pfam.tsv.gz",
+           col_names = c("protein_accession", "sequence_md5_digest", "sequence_length", "analysis", "signature_accession", "signature_description", "start_location", "stop_location", "score", "status", "date", "interpro_accession", "interpro_description", "go_annotations", "pathways_annotations")
+) |> 
+  select(
+    gene = protein_accession,
+    pfam_id = signature_accession,
+    pfam_description = signature_description,
+    go_terms = go_annotations,
+    length = sequence_length,
+    start = start_location,
+    end = stop_location
+  ) |> 
+  mutate(sag_id = str_remove(gene, '_g[0-9].*'), .before = 1)
 
 pks_pfams <-
   read_tsv("../../data/functional_genes/pks_pfams.tsv")
