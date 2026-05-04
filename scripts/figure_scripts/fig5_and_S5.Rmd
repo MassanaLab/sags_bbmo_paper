@@ -94,6 +94,10 @@ rhodo_pfam <-
 
 ngenes_rhodo_types <-
   read_tsv("../../data/functional_genes/ngenes_rho_types.tsv")
+
+sags_rho_genes_classification <- 
+  read_tsv('../../data/functional_genes/sags_rho_genes_classification.tsv', col_names = c('id','classification')) |> 
+  replace_na(list(classification = 'unclassified'))
 ```
 
 ## Polyketide synthases
@@ -111,7 +115,7 @@ genes_pks1_summary <-
   filter(module_type == "core") |>
   arrange(sag_id, gene, start) |>
   group_by(sag_id, gene, module_abb) |>
-  slice_head(n = 1) |>
+  slice_head(n = 1) |> # keep only first appearance of each module per SAG
   group_by(sag_id, gene) |>
   summarise(
     structure = paste0(module_abb, collapse = "-"),
@@ -142,107 +146,6 @@ group_pks1_summary <-
   arrange(Supergroup, Group) |>
   mutate(perc_nsags = 100 * nsags / total_sags)
 ```
-
-### Supp table
-
-```{r}
-sags_annotation_pks <-
-  sags_annotation_df |>
-  filter(pfam_id %in% pks_pfams$pfam_id) |>
-  arrange(sag_id, start, end) |>
-  left_join(pks_pfams) |>
-  left_join(sags_metadata)
-
-genes_pks1_summary <-
-  sags_annotation_pks |>
-  filter(module_type == "core") |>
-  arrange(sag_id, gene, start) |>
-  group_by(sag_id, gene, module_abb) |>
-  slice_head(n = 1) |>
-  group_by(sag_id, gene) |>
-  summarise(
-    structure = paste0(module_abb, collapse = "-"),
-    n_modules = n()
-  ) |>
-  filter(str_detect(structure, "KS")) # keep structures that contain at least a KS domain
-
-genes_pk23_summary <-
-  sags_annotation_pks |>
-  filter(type != "Type I") |>
-  group_by(gene) |>
-  slice_head(n = 1) |>
-  count(sag_id, gene, type)
-
-sags_hits_pks1_summary <-
-  genes_pks1_summary |>
-  group_by(sag_id, structure) |>
-  summarise(n_modules = sum(n_modules))
-
-sags_pks1_summary <-
-  genes_pks1_summary |>
-  mutate(pks = if_else(str_detect(structure, ".*-.*--*"), "complete", "partial")) |>
-  count(sag_id, pks) |>
-  right_join(sags_metadata |> select(sag_id, Group, Supergroup))
-
-n_sags <-
-  sags_metadata |> count(Group, Supergroup, name = "total_sags")
-
-sags_pks1_group_summary <-
-  sags_pks1_summary |>
-  filter(!is.na(n)) |>
-  group_by(Group, Supergroup, sag_id) |>
-  summarise(ngenes = sum(n, na.rm = T)) |>
-  summarise(
-    nsags = n(),
-    ngenes_per_sag = mean(ngenes)
-  ) |>
-  arrange(Supergroup, Group) |>
-  right_join(n_sags) |>
-  arrange(Supergroup, Group) |>
-  replace_na(list(nsags = 0, ngenes_per_sag = 0)) |>
-  mutate(perc_nsags = 100 * nsags / total_sags)
-
-sags_pks23_summary <-
-  genes_pk23_summary |>
-  ungroup() |>
-  count(sag_id, type) |>
-  left_join(sags_metadata |> select(sag_id, Group, Supergroup))
-
-pks_summary <-
-  sags_pks1_summary |>
-  arrange(pks) |>
-  slice_head(n = 1) |> # keep pks complete if present
-  ungroup() |>
-  count(Supergroup, Group, pks) |>
-  pivot_wider(names_from = pks, values_from = n, values_fill = 0) |>
-  select(-`NA`) |>
-  left_join(
-    sags_hits_pks1_summary |>
-      right_join(sags_metadata |> select(sag_id, Group, Supergroup)) |>
-      group_by(Group, Supergroup, structure) |>
-      summarise(n = sum(n_modules)) |>
-      pivot_wider(names_from = structure, values_from = n, values_fill = 0)
-  ) |>
-  left_join(n_sags) |>
-  select(-`NA`) |>
-  select(Supergroup, Group, nsags = total_sags, everything()) |>
-  left_join(
-    sags_pks23_summary |>
-      count(Supergroup, Group, type) |>
-      pivot_wider(names_from = type, values_from = n, values_fill = 0)
-  ) |>
-  left_join(
-    sags_pks23_summary |>
-      group_by(Supergroup, Group, type) |>
-      summarise(n = sum(n)) |>
-      pivot_wider(names_from = type, values_from = n, values_fill = 0) |>
-      rename_with(.cols = contains("Type"), .fn = ~ paste0(.x, "_ngenes"))
-  ) |>
-  replace_na(list("Type II" = 0, "Type III" = 0, "Type II_ngenes" = 0, "Type III_ngenes" = 0))
-
-write_tsv(pks_summary, "../../data/functional_genes/pks_in_sags.tsv")
-```
-
 
 ## Rhodopsins
 
@@ -276,7 +179,6 @@ group_rhodo_summary <-
   arrange(Supergroup, Group) |>
   mutate(perc_nsags = 100 * nsags / total_sags)
 ```
-
 ## PKS and RHO merged
 
 ```{r}
@@ -290,6 +192,9 @@ pks_rhodo_genes <-
       distinct(gene) |>
       mutate(protein = "RHO")
   )
+
+# export list to create filtered metaT files
+# write_lines(c(pks_rhodo_genes$gene, genes_pk23_summary$gene), '../../data/functional_genes/pks_rho_genes.txt')
 
 pks_rhodo_perc_nsags <-
   group_pks1_summary |>
@@ -491,7 +396,7 @@ fig5a <-
   ggplot(aes(y = fct_rev(final_category), x = perc_nsags_plot)) +
   geom_point(
     aes(fill = fraction, size = ngenes_per_sag_discrete),
-    position = position_jitter(width = 0, height = 0.1, seed = 123),
+    position = position_jitter(width = 0.1, height = 0.1, seed = 123),
     shape = 21,
     color = "gray20"
   ) +
@@ -720,28 +625,28 @@ fig5b <-
 ### Plot
 
 ```{r}
-fig5 <-
-  wrap_plots(
-    plot_spacer(),
-    free(fig5a, side = "r") +
-      theme(axis.text = element_text(size = 8), axis.title.x = element_text(size = 9)),
-    plot_spacer(),
-    free(fig5b, side = "lb"),
-    ncol = 1
-  ) +
-    plot_layout(heights = c(-.05, .3, -.04, .7)) +
-    plot_annotation(tag_levels = list(c("**a**", "**b**"))) &
-    theme(
-      plot.tag = element_markdown()
-    )
-
-ggsave(
-  plot = fig5,
-  filename = "../../figures/fig5_.pdf",
-  units = "mm",
-  width = 180,
-  height = 215
-)
+# fig5 <-
+#   wrap_plots(
+#     plot_spacer(),
+#     free(fig5a, side = "r") +
+#       theme(axis.text = element_text(size = 8), axis.title.x = element_text(size = 9)),
+#     plot_spacer(),
+#     free(fig5b, side = "lb"),
+#     ncol = 1
+#   ) +
+#     plot_layout(heights = c(-.05, .3, -.04, .7)) +
+#     plot_annotation(tag_levels = list(c("**a**", "**b**"))) &
+#     theme(
+#       plot.tag = element_markdown()
+#     )
+# 
+# ggsave(
+#   plot = fig5,
+#   filename = "../../figures/fig5_.pdf",
+#   units = "mm",
+#   width = 180,
+#   height = 215
+# )
 ```
 
 ## PFAM enrichment
@@ -1016,7 +921,7 @@ p_hm_main <-
 #         legend.text = element_text(size = 8))
 ```
 
-## Dirty Fig5
+## Fig5
 
 ```{r}
 fig5ab <-
@@ -1024,8 +929,169 @@ fig5ab <-
 
 fig5 <-
   wrap_plots(fig5ab, free(p_hm_main + theme(legend.position = "top")), ncol = 2, widths = c(.3, .7)) +
-    plot_annotation(tag_levels = list(c("**a**", "**c**", "", "", "", "**b**"))) &
+    plot_annotation(tag_levels = list(c("**A**", "**C**", "", "", "", "**B**"))) &
     theme(plot.tag = element_markdown())
 
 ggsave(plot = fig5, filename = "../../figures/fig5.pdf", height = 8, width = 14)
+```
+
+## Table S5
+
+```{r}
+tableS5 <- 
+  enrichment_fractions_with_sags_selection |>
+  arrange(final_category, -perc_nsags) |> 
+  left_join(ngenes_per_sag |> select(`GO.ID` = go_terms, fraction, ngenes_per_sag)) |> 
+  replace_na(list(perc_nsags = 0, ngenes_per_sag= 0)) |> 
+  select(
+    `GO ID (BP)` = GO.ID,
+    Term,
+    `Functional category` = final_category,
+    perc_nsags,
+    ngenes_per_sag,
+    fraction
+  ) |> 
+  pivot_wider(names_from = fraction, values_from = c(perc_nsags, ngenes_per_sag), values_fill = 0) |> 
+  mutate(enriched_in = if_else(perc_nsags_PF > perc_nsags_HF, 'PF', 'HF')) |> 
+  arrange(desc(enriched_in))
+
+write_tsv(tableS5, '../../data/enrichment/tableS5.tsv')
+```
+
+
+## Table S6
+
+```{r}
+genes_pks1_summary <-
+  sags_annotation_pks |>
+  filter(module_type == "core") |>
+  arrange(sag_id, gene, start) |>
+  group_by(sag_id, gene, module_abb) |>
+  slice_head(n = 1) |>
+  group_by(sag_id, gene) |>
+  summarise(
+    structure = paste0(module_abb, collapse = "-")
+    ) |>
+  filter(str_detect(structure, "KS")) # keep structures that contain at least a KS domain
+
+genes_pk23_summary <-
+  sags_annotation_pks |>
+  filter(type != "Type I") |>
+  group_by(gene) |>
+  slice_head(n = 1) |>
+  count(sag_id, gene, type)
+
+sags_ngenes_pks1_summary <-
+  genes_pks1_summary |>
+  count(sag_id, structure, name = 'ngenes') |> 
+  mutate(
+    structure = factor(structure, levels = c("ACP-AT-KS", "ACP-KS", "AT-KS", "KS"))
+  ) |> 
+  arrange(structure)
+
+sags_pks1_summary <-
+  genes_pks1_summary |>
+  mutate(pks = if_else(str_detect(structure, ".*-.*--*"), "complete", "partial")) |>
+  count(sag_id, pks) |>
+  right_join(sags_metadata |> select(sag_id, Group, Supergroup))
+
+n_sags <-
+  sags_metadata |> count(Group, Supergroup, name = "total_sags")
+
+sags_pks1_group_summary <-
+  sags_pks1_summary |>
+  filter(!is.na(n)) |>
+  group_by(Group, Supergroup, sag_id) |>
+  summarise(ngenes = sum(n, na.rm = T)) |>
+  summarise(
+    nsags = n(),
+    ngenes_per_sag = mean(ngenes)
+  ) |>
+  arrange(Supergroup, Group) |>
+  right_join(n_sags) |>
+  arrange(Supergroup, Group) |>
+  replace_na(list(nsags = 0, ngenes_per_sag = 0)) |>
+  mutate(perc_nsags = 100 * nsags / total_sags)
+
+sags_pks23_summary <-
+  genes_pk23_summary |>
+  ungroup() |>
+  count(sag_id, type) |>
+  left_join(sags_metadata |> select(sag_id, Group, Supergroup))
+
+pks_summary <-
+  sags_pks1_summary |>
+  arrange(pks) |>
+  slice_head(n = 1) |> # keep pks complete if present
+  ungroup() |>
+  count(Supergroup, Group, pks) |>
+  pivot_wider(names_from = pks, values_from = n, values_fill = 0) |>
+  select(-`NA`) |>
+  left_join(
+    sags_ngenes_pks1_summary |>
+      right_join(sags_metadata |> select(sag_id, Group, Supergroup)) |>
+      group_by(Group, Supergroup, structure) |>
+      summarise(n = sum(ngenes)) |>
+      arrange(structure) |> 
+      pivot_wider(names_from = structure, values_from = n, values_fill = 0)
+  ) |>
+  left_join(n_sags) |>
+  select(-`NA`) |>
+  select(Supergroup, Group, nsags = total_sags, everything()) |>
+  left_join(
+    sags_pks23_summary |>
+      count(Supergroup, Group, type) |>
+      pivot_wider(names_from = type, values_from = n, values_fill = 0)
+  ) |>
+  left_join(
+    sags_pks23_summary |>
+      group_by(Supergroup, Group, type) |>
+      summarise(n = sum(n)) |>
+      pivot_wider(names_from = type, values_from = n, values_fill = 0) |>
+      rename_with(.cols = contains("Type"), .fn = ~ paste0(.x, "_ngenes"))
+  ) |>
+  replace_na(list("Type II" = 0, "Type III" = 0, "Type II_ngenes" = 0, "Type III_ngenes" = 0))
+
+rho_summary <- 
+  sags_rho_genes_classification |>
+  filter(classification != 'unclassified') |> 
+  mutate(sag_id = str_remove(id, '_g[0-9].*'),
+         classification = str_replace(classification, "8TM rhodopsin","8TM rhodopsins")) |> 
+  right_join(sags_metadata |> select(sag_id, Group, Supergroup)) |> 
+  count(Group, Supergroup, classification) |> 
+  mutate(classification = factor(classification, levels = c("Proteorhodopsins", "Xanthorhodopsins", "Channelrhodopsins", "Bestrhodopsins", "8TM rhodopsins", "SAR rhodopsins", "New clade", "Viral rhodopsins", "Halorhodopsins")
+)) |> 
+  arrange(classification) |> 
+  pivot_wider(names_from = classification, values_from = n, values_fill = 0) |> 
+  select(-`NA`)
+
+nsags_rhodopsins <- 
+  sags_rho_genes_classification |> 
+  mutate(sag_id = str_remove(id, '_g[0-9].*')) |>
+  distinct(sag_id) |> 
+  left_join(sags_metadata |> select(sag_id, Group, Supergroup)) |> 
+  count(Group, Supergroup, name = 'nsags_rhodo')
+  
+tableS6 <- 
+  pks_summary |> 
+  left_join(
+    rho_summary
+  ) |> 
+  left_join(
+    nsags_rhodopsins
+  ) |> 
+  select(
+    Supergroup,
+    Group,
+    nsags,
+    complete,
+    partial,
+    `Type II`,
+    `Type III`,
+    nsags_rhodo,
+    everything()
+  ) |> 
+  replace_na(list(nsags_rhodo = 0))
+  
+write_tsv(tableS6, "../../data/functional_genes/pks_and_rho_in_sags.tsv")
 ```

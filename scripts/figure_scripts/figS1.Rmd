@@ -149,7 +149,7 @@ figS1 <-
         ),
     ncol = 1
   ) +
-  plot_annotation(tag_levels = list(paste0('**',letters[1:2],'**'))) &
+  plot_annotation(tag_levels = list(paste0('**',LETTERS[1:2],'**'))) &
   theme(
     plot.tag = element_markdown()
   )

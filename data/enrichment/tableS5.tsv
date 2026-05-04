@@ -1,0 +1,61 @@
+GO ID (BP)	Term	Functional category	perc_nsags_PF	perc_nsags_HF	ngenes_per_sag_PF	ngenes_per_sag_HF	enriched_in
+GO:0006535	cysteine biosynthetic process from serine	Biosynthetic process	50	0	1.5375	0	PF
+GO:0006075	(1->3)-beta-D-glucan biosynthetic process	Biosynthetic process	42.5	2.5641025641025643	4.8125	0	PF
+GO:0009058	biosynthetic process	Biosynthetic process	26.25	0	32.75	0	PF
+GO:0016114	terpenoid biosynthetic process	Biosynthetic process	23.75	0	1	0	PF
+GO:0000272	polysaccharide catabolic process	Cell wall turnover	48.75	0	13.1625	0	PF
+GO:0030245	cellulose catabolic process	Cell wall turnover	28.75	0	1.625	0	PF
+GO:0001522	pseudouridine synthesis	Gene expression	60	0	18.4125	0	PF
+GO:0006412	translation	Gene expression	32.5	7.6923076923076925	51.1125	0	PF
+GO:0006355	regulation of DNA-templated transcription	Gene expression	21.25	5.128205128205129	41.6625	0	PF
+GO:0015969	guanosine tetraphosphate metabolic process	General metabolism	60	0	2.05	0	PF
+GO:0120009	intermembrane lipid transfer	General metabolism	46.25	0	3.6125	0	PF
+GO:0006096	glycolytic process	General metabolism	30	0	11.65	0	PF
+GO:0015986	proton motive force-driven ATP synthesis	General metabolism	20	2.5641025641025643	4.2875	0	PF
+GO:0055085	transmembrane transport	Ion transport	52.5	2.5641025641025643	328.0375	0	PF
+GO:0006811	monoatomic ion transport	Ion transport	43.75	5.128205128205129	156.2125	0	PF
+GO:0006820	monoatomic anion transport	Ion transport	42.5	0	4.7625	0	PF
+GO:0015693	magnesium ion transport	Ion transport	33.75	5.128205128205129	10.3	0	PF
+GO:0006885	regulation of pH	Ion transport	25	0	1.3	0	PF
+GO:0090481	pyrimidine nucleotide-sugar transmembrane transport	Metabolite transport	55	0	12.05	0	PF
+GO:0015833	peptide transport	Metabolite transport	31.25	0	1.375	0	PF
+GO:0006862	nucleotide transport	Metabolite transport	23.75	5.128205128205129	1.95	0	PF
+GO:0003333	amino acid transmembrane transport	Metabolite transport	21.25	2.5641025641025643	1.825	0	PF
+GO:0072488	ammonium transmembrane transport	Metabolite transport	20	0	5.625	0	PF
+GO:0015979	photosynthesis	Photosynthesis	75	2.5641025641025643	7.8875	0	PF
+GO:0010207	photosystem II assembly	Photosynthesis	57.5	0	1.7375	0	PF
+GO:0010024	phytochromobilin biosynthetic process	Photosynthesis	45	0	0.7875	0	PF
+GO:0015995	chlorophyll biosynthetic process	Photosynthesis	42.5	0	0.5375	0	PF
+GO:0042549	photosystem II stabilization	Photosynthesis	37.5	0	1.1375	0	PF
+GO:0010206	photosystem II repair	Photosynthesis	22.5	0	0.675	0	PF
+GO:0009101	glycoprotein biosynthetic process	Protein modification and turnover	60	0	28.2625	0	PF
+GO:0000413	protein peptidyl-prolyl isomerization	Protein modification and turnover	50	0	23.125	0	PF
+GO:0016567	protein ubiquitination	Protein modification and turnover	38.75	0	22.425	0	PF
+GO:0017038	protein import	Protein modification and turnover	35	0	4.1125	0	PF
+GO:0006457	protein folding	Protein modification and turnover	30	0	15.6875	0	PF
+GO:0015031	protein transport	Protein modification and turnover	23.75	0	7.2125	0	PF
+GO:0051603	proteolysis involved in protein catabolic process	Protein modification and turnover	23.75	5.128205128205129	9.8	0	PF
+GO:0000160	phosphorelay signal transduction system	Signal transduction	25	7.6923076923076925	7.675	0	PF
+GO:0009190	cyclic nucleotide biosynthetic process	Biosynthetic process	1.25	33.333333333333336	0	15.128205128205128	HF
+GO:0007156	homophilic cell adhesion via plasma membrane adhesion molecules	Cell adhesion	0	30.76923076923077	0	17.41025641025641	HF
+GO:0031221	arabinan metabolic process	Cell wall turnover	0	28.205128205128204	0	3.7435897435897436	HF
+GO:0007018	microtubule-based movement	Cytoskeleton and motility	3.75	41.02564102564103	0	58.41025641025641	HF
+GO:0008608	attachment of spindle microtubules to kinetochore	Cytoskeleton and motility	0	30.76923076923077	0	0.48717948717948717	HF
+GO:0046785	microtubule polymerization	Cytoskeleton and motility	0	30.76923076923077	0	3.1794871794871793	HF
+GO:0006508	proteolysis	Digestive enzymes	5	20.512820512820515	0	93.48717948717949	HF
+GO:0005975	carbohydrate metabolic process	General metabolism	1.25	28.205128205128204	0	105.38461538461539	HF
+GO:0006013	mannose metabolic process	General metabolism	0	28.205128205128204	0	6.9743589743589745	HF
+GO:0046488	phosphatidylinositol metabolic process	General metabolism	0	28.205128205128204	0	8.58974358974359	HF
+GO:0032218	riboflavin transport	Metabolite transport	0	20.512820512820515	0	0.9230769230769231	HF
+GO:0016579	protein deubiquitination	Protein modification and turnover	1.25	61.53846153846154	0	24.256410256410255	HF
+GO:0036211	protein modification process	Protein modification and turnover	0	20.512820512820515	0	20.974358974358974	HF
+GO:0019236	response to pheromone	Response to environment	0	30.76923076923077	0	2.1794871794871793	HF
+GO:1901031	regulation of response to reactive oxygen species	Response to environment	0	23.076923076923077	0	0.7948717948717948	HF
+GO:0006952	defense response	Response to environment	0	20.512820512820515	0	2.0256410256410255	HF
+GO:0006468	protein phosphorylation	Signal transduction	1.25	43.58974358974359	0	230.82051282051282	HF
+GO:0007186	G protein-coupled receptor signaling pathway	Signal transduction	3.75	38.46153846153846	0	11.615384615384615	HF
+GO:0035556	intracellular signal transduction	Signal transduction	0	35.8974358974359	0	21.974358974358974	HF
+GO:0006470	protein dephosphorylation	Signal transduction	0	28.205128205128204	0	3.282051282051282	HF
+GO:0007264	small GTPase-mediated signal transduction	Signal transduction	0	28.205128205128204	0	5.384615384615385	HF
+GO:0007165	signal transduction	Signal transduction	0	25.641025641025642	0	36.92307692307692	HF
+GO:0007154	cell communication	Signal transduction	5	20.512820512820515	0	8.307692307692308	HF

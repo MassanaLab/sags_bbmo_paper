@@ -513,13 +513,13 @@ fig3ab <-
 fig3 <-
   (fig3ab / plot_spacer() / fig3c) +
     plot_layout(heights = c(.3, -.07, .7)) +
-    plot_annotation(tag_levels = list(c("**a**", "**b**", "**c**"))) &
+    plot_annotation(tag_levels = list(c("**A**", "**B**", "**C**"))) &
     theme(
       plot.tag = ggtext::element_markdown(),
     )
 
 ggsave(
   plot = fig3,
-  filename = "../../figures/fig3_.pdf", width = 180, height = 150, units = "mm"
+  filename = "../../figures/fig3.pdf", width = 180, height = 150, units = "mm"
 )
 ```

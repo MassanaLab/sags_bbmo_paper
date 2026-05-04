@@ -585,7 +585,7 @@ p_stats_list <-
 fig2a <-
   (wrap_plots(p_stats_list, nrow = 1) / plot_spacer() / guide_area()) +
     plot_layout(guides = "collect", heights = c(0.99, -.2, 0.01)) +
-    plot_annotation(tag_levels = list(c("**a**"))) &
+    plot_annotation(tag_levels = list(c("**A**"))) &
     theme(
       plot.tag = ggtext::element_markdown(),
       axis.text.x = element_blank(),

@@ -109,6 +109,42 @@ sags_mean_abundance <-
       ),
     abundance = factor(abundance, levels = c("high", "mid", "low"))
   )
+
+temp_S3 <- 
+  tibble::tribble(
+                           ~`SCG Genome`, ~`Mean metaG abundance in BBMO`, ~`Order metaG`,     ~`Sort`,                         ~`Species`,             ~Group,      ~Supergroup, ~ASV_EukEMM_v3, ~`Mean ASV abundance in BBMO`, ~`Order ASVs`, ~`Cluster in Fig  4`,
+       "ICM0030_SAG.1_Mamiellophyceae",                           0.3,           1L, "pico-PP",           "Bathycoccus prasinos",  "Mamiellophyceae", "Archaeplastida",        "ASV_5",                      "4.77",         "1",                 1L,
+     "ICM0001_COSAG.1_Mamiellophyceae",                         0.272,           2L, "pico-PP",          "Micromonas bravo_99.8",  "Mamiellophyceae", "Archaeplastida",        "ASV_9",                      "3.27",         "2",                 1L,
+     "ICM0028_COSAG.1_Mamiellophyceae",                         0.059,           3L, "pico-PP",        "Micromonas pusilla_98.3",  "Mamiellophyceae", "Archaeplastida",      "ASV_124",                      "0.60",        "21",                 2L,
+    "ICM0065_COSAG.1_Prymnesiophyceae",                         0.056,           4L, "nano-PP",       "Phaeocystis cordata_99.6", "Prymnesiophyceae",       "Haptista",      "ASV_165",                      "0.28",        "52",                 3L,
+              "ICM0010_COSAG.1_MAST-4",                         0.054,           5L, "pico-HP",                    "MAST-4A sp1",           "MAST-4",  "Stramenopiles",       "ASV_46",                      "1.11",         "8",                 2L,
+     "ICM0062_COSAG.1_Mamiellophyceae",                         0.052,           6L, "pico-PP",               "Micromonas bravo",  "Mamiellophyceae", "Archaeplastida",       "ASV_14",                      "1.60",         "4",                 2L,
+    "ICM0003_COSAG.1_Prymnesiophyceae",                         0.047,           7L, "pico-PP",         "Prymnesium parvum_95.6", "Prymnesiophyceae",       "Haptista",      "ASV_394",                      "0.16",        "99",                 1L,
+       "ICM0096_SAG.1_Mamiellophyceae",                         0.046,           8L, "pico-PP",       "Bathycoccus prasinos_sp2",  "Mamiellophyceae", "Archaeplastida",            "-",                         "-",         "-",                 1L,
+              "ICM0075_COSAG.1_MOCH-2",                         0.034,           9L, "nano-PP",                     "MOCH-2 sp1",           "MOCH-2",  "Stramenopiles",      "ASV_160",                      "0.45",        "33",                 1L,
+              "ICM0026_COSAG.1_MAST-1",                          0.02,          10L, "nano-HP",                    "MAST-1C sp1",           "MAST-1",  "Stramenopiles",      "ASV_132",                      "0.32",        "46",                 3L,
+     "ICM0077_COSAG.1_Mamiellophyceae",                         0.018,          11L, "pico-PP",       "Ostreococcus sp. RCC 143",  "Mamiellophyceae", "Archaeplastida",       "ASV_43",                      "0.24",        "58",                 1L,
+       "ICM0041_COSAG.1_Chlorarachnea",                         0.018,          12L, "pico-HP",           "Minorisa minuta_99.9",    "Chlorarachnea",       "Rhizaria",      "ASV_131",                      "0.62",        "20",                 1L,
+      "ICM0114_SAG.1_Prymnesiophyceae",                         0.016,          13L, "nano-PP",        "Phaeocystis jahnii_96.8", "Prymnesiophyceae",       "Haptista",      "ASV_779",                      "0.04",       "370",                 2L,
+    "ICM0019_COSAG.1_Choanoflagellata",                         0.012,          14L, "pico-HP",  "Acanthocorbis camarensis_91.7", "Choanoflagellata",   "Opisthokonta",      "ASV_437",                      "0.43",        "35",                 2L,
+       "ICM0048_COSAG.1_Chrysophyceae",                         0.011,          15L, "pico-PP",             "Uncultured clade I",    "Chrysophyceae",  "Stramenopiles",      "ASV_392",                      "0.14",       "111",                 1L,
+      "ICM0025_SAG.1_Dictyochophyceae",                         0.011,          16L, "nano-HP",  "Pseudopedinella elastica_93.0", "Dictyochophyceae",  "Stramenopiles",      "ASV_284",                      "0.11",       "143",                 2L,
+         "ICM0098_SAG.1_Chrysophyceae",                          0.01,          17L, "pico-PP",             "Uncultured clade G",    "Chrysophyceae",  "Stramenopiles",            "-",                         "-",         "-",                 1L,
+    "ICM0016_COSAG.1_Dictyochophyceae",                         0.009,          18L, "pico-PP",  "Pseudopedinella elastica_93.4", "Dictyochophyceae",  "Stramenopiles",      "ASV_501",                      "0.04",       "437",                 2L,
+                "ICM0060_SAG.1_MAST-1",                         0.009,          19L, "pico-HP",                     "MAST-1 sp1",           "MAST-1",  "Stramenopiles",            "-",                         "-",         "-",                 1L,
+      "ICM0124_SAG.1_Prymnesiophyceae",                         0.009,          20L, "nano-PP", "Chrysochromulina simplex_99.4b", "Prymnesiophyceae",       "Haptista",     "ASV_1015",                      "0.07",       "223",                 2L
+    )
+
+top20 <- 
+  sags_mean_abundance |> 
+  slice_head(n = 20) |> 
+  select(`SCG Genome` = sag_id, `Mean metaG abundance in BBMO` = mean_abun_corrected) |> 
+  mutate(`Order metaG` = row_number()) |> 
+  left_join(
+    temp_S3 |> select(-c(2,3))
+  )
+  
+write_tsv(top20, '~/Desktop/tempS3.tsv')
 ```
 
 ## Cluster SAGs based on genome architectures
@@ -166,54 +202,6 @@ sags_architectures_tidy_clusters <-
   sags_architectures |>
   pivot_longer(names_to = "region", values_to = "perc", -c(sag_id, `Genome size`)) |>
   left_join(clusters)
-```
-
-## Rename Prymnesiophyceae tree and add metadata
-
-```{r}
-prym_tree_metadata_pf <-
-  tibble(id = prym_tree_rooted$tip.label) |>
-  left_join(
-    phylofisher_metadata |>
-      select(
-        id = `Unique ID`,
-        species = `Long Name`
-      ) |>
-      mutate(species = str_replace(species, " sp$", " sp."))
-  ) |>
-  mutate(
-    name = if_else(str_detect(species, "^ICM"), str_remove(id, "-.*"), species)
-  ) |>
-  select(-species) |>
-  left_join(
-    clusters |>
-      mutate(id = str_replace(sag_id, "_.*SAG.1_", "-")) |>
-      select(id, cluster = k5)
-  ) |>
-  mutate(
-    cluster = as.character(cluster),
-    ref = if_else(str_detect(name, "ICM"), "no", "yes"),
-  ) |>
-  replace_na(list(ref = "no")) |>
-  mutate(
-    name_short_ggtree =
-      case_when(
-        ref == "no" ~ paste0("bold('", name, "')"),
-        !str_detect(name, "sp\\.$") ~ paste0("italic('", name, "')"),
-        str_detect(name, "sp\\.$") ~ paste0("paste(italic('", str_remove(name, " .*"), "'),' sp.')")
-      )
-  )
-
-prym_tree_rooted_with_metadata <-
-  prym_tree_rooted
-
-prym_tree_rooted_with_metadata %<>% dplyr::left_join(prym_tree_metadata_pf, by = c("label" = "id"))
-
-prym_tree_rooted_with_metadata %<>%
-  left_join(
-    highlight_nodes |> dplyr::rename(cluster_highlight = cluster),
-    by = "node"
-  )
 ```
 
 ## Figure 4
@@ -578,7 +566,7 @@ fig4 <-
     heights = c(.32,.1,.58)
   ) +
   plot_annotation(
-    tag_levels = list(c("**a**", "**d**", "**b**", "**e**", "**c**","","**f**"))
+    tag_levels = list(c("**A**", "**D**", "**B**", "**E**", "**C**","","**F**"))
   ) &
   theme(plot.tag = element_markdown())
 

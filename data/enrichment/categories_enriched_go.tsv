@@ -60,3 +60,9 @@ GO:0007264	small GTPase mediated signal transduction	Signal transduction
 GO:0035556	intracellular signal transduction	Signal transduction
 GO:0006470	protein dephosphorylation	Signal transduction
 GO:0007165	signal transduction	Signal transduction
+GO:0000160	phosphorelay signal transduction system	Signal transduction
+GO:0006862	nucleotide transport	Metabolite transport
+GO:0072488	ammonium transmembrane transport	Metabolite transport
+GO:0007154	cell communication	Signal transduction
+GO:0007264	small GTPase-mediated signal transduction	Signal transduction
+GO:0036211	protein modification process	Protein modification and turnover
