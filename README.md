@@ -1,4 +1,4 @@
-# Single-cell sequencing reveals genome streamlining and functional diversity in ecologically dominant marine protists
+# Genome streamlining and adaptive functional diversity shape dominant marine protists
 
 This repository contains code and data included in:
 
