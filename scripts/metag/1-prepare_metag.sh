@@ -10,7 +10,9 @@
 module load cutadapt
 module load seqkit
 
-SAMPLE=$(cat data/metag_samples.txt | awk "NR == ${SLURM_ARRAY_TASK_ID}")
+# download metaG from here: https://www.ebi.ac.uk/ena/browser/view/PRJEB51979
+
+SAMPLE=$(cat data/metag/metag_samples.txt | awk "NR == ${SLURM_ARRAY_TASK_ID}")
 DATA_DIR="data/metag"
 FORWARD=${DATA_DIR}/${SAMPLE}_R1.clean.fastq.gz
 REVERSE=${DATA_DIR}/${SAMPLE}_R2.clean.fastq.gz

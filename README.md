@@ -55,11 +55,13 @@ The following software is needed:
 ```
 cutadapt
 diamond
-openjdk
+iqtree3
+mafft
 phylofisher
-R
-seqkit
+R/4.2.2
 salmon
+seqkit
+trimal
 ```
 
 ## Scripts to reproduce all figures

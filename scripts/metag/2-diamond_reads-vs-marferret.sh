@@ -17,7 +17,7 @@ DB_NAME=marferret
 
 ## Script
 
-SAMPLE=$(awk "NR == ${SLURM_ARRAY_TASK_ID}" data/metag_samples.txt)
+SAMPLE=$(awk "NR == ${SLURM_ARRAY_TASK_ID}" data/metag/metag_samples.txt)
 QUERY=data/metag/for_mapping/${SAMPLE}.fasta.gz
 OUT_DIR=data/diamond/reads-vs-${DB_NAME}
 mkdir -p ${OUT_DIR}
