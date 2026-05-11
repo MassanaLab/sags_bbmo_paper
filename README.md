@@ -3,7 +3,7 @@
 This repository contains code and data included in:
 
 --------
-López-Escardó, D., Obiol, A., Marimon, G., López-Alforja, X., Vaqué, D., Forn, I., Logares, R., Yau, S., Fornas, O., Martínez-García, M., and Massana R. Single-cell sequencing reveals genome streamlining and functional diversity in ecologically dominant marine protists.
+López-Escardó, D., Obiol, A., Marimon, G., López-Alforja, X., Vaqué, D., Forn, I., Logares, R., Yau, S., Fornas, O., Martínez-García, M., and Massana R. Genome streamlining and adaptive functional diversity shape dominant marine protists.
 
 --------
 
