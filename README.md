@@ -42,7 +42,7 @@ md5sum -c md5sum.txt
 
 ## Scripts used to obtain data for figures
 
-The scripts to process SAGs and obtain the date used for figures can be found in the following directories:
+The scripts to process SAGs and obtain the data used for figures can be found in the following directories:
 
 - Phylogenomic tree construction: [`scripts/phylofisher/`](scripts/phylofisher/). 
 - Creating databases for mapping and quantification: [`scripts/create_dbs/`](scripts/create_dbs/).
