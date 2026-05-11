@@ -44,11 +44,11 @@ md5sum -c md5sum.txt
 
 The scripts to process SAGs and obtain the data used for figures can be found in the following directories:
 
-- Phylogenomic tree construction: [`scripts/phylofisher/`](scripts/phylofisher/). 
-- Creating databases for mapping and quantification: [`scripts/create_dbs/`](scripts/create_dbs/).
-- Mapping BBMO metagenomes against MarFERReT and SAGs: [`scripts/metag/`](scripts/metag/).
-- Quantifying SAGs functional genes with BBMO metaT: [`scripts/metat/`](scripts/metat/).
-- GO enrichment analysis: [`scripts/enrichment/`](scripts/enrichment/) using data prepared in script [`scripts/enrichment/prepare_files_enrichment.Rmd`](scripts/enrichment/prepare_files_enrichment.Rmd). Already prepared data is also available at [`data/enrichment/enrichment_files/`](data/enrichment/enrichment_files/).
+1. Creating databases for mapping and quantification: [`scripts/create_dbs/`](scripts/create_dbs/).
+2. Phylogenomic tree construction: [`scripts/phylofisher/`](scripts/phylofisher/). 
+3. Mapping BBMO metagenomes against MarFERReT and SAGs: [`scripts/metag/`](scripts/metag/).
+4. Quantifying SAGs functional genes with BBMO metaT: [`scripts/metat/`](scripts/metat/).
+5. GO enrichment analysis: [`scripts/enrichment/`](scripts/enrichment/) using data prepared in script [`scripts/enrichment/prepare_files_enrichment.Rmd`](scripts/enrichment/prepare_files_enrichment.Rmd). Already prepared data is also available at [`data/enrichment/enrichment_files/`](data/enrichment/enrichment_files/).
 
 The following software is needed:
 
