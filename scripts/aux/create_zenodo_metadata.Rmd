@@ -60,6 +60,9 @@ create_metadata_files <- function(df) {
 metadata_individual <- create_metadata_files(individual_sags)
 metadata_final <- create_metadata_files(final_sags)
 
-write_csv(metadata_individual, '../../data/sags/metadata_sags_individual_overview.csv')
-write_csv(metadata_final, '../../data/sags/metadata_sags_final_overview.tsv')
+write_csv(metadata_individual, '../../data/sags/sags_individual_bbmo_325_metadata_overview.csv')
+write_csv(metadata_final, '../../data/sags/sags_final_bbmo_147_metadata_overview.csv')
+write_csv(final_sags, '../../data/sags/sags_final_bbmo_147_metadata.csv')
+write_csv(individual_sags, '../../data/sags/sags_individual_bbmo_325_metadata.csv')
 ```
+

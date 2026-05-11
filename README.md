@@ -24,19 +24,19 @@ The dataset (and associated metadata) is available at Zenodo: [![DOI](https://ze
 You can directly download it with:
 
 ```
-wget -O sags_bbmo.tar.gz https://zenodo.org/records/18786764/files/sags_bbmo.tar.gz?download=1&preview=1
+wget -O sags_final_bbmo_147.tar.gz https://zenodo.org/records/18786764/files/sags_final_bbmo_147?download=1&preview=1
 ```
 
 Then, uncompress:
 
 ```
-tar -xvzf sags_bbmo.tar.gz
+tar -xvzf sags_final_bbmo_147.tar.gz
 ```
 
 And verify file integrity: 
 
 ```
-cd sags_bbmo
+cd sags_final_bbmo_147
 md5sum -c md5sum.txt
 ```
 

@@ -10,7 +10,9 @@
 module load cutadapt
 module load seqkit
 
-SAMPLE=$(awk "NR == ${SLURM_ARRAY_TASK_ID}" data/metat_samples.txt)
+# download metaT from here: https://doi.org/10.5281/zenodo.18922885
+
+SAMPLE=$(awk "NR == ${SLURM_ARRAY_TASK_ID}" data/metat/metat_samples.txt)
 DATA_DIR="data/metat/metaT.clean.reads/"
 OUT_DIR="data/metat/"
 FORWARD=${DATA_DIR}/${SAMPLE}_R1.clean.fastq.gz

@@ -7,13 +7,9 @@
 #SBATCH --error=data/logs/salmon_quant_%A_%a.err
 #SBATCH --array=1-21%4
 
-#module load salmon
+module load salmon
 
-export PATH=/home/aobiol/smart/miniforge3/bin/:${PATH}
-source activate base
-conda activate salmon
-
-SAMPLE=$(awk "NR == ${SLURM_ARRAY_TASK_ID}" data/metat_samples.txt)
+SAMPLE=$(awk "NR == ${SLURM_ARRAY_TASK_ID}" data/metat/metat_samples.txt)
 INDEX="data/db/sags_147_index/"
 DATA_DIR='data/metat/'
 FW_READS=${DATA_DIR}/${SAMPLE}_min135_R1.fastq.gz

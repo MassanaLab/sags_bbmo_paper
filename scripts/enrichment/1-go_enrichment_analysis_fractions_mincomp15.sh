@@ -7,9 +7,7 @@
 #SBATCH --error=data/logs/go_enrichment_%A_%a.err
 #SBATCH --array=1-119%80
 
-export PATH=/home/aobiol/smart/miniforge3/bin/:${PATH}
-source activate base
-conda activate R
+module load R/4.2.2
 
 MINCOMP=15
 
@@ -31,3 +29,17 @@ SAG_ANNOTATION="data/enrichment/enrichment_files/sags/${SAG}.rds"
 OUT_FILE=${OUT_DIR}/${SAG}-go_enrichment_vs_${FRACTION_COMPARE}-mincomp${MINCOMP}.tsv
 
 Rscript scripts/topgo_enricher.R ${FRACTION_ANNOTATION} ${SAG_ANNOTATION} ${OUT_FILE}
+
+## merge results like this with R:
+
+# R
+#enrichment_files_sags_sort_mincomp15 <-
+#  list.files('data/enrichment/result/go_terms/', pattern = '-go_enrichment_vs_[HP]F-mincomp15.tsv', full.names = T) |>
+#  purrr::map(~ read_tsv(.x) |>
+#        mutate(sag_id  = str_remove(basename(.x),'-go_enrichment.*'),
+#               enriched_in = if_else(str_match(.x, '.*_([HP]F)')[,2] == 'HF', 'PF','HF'))
+#  ) |>
+#  bind_rows()
+#    
+#enrichment_files_sags_sort_mincomp15 %>%
+#    write_tsv('data/enrichment/result/sags-go_enrichment-sort_mincomp15.tsv')

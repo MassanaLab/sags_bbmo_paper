@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#SBATCH --account=emm2
 #SBATCH --job-name=sags_data
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
@@ -12,12 +11,15 @@ module load seqkit
 
 SAG=$(awk "NR == ${SLURM_ARRAY_TASK_ID}" data/sags_list.txt)
 
-BASENAME="/mnt/smart/scratch/emm2/02-PROCESSED_DATA/SAGs_curated/SAGs_FINAL_GENOMES/${SAG}/${SAG}"
+BASENAME="data/sags/ES/${SAG}/${SAG}"
 GENOME=${BASENAME}_filter3_scaffolds.fasta
 PROTEINS=${BASENAME}_filter3_genes.aa
 CDS=${BASENAME}_filter3_genes.cds
+ANNOTATION=${BASENAME}_filter3_interproscan.tsv
 
 OUT_DIR=data/sags/
+
+mkdir -p ${OUT_DIR}
 
 for FILE in ${GENOME} ${PROTEINS} ${CDS}
 do
@@ -26,3 +28,7 @@ do
 done
 
 rename 'filter3_' '' ${OUT_DIR}/*
+
+# take pfam/go annotations
+
+awk -F'\t' -v sag=${SAG} '{if ($4 == "Pfam"){print sag"_"$0}}' ${ANNOTATION} > ${OUT_DIR}/${SAG}_pfam.tsv
