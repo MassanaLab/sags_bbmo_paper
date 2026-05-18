@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --output=data/logs/ANI_DB_prep_%A_%a.out
 #SBATCH --error=data/logs/ANI_DB_prep_%A_%a.err
-#SBATCH --array=1-12%4
+#SBATCH --array=1-x%x
 
 DATA_PATH=data/clean/blastdb
 

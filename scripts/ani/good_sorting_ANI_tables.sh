@@ -6,7 +6,7 @@ OUT=data/clean/ANI_tables_sorted
 
 mkdir -p ${OUT}
 
-for TAX in $(ls lists_clean/ | sed 's/_lists.txt//g')
+for TAX in $(ls lists/ | sed 's/_lists.txt//g')
 do
 
 	input_file="data/clean/ANI_tables_temp/ANI_percentage_table_${TAX}.txt"
@@ -43,7 +43,7 @@ do
 
 done
 
-for TAX in $(ls lists_clean/ | sed 's/_lists.txt//g')
+for TAX in $(ls lists/ | sed 's/_lists.txt//g')
 do
 
         input_file="data/clean/ANI_tables_temp/ANI_length_table_${TAX}.txt"

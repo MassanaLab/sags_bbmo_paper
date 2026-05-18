@@ -10,10 +10,6 @@
 
 set -euo pipefail
 
-##################################################################################################################################
-##### HE D'ACTIVAR R A MARBITS (conda activate R-4.5.1), HE D'ESTAR DINS L'ENVIROMENT DE R I EXECUTAR AQUEST SCRIPT AMB BASH #####
-##################################################################################################################################
-
 W=coass_revisit
 
 SPECIES_LIST="data/clean/names_${W}.txt"

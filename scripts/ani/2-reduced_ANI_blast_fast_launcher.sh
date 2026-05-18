@@ -3,11 +3,11 @@
 #SBATCH --account=emm2
 #SBATCH --job-name=ANI
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=50G
+#SBATCH --mem=40G
 #SBATCH --ntasks-per-node=1
 #SBATCH --output=data/logs/ANIblast_%A_%a.out
 #SBATCH --error=data/logs/ANIblast_%A_%a.err
-#SBATCH --array=1-12%4
+#SBATCH --array=1-x%x
 #================================================
 
 #Load modules

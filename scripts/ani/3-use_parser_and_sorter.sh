@@ -1,6 +1,5 @@
-#!/bin/bash
-
 rm -r data/clean/ANI_tables_temp/
+
 rm -r data/clean/ANI_tables_sorted/
 
 

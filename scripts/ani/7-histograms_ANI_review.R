@@ -1,10 +1,22 @@
 library(tidyverse)
 
+args <- commandArgs(trailingOnly = TRUE)
+
+if (length(args) != 1) {
+  stop(
+    "ERROR: Please provide one argument for the output folder name.\n",
+    "Example:\n",
+    "  Rscript scripts/7-histograms_ANI_review.R review99\n"
+  )
+}
+
+run_name <- args[1]
+
 base_dir <- "data/clean/reduced_blast_1to1s"
-out_dir  <- "blast_distributions_jpg"
+out_dir  <- paste0("blast_distributions_jpg_", run_name)
 
 # create output folder if it doesn't exist
-dir.create(out_dir, showWarnings = FALSE)
+dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 # get all tax folders
 tax_dirs <- list.dirs(base_dir, recursive = FALSE, full.names = TRUE)
@@ -16,8 +28,12 @@ read_blast_file <- function(file) {
   # remove prefix
   comp <- str_remove(fname, "^blast_f_sc_")
 
+  # remove possible file extension
+  comp <- str_remove(comp, "\\.[^.]+$")
+
   # split sample names
   parts <- str_split(comp, "_to_", simplify = TRUE)
+
   sample_x <- parts[1]
   sample_y <- parts[2]
 
@@ -58,7 +74,11 @@ for (tax_dir in tax_dirs) {
   p <- blast_all %>%
     filter(sample_x != sample_y) %>%
     ggplot(aes(x = X3)) +
-    geom_histogram(binwidth = 1) +
+    geom_histogram(
+      binwidth = 1,
+      boundary = 100,
+      closed = "right"
+    ) +
     facet_grid(sample_x ~ sample_y, scales = "free_y") +
     coord_cartesian(xlim = c(70, 100)) +
     labs(
@@ -72,7 +92,7 @@ for (tax_dir in tax_dirs) {
       axis.text.x = element_text(angle = 45, hjust = 1)
     )
 
-  # save pdf
+  # save jpg
   ggsave(
     filename = file.path(out_dir, paste0(tax_name, ".jpg")),
     plot = p,
@@ -81,3 +101,5 @@ for (tax_dir in tax_dirs) {
     dpi = 600
   )
 }
+
+message("Done. JPG files saved in: ", out_dir)
