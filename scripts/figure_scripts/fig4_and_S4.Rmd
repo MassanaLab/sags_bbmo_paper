@@ -18,10 +18,10 @@ source("../aux_functions_sags.R")
 # sags_metadata <-
 #   read_tsv("../../data/sags/sags_metadata.tsv")
 
-sags_metadata <- 
-  readxl::read_excel("../../data/sags/Table-S2.xlsx") |> 
+sags_metadata <-
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
   select(
-    sag_id = 1, 
+    sag_id = 1,
     sort = 3,
     Group,
     Supergroup,
@@ -30,25 +30,25 @@ sags_metadata <-
     perc_intronic = `Percent Intronic`,
     perc_exonic = `Percent Exonic`,
     perc_intergenic = `Percent Intergenic`,
-  ) |> 
-  mutate(fraction = str_remove(sort,'.*-'), .before = sort) |> 
+  ) |>
+  mutate(fraction = str_remove(sort, ".*-"), .before = sort) |>
   select(-sort)
 
-sags_old_clusters <- 
+sags_old_clusters <-
   readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
   select(sag_id = 1, `Cluster in Fig. 4`)
 
-order_subgroups <- 
+order_subgroups <-
   c("MAST-1D", "Novel Isochrysidales", "Chrysophyceae-H", "MAST-3C/F/G", "Labyrinthulomycetes", "MAST-8", "MAST-7", "Mamiellophyceae", "Centroplasthelida", "MAST-4", "Novel dictyochophyte", "Diatomea", "Chrysophyceae-C", "Picozoa", "Chrysochromulina", "Acanthoecida", "Phaeocystis", "Prymnesium", "MALV-II", "MAST-1C", "Chrysophyceae-G", "MAST-3IK", "MALV-I", "Chlorodendrophyceae", "Cercozoa")
 
-sags_subgroups <- 
+sags_subgroups <-
   readxl::read_excel("../../data/sags/Subgroup_level.xlsx") |>
   select(sag_id = 1, subgroup = Subgroup_Figure_4...12) |>
-  filter(subgroup != '-') |> 
+  filter(subgroup != "-") |>
   mutate(subgroup = factor(subgroup, levels = order_subgroups))
 
-sags_fractions <- 
-  readxl::read_excel("../../data/sags/Table-S2.xlsx") |> 
+sags_fractions <-
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
   select(sag_id = 1, fraction = Sort_FINAL)
 
 sags_subgroups_all <-
@@ -110,41 +110,41 @@ sags_mean_abundance <-
     abundance = factor(abundance, levels = c("high", "mid", "low"))
   )
 
-temp_S3 <- 
+temp_S3 <-
   tibble::tribble(
-                           ~`SCG Genome`, ~`Mean metaG abundance in BBMO`, ~`Order metaG`,     ~`Sort`,                         ~`Species`,             ~Group,      ~Supergroup, ~ASV_EukEMM_v3, ~`Mean ASV abundance in BBMO`, ~`Order ASVs`, ~`Cluster in Fig  4`,
-       "ICM0030_SAG.1_Mamiellophyceae",                           0.3,           1L, "pico-PP",           "Bathycoccus prasinos",  "Mamiellophyceae", "Archaeplastida",        "ASV_5",                      "4.77",         "1",                 1L,
-     "ICM0001_COSAG.1_Mamiellophyceae",                         0.272,           2L, "pico-PP",          "Micromonas bravo_99.8",  "Mamiellophyceae", "Archaeplastida",        "ASV_9",                      "3.27",         "2",                 1L,
-     "ICM0028_COSAG.1_Mamiellophyceae",                         0.059,           3L, "pico-PP",        "Micromonas pusilla_98.3",  "Mamiellophyceae", "Archaeplastida",      "ASV_124",                      "0.60",        "21",                 2L,
-    "ICM0065_COSAG.1_Prymnesiophyceae",                         0.056,           4L, "nano-PP",       "Phaeocystis cordata_99.6", "Prymnesiophyceae",       "Haptista",      "ASV_165",                      "0.28",        "52",                 3L,
-              "ICM0010_COSAG.1_MAST-4",                         0.054,           5L, "pico-HP",                    "MAST-4A sp1",           "MAST-4",  "Stramenopiles",       "ASV_46",                      "1.11",         "8",                 2L,
-     "ICM0062_COSAG.1_Mamiellophyceae",                         0.052,           6L, "pico-PP",               "Micromonas bravo",  "Mamiellophyceae", "Archaeplastida",       "ASV_14",                      "1.60",         "4",                 2L,
-    "ICM0003_COSAG.1_Prymnesiophyceae",                         0.047,           7L, "pico-PP",         "Prymnesium parvum_95.6", "Prymnesiophyceae",       "Haptista",      "ASV_394",                      "0.16",        "99",                 1L,
-       "ICM0096_SAG.1_Mamiellophyceae",                         0.046,           8L, "pico-PP",       "Bathycoccus prasinos_sp2",  "Mamiellophyceae", "Archaeplastida",            "-",                         "-",         "-",                 1L,
-              "ICM0075_COSAG.1_MOCH-2",                         0.034,           9L, "nano-PP",                     "MOCH-2 sp1",           "MOCH-2",  "Stramenopiles",      "ASV_160",                      "0.45",        "33",                 1L,
-              "ICM0026_COSAG.1_MAST-1",                          0.02,          10L, "nano-HP",                    "MAST-1C sp1",           "MAST-1",  "Stramenopiles",      "ASV_132",                      "0.32",        "46",                 3L,
-     "ICM0077_COSAG.1_Mamiellophyceae",                         0.018,          11L, "pico-PP",       "Ostreococcus sp. RCC 143",  "Mamiellophyceae", "Archaeplastida",       "ASV_43",                      "0.24",        "58",                 1L,
-       "ICM0041_COSAG.1_Chlorarachnea",                         0.018,          12L, "pico-HP",           "Minorisa minuta_99.9",    "Chlorarachnea",       "Rhizaria",      "ASV_131",                      "0.62",        "20",                 1L,
-      "ICM0114_SAG.1_Prymnesiophyceae",                         0.016,          13L, "nano-PP",        "Phaeocystis jahnii_96.8", "Prymnesiophyceae",       "Haptista",      "ASV_779",                      "0.04",       "370",                 2L,
-    "ICM0019_COSAG.1_Choanoflagellata",                         0.012,          14L, "pico-HP",  "Acanthocorbis camarensis_91.7", "Choanoflagellata",   "Opisthokonta",      "ASV_437",                      "0.43",        "35",                 2L,
-       "ICM0048_COSAG.1_Chrysophyceae",                         0.011,          15L, "pico-PP",             "Uncultured clade I",    "Chrysophyceae",  "Stramenopiles",      "ASV_392",                      "0.14",       "111",                 1L,
-      "ICM0025_SAG.1_Dictyochophyceae",                         0.011,          16L, "nano-HP",  "Pseudopedinella elastica_93.0", "Dictyochophyceae",  "Stramenopiles",      "ASV_284",                      "0.11",       "143",                 2L,
-         "ICM0098_SAG.1_Chrysophyceae",                          0.01,          17L, "pico-PP",             "Uncultured clade G",    "Chrysophyceae",  "Stramenopiles",            "-",                         "-",         "-",                 1L,
-    "ICM0016_COSAG.1_Dictyochophyceae",                         0.009,          18L, "pico-PP",  "Pseudopedinella elastica_93.4", "Dictyochophyceae",  "Stramenopiles",      "ASV_501",                      "0.04",       "437",                 2L,
-                "ICM0060_SAG.1_MAST-1",                         0.009,          19L, "pico-HP",                     "MAST-1 sp1",           "MAST-1",  "Stramenopiles",            "-",                         "-",         "-",                 1L,
-      "ICM0124_SAG.1_Prymnesiophyceae",                         0.009,          20L, "nano-PP", "Chrysochromulina simplex_99.4b", "Prymnesiophyceae",       "Haptista",     "ASV_1015",                      "0.07",       "223",                 2L
-    )
-
-top20 <- 
-  sags_mean_abundance |> 
-  slice_head(n = 20) |> 
-  select(`SCG Genome` = sag_id, `Mean metaG abundance in BBMO` = mean_abun_corrected) |> 
-  mutate(`Order metaG` = row_number()) |> 
-  left_join(
-    temp_S3 |> select(-c(2,3))
+    ~`SCG Genome`, ~`Mean metaG abundance in BBMO`, ~`Order metaG`, ~`Sort`, ~`Species`, ~Group, ~Supergroup, ~ASV_EukEMM_v3, ~`Mean ASV abundance in BBMO`, ~`Order ASVs`, ~`Cluster in Fig  4`,
+    "ICM0030_SAG.1_Mamiellophyceae", 0.3, 1L, "pico-PP", "Bathycoccus prasinos", "Mamiellophyceae", "Archaeplastida", "ASV_5", "4.77", "1", 1L,
+    "ICM0001_COSAG.1_Mamiellophyceae", 0.272, 2L, "pico-PP", "Micromonas bravo_99.8", "Mamiellophyceae", "Archaeplastida", "ASV_9", "3.27", "2", 1L,
+    "ICM0028_COSAG.1_Mamiellophyceae", 0.059, 3L, "pico-PP", "Micromonas pusilla_98.3", "Mamiellophyceae", "Archaeplastida", "ASV_124", "0.60", "21", 2L,
+    "ICM0065_COSAG.1_Prymnesiophyceae", 0.056, 4L, "nano-PP", "Phaeocystis cordata_99.6", "Prymnesiophyceae", "Haptista", "ASV_165", "0.28", "52", 3L,
+    "ICM0010_COSAG.1_MAST-4", 0.054, 5L, "pico-HP", "MAST-4A sp1", "MAST-4", "Stramenopiles", "ASV_46", "1.11", "8", 2L,
+    "ICM0062_COSAG.1_Mamiellophyceae", 0.052, 6L, "pico-PP", "Micromonas bravo", "Mamiellophyceae", "Archaeplastida", "ASV_14", "1.60", "4", 2L,
+    "ICM0003_COSAG.1_Prymnesiophyceae", 0.047, 7L, "pico-PP", "Prymnesium parvum_95.6", "Prymnesiophyceae", "Haptista", "ASV_394", "0.16", "99", 1L,
+    "ICM0096_SAG.1_Mamiellophyceae", 0.046, 8L, "pico-PP", "Bathycoccus prasinos_sp2", "Mamiellophyceae", "Archaeplastida", "-", "-", "-", 1L,
+    "ICM0075_COSAG.1_MOCH-2", 0.034, 9L, "nano-PP", "MOCH-2 sp1", "MOCH-2", "Stramenopiles", "ASV_160", "0.45", "33", 1L,
+    "ICM0026_COSAG.1_MAST-1", 0.02, 10L, "nano-HP", "MAST-1C sp1", "MAST-1", "Stramenopiles", "ASV_132", "0.32", "46", 3L,
+    "ICM0077_COSAG.1_Mamiellophyceae", 0.018, 11L, "pico-PP", "Ostreococcus sp. RCC 143", "Mamiellophyceae", "Archaeplastida", "ASV_43", "0.24", "58", 1L,
+    "ICM0041_COSAG.1_Chlorarachnea", 0.018, 12L, "pico-HP", "Minorisa minuta_99.9", "Chlorarachnea", "Rhizaria", "ASV_131", "0.62", "20", 1L,
+    "ICM0114_SAG.1_Prymnesiophyceae", 0.016, 13L, "nano-PP", "Phaeocystis jahnii_96.8", "Prymnesiophyceae", "Haptista", "ASV_779", "0.04", "370", 2L,
+    "ICM0019_COSAG.1_Choanoflagellata", 0.012, 14L, "pico-HP", "Acanthocorbis camarensis_91.7", "Choanoflagellata", "Opisthokonta", "ASV_437", "0.43", "35", 2L,
+    "ICM0048_COSAG.1_Chrysophyceae", 0.011, 15L, "pico-PP", "Uncultured clade I", "Chrysophyceae", "Stramenopiles", "ASV_392", "0.14", "111", 1L,
+    "ICM0025_SAG.1_Dictyochophyceae", 0.011, 16L, "nano-HP", "Pseudopedinella elastica_93.0", "Dictyochophyceae", "Stramenopiles", "ASV_284", "0.11", "143", 2L,
+    "ICM0098_SAG.1_Chrysophyceae", 0.01, 17L, "pico-PP", "Uncultured clade G", "Chrysophyceae", "Stramenopiles", "-", "-", "-", 1L,
+    "ICM0016_COSAG.1_Dictyochophyceae", 0.009, 18L, "pico-PP", "Pseudopedinella elastica_93.4", "Dictyochophyceae", "Stramenopiles", "ASV_501", "0.04", "437", 2L,
+    "ICM0060_SAG.1_MAST-1", 0.009, 19L, "pico-HP", "MAST-1 sp1", "MAST-1", "Stramenopiles", "-", "-", "-", 1L,
+    "ICM0124_SAG.1_Prymnesiophyceae", 0.009, 20L, "nano-PP", "Chrysochromulina simplex_99.4b", "Prymnesiophyceae", "Haptista", "ASV_1015", "0.07", "223", 2L
   )
-  
-write_tsv(top20, '~/Desktop/tempS3.tsv')
+
+top20 <-
+  sags_mean_abundance |>
+  slice_head(n = 20) |>
+  select(`SCG Genome` = sag_id, `Mean metaG abundance in BBMO` = mean_abun_corrected) |>
+  mutate(`Order metaG` = row_number()) |>
+  left_join(
+    temp_S3 |> select(-c(2, 3))
+  )
+
+write_tsv(top20, "~/Desktop/tempS3.tsv")
 ```
 
 ## Cluster SAGs based on genome architectures
@@ -174,18 +174,19 @@ clusters <-
   ) |>
   purrr::reduce(bind_cols) |>
   mutate(across(everything(), as.factor)) |>
-  mutate(sag_id = scores$sag_id, .before = 1) |> 
+  mutate(sag_id = scores$sag_id, .before = 1) |>
   # reorder clusters
   mutate(
     k5 =
       factor(
-      case_when(
-        k5 == 5 ~ 1,
-        k5 == 3 ~ 2,
-        k5 == 1 ~ 3,
-        k5 == 2 ~ 4,
-        k5 == 4 ~ 5
-      ))
+        case_when(
+          k5 == 5 ~ 1,
+          k5 == 3 ~ 2,
+          k5 == 1 ~ 3,
+          k5 == 2 ~ 4,
+          k5 == 4 ~ 5
+        )
+      )
   )
 
 # write_tsv(clusters, 'data/sags/sags_clusters.tsv')
@@ -225,46 +226,48 @@ cluster_colors <-
 fig4a <-
   scores_clusters |>
   pca_plotter(
-    cluster_col = "k5", 
-    point_size = 2, 
-    loadings = T, 
-    text_size = 2.5, 
+    cluster_col = "k5",
+    point_size = 2,
+    loadings = T,
+    text_size = 2.5,
     fill_points = cluster_colors,
     hulls = T,
     fill_hulls = cluster_colors
-    ) +
+  ) +
   guides(fill = "none")
 
-figure_legends <- 
-  readxl::read_excel('../../data/aux/figure_legends.xlsx')
+figure_legends <-
+  readxl::read_excel("../../data/aux/figure_legends.xlsx")
 
-fig <- 'S4'
+fig <- "S4"
 
-caption <- 
-  figure_legends |> filter(figure == fig) |> pull() 
+caption <-
+  figure_legends |>
+  filter(figure == fig) |>
+  pull()
 
-figS4 <- 
+figS4 <-
   scores_clusters |>
-  left_join(sags_subgroups_all) |> 
+  left_join(sags_subgroups_all) |>
   pca_plotter(
-    cluster_col = "k5", 
-    point_size = 2, 
-    loadings = F, 
-    text_size = 2.5, 
+    cluster_col = "k5",
+    point_size = 2,
+    loadings = F,
+    text_size = 2.5,
     fill_points = cluster_colors,
     hulls = F
-    ) +
+  ) +
   guides(fill = "none") +
   geom_mark_hull(
     data = scores_clusters,
     aes(fill = k5),
-    concavity = 3, 
-    expand = 0.018, 
-    radius = unit(2.5, "mm"), 
-    color = NA, 
+    concavity = 3,
+    expand = 0.018,
+    radius = unit(2.5, "mm"),
+    color = NA,
     alpha = 0.2
   ) +
-  facet_wrap(~ subgroup) +
+  facet_wrap(~subgroup) +
   labs(
     caption = caption
   ) +
@@ -276,7 +279,7 @@ figS4 <-
     )
   )
 
-ggsave(plot = figS4, filename = '../../figures/figS4.pdf', height = 10, width = 15)
+ggsave(plot = figS4, filename = "../../figures/figS4.pdf", height = 10, width = 15)
 ```
 
 ### b
@@ -286,13 +289,13 @@ fig4b <-
   scores_clusters |>
   left_join(sags_mean_abundance |> mutate(abundance = fct_rev(abundance))) |>
   pca_plotter(
-    cluster_col = "abundance", 
-    loadings = F, 
-    point_size = 2,  
-    fill_points = rev(c("sienna", "khaki", "pink")), 
+    cluster_col = "abundance",
+    loadings = F,
+    point_size = 2,
+    fill_points = rev(c("sienna", "khaki", "pink")),
     hulls = T,
     fill_hulls = cluster_colors
-    ) +
+  ) +
   guides(fill = guide_legend(
     position = "inside",
     ncol = 1,
@@ -337,7 +340,6 @@ fig_clusters_abundance_n <-
   guides(fill = guide_legend(reverse = T, title = "Abundance"))
 
 
-
 # fig_clusters_abundance <-
 #   wrap_plots(
 #     fig_clusters_abundance_n,
@@ -346,7 +348,7 @@ fig_clusters_abundance_n <-
 #     guides = "collect"
 #   ) &
 #     theme(legend.position = "bottom")
-# 
+#
 # ggsave(
 #   plot = fig_clusters_abundance,
 #   filename = "../../figures/cluster_and_abundance.pdf", units = "mm", width = 120, height = 100
@@ -415,7 +417,7 @@ fig4d <-
   summary_architecure_plotter_cluster(
     # plot_spacer_length = -.115
     plot_spacer_length = -.1
-    )
+  )
 ```
 
 ### e (old)
@@ -459,33 +461,33 @@ fig4d <-
 ### e
 
 ```{r}
-clusters_per_subgroup <- 
-  scores_clusters |> 
-  select(sag_id, cluster = k5) |> 
-  left_join(sags_subgroups) |> 
-  filter(!is.na(subgroup)) |> 
+clusters_per_subgroup <-
+  scores_clusters |>
+  select(sag_id, cluster = k5) |>
+  left_join(sags_subgroups) |>
+  filter(!is.na(subgroup)) |>
   count(subgroup, cluster)
 
-clusters_per_fraction <- 
-  scores_clusters |> 
-  select(sag_id, cluster = k5) |> 
-  left_join(sags_fractions) |> 
+clusters_per_fraction <-
+  scores_clusters |>
+  select(sag_id, cluster = k5) |>
+  left_join(sags_fractions) |>
   count(fraction, cluster)
 
-clusters_per_subgroup_and_fraction <- 
-  clusters_per_subgroup |> 
-  mutate(type = 'subgroup') |> 
+clusters_per_subgroup_and_fraction <-
+  clusters_per_subgroup |>
+  mutate(type = "subgroup") |>
   bind_rows(
-    clusters_per_fraction |> 
-      mutate(type = 'fraction', subgroup = fraction)
-  ) |> 
+    clusters_per_fraction |>
+      mutate(type = "fraction", subgroup = fraction)
+  ) |>
   mutate(
-    subgroup = factor(subgroup, levels = c('pico-HP','pico-PP','nano-PP','nano-HP', order_subgroups))
+    subgroup = factor(subgroup, levels = c("pico-HP", "pico-PP", "nano-PP", "nano-HP", order_subgroups))
   )
 
-fig4e <- 
-  # clusters_per_subgroup_and_fraction |> 
-  clusters_per_subgroup |> 
+fig4e <-
+  # clusters_per_subgroup_and_fraction |>
+  clusters_per_subgroup |>
   ggplot(aes(x = cluster, y = fct_rev(subgroup))) +
   geom_point(aes(fill = cluster, size = n), color = "gray20", stroke = 0.2, shape = 21) +
   theme_bw() +
@@ -499,23 +501,23 @@ fig4e <-
     axis.title = element_text(size = 9),
     legend.background = element_blank(),
     plot.background = element_blank(),
-    legend.position = 'top',
-    legend.justification = 'left',
-    legend.location = "plot",      
+    legend.position = "top",
+    legend.justification = "left",
+    legend.location = "plot",
     legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
-    panel.border = element_blank(), 
+    panel.border = element_blank(),
     panel.background = element_rect(color = "gray20", fill = NA, linewidth = 0.3),
     legend.key = element_blank()
   ) +
   # ggh4x::facet_grid2(type ~ ., space = 'free', scales = 'free') +
   scale_fill_manual(values = cluster_colors) +
   guides(
-    fill = 'none',
-    size = guide_legend(nrow = 1, title = 'Nº SAGs')
-    ) +
-  labs(y= NULL, x = 'Cluster') +
-  scale_size(breaks = c(1,5,10,15,20), name = 'SAGs') +
-  coord_cartesian(clip = 'off')
+    fill = "none",
+    size = guide_legend(nrow = 1, title = "Nº SAGs")
+  ) +
+  labs(y = NULL, x = "Cluster") +
+  scale_size(breaks = c(1, 5, 10, 15, 20), name = "SAGs") +
+  coord_cartesian(clip = "off")
 ```
 
 
@@ -524,21 +526,21 @@ fig4e <-
 ```{r}
 # fig4ab <-
 #   fig4a | fig4b
-# 
+#
 # fig4cd <-
 #   wrap_plots(free(fig4c, side = "r"), fig4d, ncol = 1) +
 #   plot_layout(heights = c(0.2, 0.8))
-# 
-# fig4ef <- 
+#
+# fig4ef <-
 #   wrap_plots(
-#     free(p_clust_abun, type = 'label') + guides(fill = 'none'), 
+#     free(p_clust_abun, type = 'label') + guides(fill = 'none'),
 #     fig4e + theme(legend.position = 'top'), ncol = 1
 #     ) +
 #   plot_layout(heights = c(0.2, 0.8), axes = 'keep')
-# 
+#
 # fig4cdef <-
 #   (fig4cd | fig4ef)
-# 
+#
 # fig4 <-
 #   (fig4ab / fig4cdef) +
 #     plot_layout(heights = c(.3, .7)) +
@@ -546,7 +548,7 @@ fig4e <-
 #     theme(
 #       plot.tag = ggtext::element_markdown(),
 #     )
-# 
+#
 # ggsave(plot = fig4, filename = "../../figures/fig4_.pdf", units = "mm", width = 160, height = 215)
 ```
 
@@ -558,17 +560,17 @@ fig4 <-
     fig4a,
     fig4b,
     free(fig4c, side = "r"),
-    p_clust_abun + guides(fill = 'none'),
-    free(fig4d, side = 'rt'),
-    free(fig4e, side = 'l'),
+    p_clust_abun + guides(fill = "none"),
+    free(fig4d, side = "rt"),
+    free(fig4e, side = "l"),
     ncol = 2,
     nrow = 3,
-    heights = c(.32,.1,.58)
+    heights = c(.32, .1, .58)
   ) +
-  plot_annotation(
-    tag_levels = list(c("**A**", "**D**", "**B**", "**E**", "**C**","","**F**"))
-  ) &
-  theme(plot.tag = element_markdown())
+    plot_annotation(
+      tag_levels = list(c("**a**", "**d**", "**b**", "**e**", "**c**", "", "**f**"))
+    ) &
+    theme(plot.tag = element_markdown())
 
 ggsave(plot = fig4, filename = "../../figures/fig4.pdf", units = "mm", width = 170, height = 215)
 ```
@@ -578,14 +580,14 @@ ggsave(plot = fig4, filename = "../../figures/fig4.pdf", units = "mm", width = 1
 ```{r}
 # fig4ab <-
 #   fig4a | fig4b
-# 
+#
 # fig4cd <-
 #   wrap_plots(free(fig4c, side = "r"), fig4d, ncol = 1) +
 #   plot_layout(heights = c(0.2, 0.8))
-# 
+#
 # fig4cde <-
 #   (fig4cd | fig4e) + plot_layout(widths = c(.44, .56))
-# 
+#
 # fig4 <-
 #   (fig4ab / fig4cde) +
 #     plot_layout(heights = c(.3, .7)) +
@@ -593,6 +595,6 @@ ggsave(plot = fig4, filename = "../../figures/fig4.pdf", units = "mm", width = 1
 #     theme(
 #       plot.tag = ggtext::element_markdown(),
 #     )
-# 
+#
 # ggsave(plot = fig4, filename = "../../figures/fig4.pdf", units = "mm", width = 160, height = 215)
 ```

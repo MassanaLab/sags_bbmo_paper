@@ -51,7 +51,7 @@ marferret_sags_recruitment <-
 total_metag_reads <-
   read_tsv("../../data/metag/samples_metag_reads.tsv", col_names = c("sample", "total_reads"))
 
-metag_recruitment <- 
+metag_recruitment <-
   c("sags", "marferret") |>
   set_names() |>
   map(
@@ -59,8 +59,8 @@ metag_recruitment <-
   ) |>
   bind_rows(.id = "db") |>
   mutate(
-    db = if_else(db == 'sags', 'SAGs', 'MarFERReT')
-  ) |> 
+    db = if_else(db == "sags", "SAGs", "MarFERReT")
+  ) |>
   bind_rows(
     marferret_sags_recruitment |> mutate(db = "MarFERReT + SAGs")
   ) |>
@@ -78,28 +78,28 @@ metag_recruitment <-
 # overlap_sags_marferret <-
 #   readRDS("../../data/metag/metag_recruitment_overlap_sags_marferret.rds")
 
-no_overlap_sags_marferret <- 
+no_overlap_sags_marferret <-
   c("sags", "marferret") |>
   set_names() |>
   map(
     ~ read_tsv(paste0("../../data/metag/no-overlap_sags-vs-marferret_100id_", .x, ".tsv"), col_names = c("sample", "nreads"))
-  ) |> 
-  bind_rows(.id = "type") |> 
+  ) |>
+  bind_rows(.id = "type") |>
   mutate(
-    type = if_else(type == 'sags', 'Only in SAGs', 'Only in MarFERReT')
+    type = if_else(type == "sags", "Only in SAGs", "Only in MarFERReT")
   )
 
-overlap_sags_marferret <- 
-  read_tsv('../../data/metag/overlap_sags-vs-marferret_100id.tsv', col_names = c("sample", "nreads")) |> 
-  mutate(type = "Shared") |> 
-  bind_rows(no_overlap_sags_marferret) |> 
+overlap_sags_marferret <-
+  read_tsv("../../data/metag/overlap_sags-vs-marferret_100id.tsv", col_names = c("sample", "nreads")) |>
+  mutate(type = "Shared") |>
+  bind_rows(no_overlap_sags_marferret) |>
   mutate(
     sample2 = paste0(
       month.abb[as.integer(str_match(sample, "BL..(..)")[, 2])],
       str_match(sample, "BL(..)")[, 2]
     ),
     sample2 = fct_inorder(sample2)
-  )  
+  )
 
 sags_otutab <-
   read_tsv("../../data/metag/otutab_sags_100id_tax_summary.tsv") |>
@@ -513,7 +513,7 @@ fig3ab <-
 fig3 <-
   (fig3ab / plot_spacer() / fig3c) +
     plot_layout(heights = c(.3, -.07, .7)) +
-    plot_annotation(tag_levels = list(c("**A**", "**B**", "**C**"))) &
+    plot_annotation(tag_levels = list(c("**a**", "**b**", "**c**"))) &
     theme(
       plot.tag = ggtext::element_markdown(),
     )

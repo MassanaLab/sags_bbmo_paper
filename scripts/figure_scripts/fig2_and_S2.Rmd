@@ -325,10 +325,15 @@ species_tree_with_metadata_main %<>% dplyr::left_join(metadata_tree_main, by = c
 
 ```{r}
 p_tree_base <-
-  ggtree(species_tree_with_metadata_and_bootstraps,
+  ggtree(species_tree_with_metadata_and_bootstraps, color = NA) +
+  geom_tree(
     aes(color = group.x),
     linewidth = 0.4
   ) +
+  # ggtree(species_tree_with_metadata_and_bootstraps,
+  #   aes(color = group.x),
+  #   linewidth = 0.4
+  # ) +
   scale_color_manual(values = supergroup_colors) +
   guides(color = "none") +
   ggnewscale::new_scale_color() +
@@ -367,7 +372,8 @@ p_tree_base <-
   guides(color = guide_legend(override.aes = list(size = 4)))
 
 p_tree <-
-  flip(tree_view = p_tree_base, node1 = 640, node2 = 606)
+  flip(tree_view = p_tree_base, node1 = 640, node2 = 606) +
+  ggnewscale::new_scale_color()
 
 ## add subclade labels
 
@@ -437,7 +443,7 @@ for (sub in subclade_node_nums$subclade) {
         parse = parse
       )
   } else {
-    p_tree <-
+    p_tree <- # this is not working with ggtree v4.2.o ARRRGHH, it worked with 4.0.1
       p_tree +
       geom_cladelabel(
         node = node_num,
@@ -585,7 +591,7 @@ p_stats_list <-
 fig2a <-
   (wrap_plots(p_stats_list, nrow = 1) / plot_spacer() / guide_area()) +
     plot_layout(guides = "collect", heights = c(0.99, -.2, 0.01)) +
-    plot_annotation(tag_levels = list(c("**A**"))) &
+    plot_annotation(tag_levels = list(c("**a**"))) &
     theme(
       plot.tag = ggtext::element_markdown(),
       axis.text.x = element_blank(),

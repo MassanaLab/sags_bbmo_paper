@@ -18,20 +18,20 @@ library(ape)
 #   read.tree('../../data/trees/rhodopsins_sags_mft_pnas.treefile') # tree from scratch, using auto model, it used a qfam model
 
 tree <-
-  read.tree('../../data/functional_genes/sags_mft_pnas.treefile') # tree from scratch, using auto model, it used a qfam model
+  read.tree("../../data/functional_genes/sags_mft_pnas.treefile") # tree from scratch, using auto model, it used a qfam model
 
-pnas_references_classification <- 
-  readxl::read_excel('../../data/functional_genes/pnas_rhodo_classification.xlsx', col_names = c('id','classification')) |> 
-  mutate(classification = str_remove(classification, '.*;'))
+pnas_references_classification <-
+  readxl::read_excel("../../data/functional_genes/pnas_rhodo_classification.xlsx", col_names = c("id", "classification")) |>
+  mutate(classification = str_remove(classification, ".*;"))
 
-marferret_classification <- 
-  read_tsv('../../data/functional_genes/mft_rhodo_classification.tsv') |> 
-  replace_na(list(classification = 'unclassified'))
+marferret_classification <-
+  read_tsv("../../data/functional_genes/mft_rhodo_classification.tsv") |>
+  replace_na(list(classification = "unclassified"))
 
-# sags_genes_classification <- 
-#   readxl::read_excel('../../data/functional_genes/Table-S6.xlsx', sheet = 3) |> 
-#   select(id = 1, classification = FINAL) |> 
-#   mutate(id = str_remove(id, '_SAG\\.1|_COSAG\\.1')) |> 
+# sags_genes_classification <-
+#   readxl::read_excel('../../data/functional_genes/Table-S6.xlsx', sheet = 3) |>
+#   select(id = 1, classification = FINAL) |>
+#   mutate(id = str_remove(id, '_SAG\\.1|_COSAG\\.1')) |>
 #   mutate(
 #     classification =
 #       case_when(
@@ -41,67 +41,69 @@ marferret_classification <-
 #       )
 #   )
 
-sags_genes_classification <- 
-  read_tsv('../../data/functional_genes/sags_rho_genes_classification.tsv', col_names = c('id','classification')) |> 
-  replace_na(list(classification = 'unclassified'))
+sags_genes_classification <-
+  read_tsv("../../data/functional_genes/sags_rho_genes_classification.tsv", col_names = c("id", "classification")) |>
+  replace_na(list(classification = "unclassified"))
 
-all_classification <- 
-  bind_rows(pnas_references_classification, sags_genes_classification) |> 
-  bind_rows(marferret_classification) |> 
+all_classification <-
+  bind_rows(pnas_references_classification, sags_genes_classification) |>
+  bind_rows(marferret_classification) |>
   mutate(
-    classification= str_replace(classification,'8TM rhodopsin', 'Rhodopsin 8TM'),
-    supergroup = if_else(classification == 'Enzymerhodopsins', 'Rhodopsin 8TM', classification)
-    )
+    classification = str_replace(classification, "8TM rhodopsin", "Rhodopsin 8TM"),
+    supergroup = if_else(classification == "Enzymerhodopsins", "Rhodopsin 8TM", classification)
+  )
 ```
 
 ## Temp renaming
 
 ```{r}
-# new_names <- 
-#   tibble(id = tree_rooted$tip.label) |> 
+# new_names <-
+#   tibble(id = tree_rooted$tip.label) |>
 #   left_join(
 #     all_classification
-#   ) |> 
+#   ) |>
 #   mutate(sag = str_detect(id, 'ICM'),
-#          new_name = if_else(sag, 
+#          new_name = if_else(sag,
 #                         id,
 #                         paste0(id," | ",classification))
 #   )
-# 
-# renamed_tree <- 
+#
+# renamed_tree <-
 #   tree
-# 
+#
 # renamed_tree$tip.label <- new_names$new_name
-# 
+#
 # write.tree(renamed_tree, '../../data/functional_genes/sags_mft_pnas_renamed.treefile')
 ```
 
 ## Root tree
 
 ```{r}
-tree_rooted <- 
+tree_rooted <-
   root(tree, node = 795) # root on heliorhodopsins
 ```
 
 ## Create tree metadata
 
 ```{r}
-metadata_tree <- 
-  tibble(id = tree_rooted$tip.label) |> 
+metadata_tree <-
+  tibble(id = tree_rooted$tip.label) |>
   left_join(
     all_classification
-  ) |> 
+  ) |>
   mutate(
-    sag = str_detect(id, 'ICM'),
-    sag_gene = str_match(id, '.*_(g.*)')[,2],
-    sag_id = str_remove(id, '_.*'),
-    sag_group = str_match(id, '.*_(.*?)_g[0-9]')[,2]
-    ) |> 
+    sag = str_detect(id, "ICM"),
+    sag_gene = str_match(id, ".*_(g.*)")[, 2],
+    sag_id = str_remove(id, "_.*"),
+    sag_group = str_match(id, ".*_(.*?)_g[0-9]")[, 2]
+  ) |>
   mutate(
-         name = str_replace_all(id, '_',' '),
-         name = if_else(sag, 
-                        str_c("paste(bold('",paste(sag_id, sag_group, sag_gene),"'),' | ',italic('",classification,"'))"),
-                        str_c("paste('",name," | ',italic('",classification,"'))")))
+    name = str_replace_all(id, "_", " "),
+    name = if_else(sag,
+      str_c("paste(bold('", paste(sag_id, sag_group, sag_gene), "'),' | ',italic('", classification, "'))"),
+      str_c("paste('", name, " | ',italic('", classification, "'))")
+    )
+  )
 
 rhodo_types_node_nums <- # get node numbers of supergroups
   metadata_tree |>

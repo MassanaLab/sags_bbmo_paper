@@ -21,18 +21,18 @@ cytogram_pp <-
 cytogram_hp <-
   read_tsv("../../data/cell_sorting/sorting2018_het.tsv.gz")
 
-cytogram_pp_2020 <- 
+cytogram_pp_2020 <-
   read_tsv("../../data/cell_sorting/sorting2020_photo.tsv.gz")
 
 index_sorts <-
   read_tsv("../../data/cell_sorting/index_sorts_2018.tsv")
 
 index_sorts_pp_2020 <-
-  readxl::read_excel('../../data/sags/Table-S1.xlsx') |> 
-  filter(`Sort-event` == 2020) |> 
-  select(Fraction = Sort_FINAL, PE, PECY5) |> 
-  filter(str_detect(Fraction,'-PP')) |> 
-  mutate(across(.cols = c(PE,PECY5), as.numeric))
+  readxl::read_excel("../../data/sags/Table-S1.xlsx") |>
+  filter(`Sort-event` == 2020) |>
+  select(Fraction = Sort_FINAL, PE, PECY5) |>
+  filter(str_detect(Fraction, "-PP")) |>
+  mutate(across(.cols = c(PE, PECY5), as.numeric))
 
 index_sorts_selection <-
   read_tsv("../../data/cell_sorting/index_sorts_2018_selection.tsv") |>
@@ -140,7 +140,7 @@ recovery_18s_colors <-
 
 # pp_groups <-
 #   c("Mamiellophyceae", "Prymnesiophyceae", "Chrysophyceae", "Dictyochophyceae")
-# 
+#
 # hp_groups <-
 #   taxonomic_distributions_single_cells |>
 #   filter(str_detect(Fraction, "HP")) |>
@@ -153,8 +153,8 @@ recovery_18s_colors <-
 
 # selected_groups <- c(pp_groups, hp_groups)
 
-selected_groups <- 
-  c("MALV-I", "Mamiellophyceae", "Prymnesiophyceae", "MALV-II", "MAST-3", "Chrysophyceae", "Dictyochophyceae", "Chlorarachnea","MAST-4", "MAST-1", "Picozoa", "Choanoflagellata","MAST-8")
+selected_groups <-
+  c("MALV-I", "Mamiellophyceae", "Prymnesiophyceae", "MALV-II", "MAST-3", "Chrysophyceae", "Dictyochophyceae", "Chlorarachnea", "MAST-4", "MAST-1", "Picozoa", "Choanoflagellata", "MAST-8")
 
 # group_colors <-
 #   c(
@@ -475,12 +475,12 @@ fig1abc <-
       fig1c + guides(fill = "none") + labs(y = "")
     ) +
     plot_layout(widths = c(1 / 3, 1 / 3, 1 / 3)) +
-    plot_annotation(tag_levels = list(c(paste0("**", LETTERS[1:3], "**")))) &
+    plot_annotation(tag_levels = list(c(paste0("**", letters[1:3], "**")))) &
     theme(plot.tag = element_markdown())
 
 fig1de <-
   free(fig1d) + free(fig1e) +
-    plot_annotation(tag_levels = list(c(paste0("**", LETTERS[4:5], "**")))) &
+    plot_annotation(tag_levels = list(c(paste0("**", letters[4:5], "**")))) &
     theme(
       plot.tag = element_markdown(),
       legend.background = element_blank()
@@ -489,7 +489,7 @@ fig1de <-
 fig1fg <-
   ((fig1f + guides(fill = "none")) + fig1g) +
     plot_layout(guides = "collect") &
-    plot_annotation(tag_levels = list(c(paste0("**", LETTERS[6:7], "**")))) &
+    plot_annotation(tag_levels = list(c(paste0("**", letters[6:7], "**")))) &
     theme(
       plot.tag = element_markdown(),
       legend.position = "right",
@@ -513,21 +513,23 @@ ggsave(plot = fig1, filename = "../../figures/fig1.pdf", width = 180, height = 1
 ## Supp figure 2020 PP sorting
 
 ```{r}
-figure_legends <- 
-  readxl::read_excel('../../data/aux/figure_legends.xlsx')
+figure_legends <-
+  readxl::read_excel("../../data/aux/figure_legends.xlsx")
 
-fig <- 'S7'
+fig <- "S7"
 
-caption <- 
-  figure_legends |> filter(figure == fig) |> pull() 
+caption <-
+  figure_legends |>
+  filter(figure == fig) |>
+  pull()
 
-supp_fraction_positions <- 
+supp_fraction_positions <-
   tibble(
-    Fraction = str_c('**',c('pico-PP','nano-PP'),'**'),
+    Fraction = str_c("**", c("pico-PP", "nano-PP"), "**"),
     hjust = 0,
     PE = 1.5,
     PECY5 = c(4000, 6000)
-    )
+  )
 
 p_cytogram_2020_pp <-
   cytogram_pp_2020 |>
@@ -567,6 +569,6 @@ p_cytogram_2020_pp <-
   )
 
 
-ggsave(plot = p_cytogram_2020_pp, file = '../../figures/figS7.pdf', height = 5, width = 5)
+ggsave(plot = p_cytogram_2020_pp, file = "../../figures/figS7.pdf", height = 5, width = 5)
 ```
 
