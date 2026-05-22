@@ -929,7 +929,7 @@ fig5ab <-
 
 fig5 <-
   wrap_plots(fig5ab, free(p_hm_main + theme(legend.position = "top")), ncol = 2, widths = c(.3, .7)) +
-    plot_annotation(tag_levels = list(c("**A**", "**C**", "", "", "", "**B**"))) &
+    plot_annotation(tag_levels = list(c("**a**", "**c**", "", "", "", "**b**"))) &
     theme(plot.tag = element_markdown())
 
 ggsave(plot = fig5, filename = "../../figures/fig5.pdf", height = 8, width = 14)

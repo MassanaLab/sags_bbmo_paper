@@ -567,13 +567,13 @@ p_tree_highlight <-
     )
   )
 
-ggsave(
-  plot = p_tree_highlight,
-  filename = "../../figures/figS2.pdf",
-  height = 65,
-  width = 22,
-  limitsize = F
-)
+# ggsave(
+#   plot = p_tree_highlight,
+#   filename = "../../figures/figS2.pdf",
+#   height = 65,
+#   width = 22,
+#   limitsize = F
+# )
 ```
 
 ## Figure 2
