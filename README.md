@@ -1,9 +1,9 @@
-# Genome streamlining and adaptive functional diversity shape dominant marine protists
+# Single-cell genomics reveals genome streamlining and functional traits in dominant uncultured marine protists
 
 This repository contains code and data included in:
 
 --------
-López-Escardó, D., Obiol, A., Marimon, G., López-Alforja, X., Vaqué, D., Forn, I., Logares, R., Yau, S., Fornas, O., Martínez-García, M., and Massana R. Genome streamlining and adaptive functional diversity shape dominant marine protists.
+López-Escardó, D., Obiol, A., Marimon, G., López-Alforja, X., Vaqué, D., Forn, I., Logares, R., Yau, S., Fornas, O., Martínez-García, M., and Massana R. Single-cell genomics reveals genome streamlining and functional traits in dominant uncultured marine protists.
 
 --------
 
