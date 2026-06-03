@@ -91,20 +91,20 @@ figure_legends <-
 
 ```{r}
 phylofisher_metadata <-
-  read_tsv("../../data/trees/phylofisher_metadata.tsv")
+  read_tsv("../../data/trees/v2/phylofisher_metadata.tsv")
 
 phylofisher_occupancy <-
-  read_tsv("../../data/trees/phylofisher_occupancy.tsv") |>
+  read_tsv("../../data/trees/v2/phylofisher_occupancy.tsv") |>
   pivot_longer(names_to = "gene", values_to = "n", -...1) |>
   dplyr::rename(species = ...1)
 
-genes_per_species <-
-  phylofisher_occupancy |>
-  filter(n > 0) |>
-  count(species)
+phylofisher_occupancy_summary <- 
+  phylofisher_occupancy |> 
+  filter(n != 0) |> 
+  count(species, name = 'ngenes')
 
 tree_file <-
-  "../../data/trees/PF.SAGs.LGC60GCF-PMSF.treefile"
+  "../../data/trees/v2/PF.SAGs.LGC60GCF-PMSF.treefile"
 
 metadata_tree_raw <-
   read_tsv("../../data/trees/tree_metadata.tsv")
@@ -118,8 +118,7 @@ pf_tree <-
 ```{r}
 pf_tree_rooted <-
   pf_tree |>
-  ape::rotate(node = 605) |>
-  root(pf_tree, node = 464)
+  root(pf_tree, node = 465)
 
 renamed_tree <- pf_tree_rooted
 
@@ -165,7 +164,9 @@ metadata_tree <-
         str_detect(subclade, "Ostreococcus") ~ "Ostreococcus spp.",
         str_detect(subclade, "Mantoniella") ~ "Mantoniella spp.",
         TRUE ~ subclade
-      )
+      ),
+    sag_id = str_replace(sag_id, 'ICM0047_SAG.1_Cercozoa','ICM0047_SAG.1_Endomyxa'),
+    id = str_replace(id, 'ICM0047-Cercozoa', 'ICM0047-Endomyxa')
   ) |>
   mutate(
     subclade = if_else(str_detect(subclade, "sp\\.$|spp\\.$"),
@@ -372,7 +373,7 @@ p_tree_base <-
   guides(color = guide_legend(override.aes = list(size = 4)))
 
 p_tree <-
-  flip(tree_view = p_tree_base, node1 = 640, node2 = 606) +
+  flip(tree_view = p_tree_base, node1 = 666, node2 = 700) +
   ggnewscale::new_scale_color()
 
 ## add subclade labels
@@ -385,6 +386,17 @@ subclades_with_single_tip <-
   ) |>
   pull(subclade)
 
+strips_to_parse <- # geom_cladelab is not parsing text anymore, I need to use geom_strip with a range of labels to include
+  list(
+    `paste(italic('Bathycoccus'), ' spp.')` = c('ICM0096-Mamiellophyceae','ICM0030-Mamiellophyceae'),
+   `paste(italic('Mantoniella'), ' spp.')` = rep('ICM0073-Mamiellophyceae',2),
+   `paste(italic('Micromonas'), ' spp.')` = c('ICM0064-Mamiellophyceae','Micrpusl'),
+   `paste(italic('Ostreococcus'), ' spp.')` = c('Ostrtaur','ICM0077-Mamiellophyceae'),
+   `paste(italic('Chrysochromulina'), ' spp.')` = c('ICM0123-Prymnesiophyceae','ICM0125-Prymnesiophyceae'),
+   `paste(italic('Phaeocystis'), ' spp.')` = c('ICM0114-Prymnesiophyceae','ICM0065-Prymnesiophyceae'),
+   `paste(italic('Prymnesium'), ' spp.')` = c('ICM0109-Prymnesiophyceae','Prymparv')
+  )
+  
 for (sub in subclade_node_nums$subclade) {
   node_num <- subclade_node_nums |>
     filter(subclade == sub) |>
@@ -399,7 +411,7 @@ for (sub in subclade_node_nums$subclade) {
 
   if (sub %in% subclades_with_single_tip) {
     if (str_detect(sub, "^paste\\(")) {
-      label <- str_replace(sub, "paste\\(", "paste(' |  ',")
+      label <- str_replace(sub, "paste\\(", "paste('|  ',")
       offset <- 0.6
     } else {
       label <- paste0(" |  ", sub) # add bar as geom_cladelab does not do it for single-tip clades
@@ -421,10 +433,11 @@ for (sub in subclade_node_nums$subclade) {
       p_tree +
       geom_strip(
         "ICM0026-MAST-1",
-        "ICM0014-MAST-1",
-        label = str_c("   ", sub),
+        "ICM0026-MAST-1",
+        # "ICM0014-MAST-1",
+        label = str_c("|   ", sub),
         color = alpha(node_color, 0.8),
-        offset = -1.2,
+        offset = -1.3,
         barsize = .6,
         fontsize = 4,
         parse = parse
@@ -442,6 +455,23 @@ for (sub in subclade_node_nums$subclade) {
         fontsize = 4,
         parse = parse
       )
+  } else if (str_detect(sub, "paste")) {
+    
+    if (supergroup == 'Archaeplastida'){offset = -1.1} else {offset=-1.2}
+    if (str_detect(sub, 'Mantoniella')){label = label} else {label = str_replace(label, 'italic',"'   ',italic")}
+    
+    p_tree <-
+      p_tree +
+      geom_strip(
+        strips_to_parse[[sub]][1],
+        strips_to_parse[[sub]][2],
+        label = label,
+        color = alpha(node_color, 0.8),
+        offset = offset,
+        barsize = .6,
+        fontsize = 4,
+        parse = parse
+      )  
   } else {
     p_tree <- # this is not working with ggtree v4.2.o ARRRGHH, it worked with 4.0.1
       p_tree +
@@ -449,7 +479,7 @@ for (sub in subclade_node_nums$subclade) {
         node = node_num,
         label = label,
         # textcolor = node_color,
-        color = node_color,
+        color =alpha(node_color, 0.8),
         # barcolor = node_color,
         offset = offset,
         barsize = .6,
@@ -567,13 +597,13 @@ p_tree_highlight <-
     )
   )
 
-# ggsave(
-#   plot = p_tree_highlight,
-#   filename = "../../figures/figS2.pdf",
-#   height = 65,
-#   width = 22,
-#   limitsize = F
-# )
+ggsave(
+  plot = p_tree_highlight,
+  filename = "../../figures/figS2.pdf",
+  height = 65,
+  width = 22,
+  limitsize = F
+)
 ```
 
 ## Figure 2
@@ -636,7 +666,7 @@ p_tree_circular_base <-
   guides(color = "none", fill = "none", alpha = "none")
 
 p_tree_circular <-
-  flip(tree_view = p_tree_circular_base, node1 = 505, node2 = 506)
+  flip(tree_view = p_tree_circular_base, node1 = 505, node2 = 529)
 
 offset_text_cladelab <-
   c(
@@ -708,9 +738,21 @@ for (group in group_node_nums_main$tax_group) {
     )
 }
 
+p_tree_circular_highlight <- 
+  p_tree_circular +   
+  geom_highlight(
+    data = supergroup_node_nums_main,
+    aes(node = node_num, fill = supergroup),
+    align = "right",
+    type = "gradient",
+    gradient.direction = "tr",
+    extend = 0,
+    alpha = 0.1
+    )
+
 ggsave(
   plot =
-    p_tree_circular,
+    p_tree_circular_highlight,
   filename = "../../figures/fig2b.pdf",
   units = "mm",
   height = 190,
