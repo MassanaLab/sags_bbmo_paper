@@ -568,7 +568,7 @@ fig4 <-
     heights = c(.32, .1, .58)
   ) +
     plot_annotation(
-      tag_levels = list(c("**a**", "**d**", "**b**", "**e**", "**c**", "", "**f**"))
+      tag_levels = list(c("**A**", "**D**", "**B**", "**E**", "**C**", "", "**F**"))
     ) &
     theme(plot.tag = element_markdown())
 

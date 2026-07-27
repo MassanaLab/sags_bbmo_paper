@@ -91,10 +91,10 @@ figure_legends <-
 
 ```{r}
 phylofisher_metadata <-
-  read_tsv("../../data/trees/v2/phylofisher_metadata.tsv")
+  read_tsv("../../data/trees/phylofisher_metadata.tsv")
 
 phylofisher_occupancy <-
-  read_tsv("../../data/trees/v2/phylofisher_occupancy.tsv") |>
+  read_tsv("../../data/trees/phylofisher_occupancy.tsv") |>
   pivot_longer(names_to = "gene", values_to = "n", -...1) |>
   dplyr::rename(species = ...1)
 
@@ -104,7 +104,7 @@ phylofisher_occupancy_summary <-
   count(species, name = 'ngenes')
 
 tree_file <-
-  "../../data/trees/v2/PF.SAGs.LGC60GCF-PMSF.treefile"
+  "../../data/trees/PF.SAGs.LGC60GCF-PMSF.treefile"
 
 metadata_tree_raw <-
   read_tsv("../../data/trees/tree_metadata.tsv")

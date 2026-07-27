@@ -299,13 +299,13 @@ Guttvulg	Guttulinopsis vulgaris	Rhizaria	Cercozoa	Transcriptomic	NA/ (Illumina d
 Gymn2014	Gymnochlora sp.	Rhizaria	Cercozoa	Transcriptomic	SRR1296947
 ICM0011-Chlorarachnea	ICM0011-COSAG1-Chlorarachnea	Rhizaria	Cercozoa	SAG	in-house information
 ICM0041-Chlorarachnea	ICM0041-COSAG1-Chlorarachnea	Rhizaria	Cercozoa	SAG	in-house information
-ICM0047-Cercozoa	ICM0047-SAG1-Endomyxa	Rhizaria	Endomyxa	SAG	in-house information
 ICM0058-Cercozoa	ICM0058-SAG1-Cercozoa	Rhizaria	Cercozoa	SAG	in-house information
 ICM0135-Cercozoa	ICM0135-SAG1-Cercozoa	Rhizaria	Cercozoa	SAG	in-house information
 ICM0139-Chlorarachnea	ICM0139-SAG1-Chlorarachnea	Rhizaria	Cercozoa	SAG	in-house information
 MatazaD1	Mataza sp.	Rhizaria	Cercozoa	Transcriptome	https://de.cyverse.org/anon-files//iplant/home/shared/imicrobe/projects/104/samples/1696/MMETSP0086_clean.pep.fa & https://de.cyverse.org/anon-files//iplant/home/shared/imicrobe/projects/104/samples/1715/MMETSP0087_clean.pep.fa
 Paulchro	Paulinella chromatophora	Rhizaria	Cercozoa	Transcriptomic	SRR3221671
 Gromspha	Gromia sphaerica	Rhizaria	Endomyxa	Transcriptome	SRR2003399
+ICM0047-Endomyxa	ICM0047-SAG1-Endomyxa	Rhizaria	Endomyxa	SAG	in-house information
 Lapoguse	Lapot gusevi	Rhizaria	Endomyxa	Transcriptomic	SRR7816692
 Leptvora	Leptophrys vorax	Rhizaria	Endomyxa	Transcriptomic	SRR2003407
 Plasbras	Plasmodiophora brassicae	Rhizaria	Endomyxa	Genomic	ftp://ftp.ensemblgenomes.org/pub/protists/release-41/fasta/protists_rhizaria1_collection/plasmodiophora_brassicae/pep/
