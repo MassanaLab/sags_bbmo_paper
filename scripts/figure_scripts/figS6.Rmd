@@ -1,207 +1,438 @@
 ---
-title: "SAGs - Rhodopsin tree"
+title: "SAGs - Streamlining"
 author: "Aleix Obiol"
-date: "2026-04-08"
+date: "2026-09-14"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(ape)
+source("../aux_functions_sags.R")
+library(ggtreeExtra)
 ```
+
+## Links to ref genomes
+
+### Prymnesiophyceae
+
+    - *Phaeocystis globosa*: https://ngdc.cncb.ac.cn/gwh/search/advanced/result?search_category=&search_term=&source=0&query_box=phaeocystis%20globosa
+    - *Chrysotila carterae*: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/054/660/715/GCA_054660715.1_Ccar_1.0/
+    - *Prymnesium parvum*: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/040/529/105/GCA_040529105.1_pryPar1.h1/ 
+    - *Gephyrocapsa huxleyi*: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/372/725/GCF_000372725.1_Emiliana_huxleyi_CCMP1516_main_genome_assembly_v1.0/
+    - *Calcidiscus leptoporus*: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/057/557/405/GCA_057557405.1_RBI_CaLept/
+
+### Chlorarachnea
+
+    - *Bigelowiella natans*: https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/320/545/GCA_000320545.1_Bigna1/
+
+### Chrysophyceae
+
+    - *Chrysophyceae sp. TOSAG23-4*: https://www.genoscope.cns.fr/tara/
+    - *Chrysophyceae sp. TOSAG23-5*: https://www.genoscope.cns.fr/tara/ 
+    - *Ochromonadaceae sp. CCMP2298*: https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_026770595.1/
 
 ## Read data
 
 ```{r}
-# tree <-
-#   read.tree('../../data/trees/rhodopsins_sags_mft_pnas.treefile') # tree from scratch, using auto model, it used a qfam model
+pf_tree <- 
+  read.tree('../../data/trees/PF.SAGs.LGC60GCF-PMSF.treefile')
 
-tree <-
-  read.tree("../../data/functional_genes/sags_mft_pnas.treefile") # tree from scratch, using auto model, it used a qfam model
+metadata_tree_raw <-
+  read_tsv("../../data/trees/tree_metadata.tsv")
 
-pnas_references_classification <-
-  readxl::read_excel("../../data/functional_genes/pnas_rhodo_classification.xlsx", col_names = c("id", "classification")) |>
-  mutate(classification = str_remove(classification, ".*;"))
+sags_metadata <- 
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
+  select(
+    sag_id = 1,
+    estimated_genome_size = `Estimated size (Mb)`,
+    completeness = `Completeness (%) (out of 255)`,
+    perc_intronic = `Percent Intronic`,
+    perc_exonic = `Percent Exonic`,
+    perc_intergenic = `Percent Intergenic`
+  ) |> 
+  left_join(metadata_tree_raw |> select(id, sag_id)) |> 
+  select(id, everything())
 
-marferret_classification <-
-  read_tsv("../../data/functional_genes/mft_rhodo_classification.tsv") |>
-  replace_na(list(classification = "unclassified"))
+additional_genomes_busco <- 
+  list.files('../../data/sags/ref_genomes', pattern = '^busco_odb10_', full.names = T) |> 
+  map(read_tsv) |>
+  bind_rows() |> 
+  mutate(species = str_replace_all(str_remove(Input_file, '\\.fasta'), '_', ' ')) |> 
+  left_join(metadata_tree_raw |> select(id, species))
 
-# sags_genes_classification <-
-#   readxl::read_excel('../../data/functional_genes/Table-S6.xlsx', sheet = 3) |>
-#   select(id = 1, classification = FINAL) |>
-#   mutate(id = str_remove(id, '_SAG\\.1|_COSAG\\.1')) |>
-#   mutate(
-#     classification =
-#       case_when(
-#         str_detect(id, 'g7744.t1_ICM0071') ~ 'Bestrhodopsins',
-#         str_detect(id, 'g7741.t1_ICM0119') ~ 'Channelrhodopsins',
-#         TRUE ~ classification
-#       )
-#   )
+additional_genomes_stats <- 
+  read_tsv(
+    '../../data/sags/ref_genomes/ref_genomes_stats.tsv'
+  ) |> 
+  mutate(species = str_replace_all(str_remove(file, '\\.fasta'), '_', ' ')) |> 
+  left_join(metadata_tree_raw |> select(id, species))  
 
-sags_genes_classification <-
-  read_tsv("../../data/functional_genes/sags_rho_genes_classification.tsv", col_names = c("id", "classification")) |>
-  replace_na(list(classification = "unclassified"))
-
-all_classification <-
-  bind_rows(pnas_references_classification, sags_genes_classification) |>
-  bind_rows(marferret_classification) |>
+additional_genomes_architecture <- 
+  read_tsv('../../data/sags/ref_genomes/Table_genome_prediction_stats_genome_reference.tsv') |> 
+  mutate(species = str_replace_all(Species, '_', ' ')) |> 
+  left_join(metadata_tree_raw |> select(id, species)) |> 
   mutate(
-    classification = str_replace(classification, "8TM rhodopsin", "Rhodopsin 8TM"),
-    supergroup = if_else(classification == "Enzymerhodopsins", "Rhodopsin 8TM", classification)
-  )
-```
-
-## Temp renaming
-
-```{r}
-# new_names <-
-#   tibble(id = tree_rooted$tip.label) |>
-#   left_join(
-#     all_classification
-#   ) |>
-#   mutate(sag = str_detect(id, 'ICM'),
-#          new_name = if_else(sag,
-#                         id,
-#                         paste0(id," | ",classification))
-#   )
-#
-# renamed_tree <-
-#   tree
-#
-# renamed_tree$tip.label <- new_names$new_name
-#
-# write.tree(renamed_tree, '../../data/functional_genes/sags_mft_pnas_renamed.treefile')
-```
-
-## Root tree
-
-```{r}
-tree_rooted <-
-  root(tree, node = 795) # root on heliorhodopsins
-```
-
-## Create tree metadata
-
-```{r}
-metadata_tree <-
-  tibble(id = tree_rooted$tip.label) |>
-  left_join(
-    all_classification
-  ) |>
-  mutate(
-    sag = str_detect(id, "ICM"),
-    sag_gene = str_match(id, ".*_(g.*)")[, 2],
-    sag_id = str_remove(id, "_.*"),
-    sag_group = str_match(id, ".*_(.*?)_g[0-9]")[, 2]
-  ) |>
-  mutate(
-    name = str_replace_all(id, "_", " "),
-    name = if_else(sag,
-      str_c("paste(bold('", paste(sag_id, sag_group, sag_gene), "'),' | ',italic('", classification, "'))"),
-      str_c("paste('", name, " | ',italic('", classification, "'))")
-    )
+    genome_mb = Length_Genome/1e6,
+    perc_intronic = 100*Intronic/genome_mb,
+    perc_exonic = 100*Exonic/genome_mb,
+    perc_intergenic = 100*Intergenic/genome_mb,
   )
 
-rhodo_types_node_nums <- # get node numbers of supergroups
-  metadata_tree |>
-  filter(!is.na(classification)) |>
-  group_by(supergroup) |>
-  summarise(node_num = MRCA(tree_rooted, id))
+# abundance
 
-tree_with_metadata <- # create a copy
-  tree_rooted
+total_metag_reads <-
+  read_tsv("../../data/metag/samples_metag_reads.tsv", col_names = c("sample", "total_reads"))
 
-tree_with_metadata %<>%
-  dplyr::left_join(
-    metadata_tree,
-    by = c("label" = "id")
-  )
+sags_otutab <-
+  read_tsv("../../data/metag/otutab_sags_100id_tax_summary.tsv") |>
+  pivot_longer(names_to = "sample", values_to = "abundance", -1) |>
+  left_join(total_metag_reads) |>
+  mutate(perc = 100 * abundance / total_reads) |>
+  select(-total_reads)
 
-tree_with_metadata_and_bootstraps <-
-  tree_with_metadata |>
+sags_mean_abundance <-
+  sags_otutab |>
+  filter(!str_detect(lca_taxonomy, "^lca:")) |>
+  mutate(sag_id = paste0(str_remove(lca_taxonomy, ".*;"), "_", str_remove(lca_taxonomy, ";.*"))) |>
+  group_by(sag_id) |>
+  summarise(mean_abun = mean(perc)) |>
+  left_join(sags_metadata |> select(sag_id, completeness, estimated_genome_size)) |>
   mutate(
-    shalrt = as.numeric(str_remove(label, "\\/.*")),
-    ufboot = as.numeric(str_remove(label, ".*\\/")),
-    support =
+    mean_abun_corrected = 100 * mean_abun / completeness,
+    mean_abun_corrected_length = 1000*mean_abun_corrected/estimated_genome_size
+    ) |>
+  arrange(-mean_abun_corrected_length) |>
+  mutate(
+    Abundance =
       case_when(
-        ufboot == 100 & shalrt == 100 ~ "UFBoot = 100 & SH-aLRT = 100",
-        ufboot >= 95 & shalrt >= 80 ~ "UFBoot ≥ 95 & SH-aLRT ≥ 80"
+        mean_abun_corrected_length >= 0.1 ~ "high",
+        mean_abun_corrected_length >= 0.01 ~ "mid",
+        TRUE ~ "low"
       ),
+    Abundance = factor(Abundance, levels = c("high", "mid", "low"))
+    )
+
+sags_and_refs_genome_sizes <- 
+  additional_genomes_busco |> 
+  mutate(completeness = Complete + Fragmented) |> 
+  left_join(additional_genomes_stats) |> 
+  left_join(additional_genomes_architecture) |> 
+  mutate(estimated_genome_size = 100*(sum_len/1e6)/completeness) |> 
+  select(id, estimated_genome_size, completeness, starts_with('perc_')) |> 
+  bind_rows(sags_est_genome_size) |> 
+  select(-sag_id)
+
+sags_clusters <- 
+  read_tsv('../../data/sags/sags_clusters.tsv')
+
+metadata_tree <- 
+  metadata_tree_raw |> 
+  left_join(sags_and_refs_genome_sizes) |> 
+  left_join(sags_mean_abundance |> select(sag_id, Abundance)) |>
+  left_join(sags_clusters, by = 'sag_id') |> 
+  mutate(genome_available = !is.na(estimated_genome_size),
+         cluster = factor(cluster))
+
+pf_tree_rooted <-
+  pf_tree |>
+  root(pf_tree, node = 465)
+```
+
+## Functions
+
+```{r}
+base_tree_plotter <- function(tree, group_node, group_color, metadata_df = metadata_tree, group_name, treescale_x, treescale_y, legend_x, legend_y, add_cluster = F, cluster_offset = .012,show_abundance_legend = T, offset_labels = .02){
+  
+  # subset tree by node
+  subset_tree <- 
+    tree |> 
+    extract.clade(group_node)
+  
+  # add metadata
+  subset_tree %<>%
+    dplyr::left_join(
+      metadata_df |> mutate(label_tree = str_remove(name_long,str_c('_',group_name))),
+      by = c("label" = "id")
+    )
+  
+  p_base_tree <- 
+    subset_tree |> 
+    ggtree() + 
+    geom_tiplab(
+      parse = T,
+      align = T,
+      offset = offset_labels,
+      aes(
+          label = label_tree,
+          color = genome_available
+          ),
+      linesize = 0.2
+      ) +  
+    scale_color_manual(values = c('gray70',group_color)) +
+    guides(color = 'none', fill = guide_legend(override.aes = list(size = 4))) +
+    geom_treescale(x = treescale_x, y = treescale_y) +
+    ggnewscale::new_scale_color() +
+    geom_tippoint(aes(color = Abundance, fill = Abundance), size = 3, shape = 21, na.rm = T) +
+    scale_fill_manual(values = c("sienna", "khaki", "pink"), na.value = NA, na.translate = F) +
+    scale_color_manual(values = rep('gray20',3), na.value = NA, na.translate = F) +
+    theme(legend.position = 'inside',
+          legend.position.inside = c(legend_x,legend_y),
+          legend.background = element_blank()
+          )
+  
+  if (show_abundance_legend == F){
+    
+    p_base_tree <- 
+      p_base_tree +
+      guides(fill ='none', color ='none')
+    
+  }
+  
+  if (add_cluster){
+    
+    cluster_colors <- c("#4dbbd5ff", "#e64b35", "#00a087", "#3c5488", "#f39b7f")
+    
+    p_base_tree <- 
+      p_base_tree +
+      ggnewscale::new_scale_fill() +
+      ggnewscale::new_scale_color() +
+      geom_tippoint(aes(color = cluster, fill = cluster, x = x+cluster_offset), size = 3, shape = 22, na.rm = T) +
+      scale_color_manual(values = rep('gray20',5), na.value = NA, na.translate = F) +
+      scale_fill_manual(values = cluster_colors, na.value = NA, na.translate = F) +
+      guides(color = 'none', fill = guide_legend(override.aes = list(size = 4)))
+    
+  }
+  
+  return(p_base_tree)
+}
+
+genome_size_and_introns_plotter <- function(base_plot_tree, group_color, metadata_df = metadata_tree){
+  
+    order_labels <- 
+      get_taxa_name(base_plot_tree)
+  
+    p_genome_sizes <- 
+      metadata_df |> 
+      filter(id %in% order_labels) |> 
+      mutate(id = factor(id, levels = order_labels)) |> 
+      ggplot(aes(x = estimated_genome_size, y = fct_rev(id))) +
+      geom_col(color = 'gray20', linewidth = 0.2, fill = alpha(group_color,0.5)) +
+      theme_sags() +
+      scale_x_continuous(expand = c(0,0)) +
+      labs(x = 'Est. genome size (Mbp)',  y = NULL) +
+      theme(
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border = element_blank(),
+        axis.line.x = element_line(linewidth = 0.4, color = 'gray20')
+    )
+    
+    p_perc_intronic <-
+      metadata_df |> 
+      filter(id %in% order_labels) |> 
+      mutate(id = factor(id, levels = order_labels)) |> 
+      ggplot(aes(x = perc_intronic, y = fct_rev(id))) +
+      geom_col(color = 'gray20', linewidth = 0.2, fill = alpha(group_color,0.2)) +
+      theme_sags() +
+      scale_x_continuous(expand = c(0,0)) +
+      labs(x = 'Intronic regions (%)',  y = NULL) +
+      theme(
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.border = element_blank(),
+        axis.line.x = element_line(linewidth = 0.4, color = 'gray20')
+    )
+    
+    plot <- 
+      wrap_plots(
+        p_genome_sizes,
+        p_perc_intronic
+      )
+      
+    return(plot)
+}
+
+genome_architecture_plotter <- function(base_plot_tree, group_color, metadata_df = metadata_tree, add_clusters = T ,spacer_width = -0.09){
+  
+    order_labels <- 
+      get_taxa_name(base_plot_tree)
+  
+    architectures_df <- 
+      metadata_df |> 
+      filter(id %in% order_labels) |> 
+      select(id, estimated_genome_size, starts_with('perc_')) |> 
+      pivot_longer(cols = -c(id,estimated_genome_size), names_prefix = 'perc_', names_to = 'type', values_to = 'perc') |> 
+      mutate(length = perc*estimated_genome_size/100,
+             id = factor(id, levels = order_labels),
+             type = factor(str_to_sentence(type), levels = c('Exonic','Intronic','Intergenic')))
+    
+    p_architectures <- 
+      architectures_df |> 
+      ggplot(aes(x = length, y = fct_rev(id))) +
+      geom_col(color = 'gray20', linewidth = 0.2, fill = group_color, aes(alpha = fct_rev(type))) +
+      scale_alpha_manual(values = c(0.333, 0.6666, 1), name = NULL, 
+                         guide = guide_legend(reverse = T, override.aes = list(fill = 'gray30'))) +
+      theme_sags() +
+      scale_x_continuous(expand = c(0,0)) +
+      labs(x = 'Est. genome size (Mbp)',  y = NULL) +
+      theme(
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.text = element_text(size = 9),
+        panel.border = element_blank(),
+        legend.title = element_text(size = 10),
+        axis.line.x = element_line(linewidth = 0.4, color = 'gray20'),
+        
+    )
+    
+    if (add_clusters){
+      
+      cluster_colors <- c("#4dbbd5ff", "#e64b35", "#00a087", "#3c5488", "#f39b7f")
+      
+      p_clusters <-
+        metadata_df |> 
+        filter(id %in% order_labels) |>
+        mutate(id = factor(id, levels = order_labels)) |> 
+        ggplot(aes(x = '', y = fct_rev(id))) +
+        geom_tile(aes(fill = cluster), color = 'white', linewidth = 0.2) +
+        theme_void() +
+        theme(
+          legend.text = element_text(size = 9),
+          legend.title = element_text(size = 10)
+        ) +
+        guides(color = 'none', 
+               fill = guide_legend(title = 'Cluster')) +
+        scale_fill_manual(values = cluster_colors, na.value = NA, na.translate = F)
+      
+      p_architectures <- 
+        wrap_plots(
+          p_clusters,
+          plot_spacer(),
+          p_architectures,
+          widths = c(.08,spacer_width,.92),
+          guides = 'collect'
+        ) &
+        theme(legend.position = 'top', legend.box = 'vertical')
+      
+    }
+    
+    
+    return(p_architectures)
+  
+}
+```
+
+## Specific clades
+
+### Prymnesiophyceae
+
+```{r}
+group_name = 'Prymnesiophyceae'
+tree = pf_tree
+group_node = 611
+group_color = 'seagreen'
+treescale_x = 0
+treescale_y = 32
+legend_x = 0.09
+legend_y = 1
+
+p_prym_base_tree <- 
+  base_tree_plotter(tree, group_node, group_color, metadata_df = metadata_tree, group_name, treescale_x, treescale_y, legend_x, legend_y)
+
+p_prym_architectures <- 
+  genome_architecture_plotter(p_prym_base_tree, group_color,add_clusters = T)
+
+p_prym_tree_with_architectures <- 
+  wrap_plots(
+    p_prym_base_tree + xlim(0,.8),
+    plot_spacer(),
+    p_prym_architectures,
+    widths = c(.8,-.24,.2)
   )
 ```
 
-## Plot tree
+### Chlorarachnea
 
 ```{r}
-figure_legends <-
-  readxl::read_excel("../../data/aux/figure_legends.xlsx")
+group_name = 'Chlorarachnea'
+tree = pf_tree_rooted
+group_node = 893
+group_color = 'deeppink3'
+treescale_x = 0
+treescale_y = 3.5
+legend_x = 0.09
+legend_y = .8
 
-fig <- "S6"
+p_chlor_base_tree <- 
+  base_tree_plotter(tree, group_node, group_color, metadata_df = metadata_tree, group_name, treescale_x, treescale_y, legend_x, legend_y, show_abundance_legend = F, offset_labels = 0.025)
 
-caption <-
-  figure_legends |>
-  filter(figure == fig) |>
-  pull()
+p_chlor_architectures <- 
+  genome_architecture_plotter(p_chlor_base_tree, group_color, add_clusters = T)
 
-p_tree_base <-
-  ggtree(tree_with_metadata_and_bootstraps,
-    linewidth = 0.4
+p_chlor_tree_with_architectures <- 
+  wrap_plots(
+    p_chlor_base_tree + xlim(0,1),
+    plot_spacer(),
+    p_chlor_architectures,
+    widths = c(.8,-.23,.2)
+  )
+```
+
+### Chrysophyceae
+
+```{r}
+group_name = 'Chrysophyceae'
+tree = pf_tree
+group_node = 750
+group_color = "goldenrod3"
+treescale_x = 0
+treescale_y = 16
+legend_x = 0.09
+legend_y = .9
+
+p_chryso_base_tree <- 
+  base_tree_plotter(tree, group_node, group_color, metadata_df = metadata_tree, group_name, treescale_x, treescale_y, legend_x, legend_y, show_abundance_legend = F, offset_labels = 0.04)
+
+p_chryso_architectures <- 
+  genome_architecture_plotter(p_chryso_base_tree, group_color, add_clusters = T,spacer_width = -.085)
+
+p_chryso_tree_with_architectures <- 
+  wrap_plots(
+    p_chryso_base_tree + xlim(0,1.5),
+    plot_spacer(),
+    p_chryso_architectures,
+    # widths = c(.8,-.25,.2)
+    widths = c(.8,-.24,.2)
+  )  
+```
+
+### Merged plot
+
+```{r}
+fig <- 'S6'
+caption <- get_caption(fig)
+
+figS6 <- 
+  wrap_plots(
+    p_prym_tree_with_architectures,
+    p_chryso_tree_with_architectures & guides(fill = 'none', color = 'none', alpha = 'none'), 
+    p_chlor_tree_with_architectures & guides(fill = 'none', color = 'none', alpha = 'none'),
+    heights = c(.66,.26,.075)
   ) +
-  geom_tiplab(
-    parse = T,
-    aes(
-      label = name,
-      color = supergroup,
-      alpha = sag
-    ),
-    linesize = 0.2,
-    size = 3
-  ) +
-  # scale_color_manual(values = supergroup_colors, na.value = "black") +
-  scale_alpha_manual(values = c(.7, 1)) +
-  guides(color = "none", fill = "none", alpha = "none") +
-  ggnewscale::new_scale_color() +
-  geom_nodepoint(
-    aes(color = support),
-    size = 2
-  ) +
-  scale_color_manual(
-    values = c(
-      "UFBoot = 100 & SH-aLRT = 100" = "black",
-      "UFBoot ≥ 95 & SH-aLRT ≥ 80" = "gray70"
-    ),
-    na.value = NA,
-    na.translate = F,
-    name = NULL
-  ) +
-  theme(
-    legend.position = "bottom",
-    # legend.background = element_rect(color = "gray20"),
-    legend.text = element_text(size = 12)
-  ) +
-  coord_cartesian(xlim = c(0, 15), clip = "off") +
-  labs(
-    caption = caption
-  ) +
+  plot_annotation(tag_levels = list(c('A','','','B','','','C')))  
+
+figS6_with_caption <-
+  figS6 +
+  plot_annotation(caption = caption) &
   theme(
     plot.caption = element_textbox_simple(
-      margin = margin(30, 0, 5, 0),
-      width = unit(.9, "npc"),
-      size = 12
+      margin = margin(5, 0, 5, 5),
+      width = unit(1, "npc"),
+      size = 10
     )
-  ) +
-  guides(color = guide_legend(override.aes = list(size = 4)))
+  )
 
-
-ggsave(
-  plot = p_tree_base,
-  filename = "../../figures/figS6.pdf",
-  height = 80,
-  width = 15,
-  limitsize = F
-)
+ggsave(plot = figS6 , filename = '../../figures/supp_figures/figS6.pdf', height = 15, width = 10)
+ggsave(plot = figS6_with_caption, filename = '../../figures/supp_figures/with_caption/figS6_with_caption.pdf', height = 16, width = 10)
 ```
 

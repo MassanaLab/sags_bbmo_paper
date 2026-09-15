@@ -49,6 +49,7 @@ The scripts to process SAGs and obtain the data used for figures can be found in
 3. Mapping BBMO metagenomes against MarFERReT and SAGs: [`scripts/metag/`](scripts/metag/).
 4. Quantifying SAGs functional genes with BBMO metaT: [`scripts/metat/`](scripts/metat/).
 5. GO enrichment analysis: [`scripts/enrichment/`](scripts/enrichment/) using data prepared in script [`scripts/enrichment/prepare_files_enrichment.Rmd`](scripts/enrichment/prepare_files_enrichment.Rmd). Already prepared data is also available at [`data/enrichment/enrichment_files/`](data/enrichment/enrichment_files/).
+6. 18S tree construction: [`scripts/tree_18S/`](scripts/tree_18S/).
 
 The following software is needed:
 
@@ -69,7 +70,7 @@ trimal
 1. Download all scripts and data by using:
 
 ```
-git clone https://github.com/MassanaLab/sags_bbmo_natmicrobiol.git
+git clone https://github.com/MassanaLab/sags_bbmo_paper.git
 ```
 
 2. Install the following R packages: 

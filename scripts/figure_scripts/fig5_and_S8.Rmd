@@ -1,0 +1,991 @@
+---
+title: "SAGs functional genes - Figures 5 and S8"
+author: "Aleix Obiol"
+date: "2026-09-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+```
+
+## Read data
+
+### sags metadata
+
+```{r}
+sags_metadata <-
+  read_tsv("../../data/sags/sags_metadata.tsv")
+
+sags_subgroups <-
+  readxl::read_excel("../../data/sags/Subgroup_level.xlsx") |>
+  select(sag_id = 1, subgroup = Subgroup_Figure_5...11) |>
+  left_join(sags_metadata |> select(sag_id, fraction))
+```
+
+### enrichment analysis
+
+```{r}
+enrichment_files_sags_sort_mincomp15 <-
+  read_tsv("../../data/enrichment/sags-go_enrichment-sort_mincomp15.tsv")
+
+final_categories <-
+  read_tsv("../../data/enrichment/categories_enriched_go.tsv")
+
+pfam_enrichment <-
+  read_tsv("../../data/enrichment/pfam_enrichment.tsv") |>
+  select(sag_id = species, everything()) |>
+  select(-species_count)
+
+pfam_selection <-
+  read_tsv("../../data/enrichment/Pfam_final_selectionFig5.tsv")
+
+pfam_names <-
+  read_tsv("../../data/enrichment/Pfam-A.clans.tsv.gz",
+    col_names = c("pfam_id", "clan_id", "clan_name", "annot", "pfam_description")
+  )
+```
+
+### metagenomics data
+
+```{r}
+total_metag_reads <-
+  read_tsv("../../data/metag/samples_metag_reads.tsv", col_names = c("sample", "total_reads"))
+
+sags_otutab <-
+  read_tsv("../../data/metag/otutab_sags_100id_tax_summary.tsv") |>
+  pivot_longer(names_to = "sample", values_to = "abundance", -1) |>
+  left_join(total_metag_reads) |>
+  mutate(perc = 100 * abundance / total_reads) |>
+  select(-total_reads)
+```
+
+### metatranscriptomics data
+
+```{r}
+tpm_table <-
+  read_tsv("../../data/metat/sags_metat_abundance_tpm.tsv.gz")
+```
+
+### functional genes
+
+```{r}
+sags_annotation_df <-
+  read_tsv("../../data/functional_genes/sags_147_pfam.tsv.gz",
+           col_names = c("protein_accession", "sequence_md5_digest", "sequence_length", "analysis", "signature_accession", "signature_description", "start_location", "stop_location", "score", "status", "date", "interpro_accession", "interpro_description", "go_annotations", "pathways_annotations")
+) |> 
+  select(
+    gene = protein_accession,
+    pfam_id = signature_accession,
+    pfam_description = signature_description,
+    go_terms = go_annotations,
+    length = sequence_length,
+    start = start_location,
+    end = stop_location
+  ) |> 
+  mutate(sag_id = str_remove(gene, '_g[0-9].*'), .before = 1)
+
+pks_pfams <-
+  read_tsv("../../data/functional_genes/pks_pfams.tsv")
+
+rhodo_pfam <-
+  "PF01036"
+
+ngenes_rhodo_types <-
+  read_tsv("../../data/functional_genes/ngenes_rho_types.tsv")
+
+sags_rho_genes_classification <- 
+  read_tsv('../../data/functional_genes/sags_rho_genes_classification.tsv', col_names = c('id','classification')) |> 
+  replace_na(list(classification = 'unclassified'))
+```
+
+## Polyketide synthases
+
+```{r}
+sags_annotation_pks <-
+  sags_annotation_df |>
+  filter(pfam_id %in% pks_pfams$pfam_id) |>
+  arrange(sag_id, start, end) |>
+  left_join(pks_pfams) |>
+  left_join(sags_metadata)
+
+genes_pks1_summary <-
+  sags_annotation_pks |>
+  filter(module_type == "core") |>
+  arrange(sag_id, gene, start) |>
+  group_by(sag_id, gene, module_abb) |>
+  slice_head(n = 1) |> # keep only first appearance of each module per SAG
+  group_by(sag_id, gene) |>
+  summarise(
+    structure = paste0(module_abb, collapse = "-"),
+    n_modules = n()
+  ) |>
+  filter(str_detect(structure, "-.*-")) # keep complete structures (those containing the 3 domains)
+
+sags_pks1_summary <-
+  genes_pks1_summary |>
+  count(sag_id, name = "ngenes") |>
+  right_join(sags_metadata |> select(sag_id, Group, Supergroup)) |>
+  replace_na(list(ngenes = 0))
+
+n_sags <-
+  sags_metadata |>
+  count(Group, Supergroup, name = "total_sags") |>
+  filter(!Group %in% c("Chlorophyta"))
+
+group_pks1_summary <-
+  sags_pks1_summary |>
+  group_by(Group, Supergroup) |>
+  summarise(
+    nsags = sum(ngenes > 0),
+    ngenes_per_sag = mean(ngenes)
+  ) |>
+  arrange(Supergroup, Group) |>
+  right_join(n_sags) |>
+  arrange(Supergroup, Group) |>
+  mutate(perc_nsags = 100 * nsags / total_sags)
+```
+
+## Rhodopsins
+
+```{r}
+sags_annotation_rhodo <-
+  sags_annotation_df |>
+  filter(pfam_id %in% rhodo_pfam) |>
+  left_join(sags_metadata)
+
+sags_rhodo_summary <-
+  sags_annotation_rhodo |>
+  distinct(sag_id, gene, pfam_id) |>
+  count(sag_id, name = "ngenes") |>
+  right_join(sags_metadata |> select(sag_id, Group, Supergroup)) |>
+  replace_na(list(ngenes = 0))
+
+ngenes_per_sag_rhodo_types <-
+  ngenes_rhodo_types |>
+  right_join(n_sags) |>
+  mutate(ngenes_per_sag = ngenes / total_sags) |>
+  select(Group, Supergroup, type = rho_type_short, ngenes_per_sag)
+
+group_rhodo_summary <-
+  sags_rhodo_summary |>
+  group_by(Group, Supergroup) |>
+  summarise(
+    nsags = sum(ngenes > 0),
+  ) |>
+  arrange(Supergroup, Group) |>
+  right_join(n_sags) |>
+  arrange(Supergroup, Group) |>
+  mutate(perc_nsags = 100 * nsags / total_sags)
+```
+## PKS and RHO merged
+
+```{r}
+pks_rhodo_genes <-
+  genes_pks1_summary |>
+  ungroup() |>
+  select(gene) |>
+  mutate(protein = "PKSI") |>
+  bind_rows(
+    sags_annotation_rhodo |>
+      distinct(gene) |>
+      mutate(protein = "RHO")
+  )
+
+# export list to create filtered metaT files
+# write_lines(c(pks_rhodo_genes$gene, genes_pk23_summary$gene), '../../data/functional_genes/pks_rho_genes.txt')
+
+pks_rhodo_perc_nsags <-
+  group_pks1_summary |>
+  select(Group, Supergroup, perc_nsags) |>
+  mutate(protein = "PKSI") |>
+  bind_rows(
+    group_rhodo_summary |>
+      select(Group, Supergroup, perc_nsags) |>
+      mutate(protein = "RHO")
+  ) |>
+  mutate(Group = fct_inorder(Group))
+
+pks_rhodo_ngenes_per_sag <-
+  group_pks1_summary |>
+  select(Group, Supergroup, ngenes_per_sag) |>
+  mutate(
+    protein = "PKSI",
+    type = "PKSI"
+  ) |>
+  bind_rows(
+    ngenes_per_sag_rhodo_types |>
+      mutate(protein = "RHO")
+  ) |>
+  mutate(Group = fct_inorder(Group))
+```
+
+## TPM counts
+
+```{r}
+sags_metag_mean_abundance <-
+  sags_otutab |>
+  filter(!str_detect(lca_taxonomy, "^lca:")) |>
+  mutate(sag_id = paste0(str_remove(lca_taxonomy, ".*;"), "_", str_remove(lca_taxonomy, ";.*"))) |>
+  group_by(sag_id) |>
+  summarise(mean_perc = mean(perc)) |>
+  left_join(sags_metadata |> select(sag_id, completeness, Group, Supergroup)) |>
+  mutate(
+    mean_perc_corrected = 100 * mean_perc / completeness
+  ) |>
+  select(-completeness, -mean_perc)
+
+groups_metag_mean_abundance <-
+  sags_metag_mean_abundance |>
+  group_by(Group, Supergroup) |>
+  summarise(mean_metag_perc = sum(mean_perc_corrected)) |>
+  ungroup() |>
+  mutate(perc_community = 100 * mean_metag_perc / sum(mean_metag_perc))
+
+tpm_counts_pks_rhodo <-
+  tpm_table |>
+  filter(Name %in% c(pks_rhodo_genes$gene)) |>
+  select(-Length) |>
+  pivot_longer(-Name, values_to = "tpm", names_to = "sample") |>
+  mutate(sag_id = str_remove(Name, "_g[0-9].*")) |>
+  left_join(pks_rhodo_genes |> distinct(Name = gene, protein)) |>
+  left_join(sags_metadata |> select(sag_id, Group, Supergroup))
+
+tpm_expression_sample_group <-
+  tpm_counts_pks_rhodo |>
+  group_by(Supergroup, Group, protein, sample) |>
+  summarise(tpm = sum(tpm))
+
+mean_tpm <-
+  tpm_expression_sample_group |>
+  group_by(Supergroup, Group, protein) |>
+  summarise(mean_tpm = mean(tpm), .groups = "drop") |>
+  right_join(n_sags) |>
+  complete(
+    nesting(Supergroup, Group),
+    protein = c("PKSI", "RHO"),
+    fill = list(mean_tpm = 0)
+  ) |>
+  left_join(groups_metag_mean_abundance) |>
+  mutate(
+    mean_tpm_corrected = mean_tpm / perc_community,
+    Group = factor(Group, levels = levels(pks_rhodo_perc_nsags$Group))
+  ) |>
+  filter(!is.na(protein))
+```
+
+## Functional enrichment
+
+```{r}
+sags_per_fraction_mincomp15 <-
+  sags_metadata |>
+  filter(completeness >= 15) |>
+  count(fraction, name = "total_sags")
+
+enrichment_fractions_with_sags <-
+  enrichment_files_sags_sort_mincomp15 |>
+  group_by(GO.ID, ontology, Term, fraction = enriched_in) |>
+  summarise(
+    nsags = n_distinct(sag_id),
+  ) |>
+  left_join(sags_per_fraction_mincomp15) |>
+  mutate(perc_nsags = 100 * nsags / total_sags)
+
+enrichment_fractions_with_sags_selection <-
+  enrichment_fractions_with_sags |>
+  group_by(GO.ID) |>
+  filter(
+    max(perc_nsags) >= 20,
+    ontology == "BP"
+  ) |>
+  select(-nsags, -total_sags) |>
+  mutate(
+    select =
+      case_when(
+        n() == 1 ~ "yes",
+        max(perc_nsags) / min(perc_nsags) >= 3 ~ "yes",
+        TRUE ~ "no"
+      )
+  ) |>
+  filter(select == "yes") |>
+  left_join(final_categories)
+
+sags_annotation_df_clean <-
+  sags_annotation_df |>
+  filter(go_terms != "-") |>
+  mutate(
+    go_terms = str_remove_all(go_terms, "\\(InterPro\\)"),
+    go_terms = str_split(go_terms, "\\|"),
+  ) |>
+  select(-contains("pfam")) |>
+  unnest(go_terms) |>
+  left_join(sags_metadata)
+
+selected_gos <-
+  enrichment_fractions_with_sags_selection |>
+  slice_max(order_by = perc_nsags) |>
+  ungroup() |>
+  distinct(go_terms = GO.ID, fraction) |>
+  mutate(selected = "yes")
+
+go_terms_selection <-
+  sags_annotation_df_clean |>
+  left_join(selected_gos) |>
+  filter(selected == "yes")
+
+ngenes_per_sag <-
+  go_terms_selection |>
+  count(go_terms, fraction) |>
+  left_join(sags_per_fraction_mincomp15) |>
+  mutate(
+    ngenes_per_sag = n / total_sags,
+    ngenes_per_sag_discrete =
+      cut(
+        ngenes_per_sag,
+        breaks = c(0, 1, 5, 20, 100, Inf),
+        labels = c(
+          "<1",
+          "1–5",
+          "5–20",
+          "20–100",
+          ">100"
+        ),
+        include.lowest = TRUE
+      )
+  )
+
+order_final_categories <-
+  enrichment_fractions_with_sags_selection |>
+  group_by(final_category, fraction) |>
+  summarise(
+    sum_perc_nsags = sum(perc_nsags)
+  ) |>
+  pivot_wider(names_from = fraction, values_from = sum_perc_nsags, values_fill = 0) |>
+  mutate(diff = HF / PF) |>
+  arrange(-diff)
+```
+
+## Figure 5
+
+### a
+
+```{r}
+titles_fraction <-
+  tibble(
+    label = c("PP", "HP"),
+    perc_nsags_plot = c(-10, 70)
+  )
+
+fig5a <-
+  enrichment_fractions_with_sags_selection |>
+  slice_max(order_by = perc_nsags) |>
+  left_join(
+    ngenes_per_sag |>
+      select(
+        GO.ID = go_terms,
+        fraction,
+        ngenes_per_sag,
+        ngenes_per_sag_discrete
+      )
+  ) |>
+  mutate(
+    perc_nsags_plot = if_else(fraction == "PF", -1 * perc_nsags, perc_nsags)
+  ) |>
+  mutate(final_category = factor(final_category, levels = order_final_categories$final_category)) |>
+  ggplot(aes(y = fct_rev(final_category), x = perc_nsags_plot)) +
+  geom_point(
+    aes(fill = fraction, size = ngenes_per_sag_discrete),
+    position = position_jitter(width = 0.1, height = 0.1, seed = 123),
+    shape = 21,
+    color = "gray20"
+  ) +
+  geom_vline(xintercept = 0, linetype = "dotted") +
+  geom_text(
+    data = titles_fraction,
+    aes(y = 11.9, label = label),
+    size = 3,
+    vjust = -0.4,
+    fontface = "bold"
+  ) +
+  scale_fill_manual(values = c(PF = "aquamarine3", HF = "chocolate3")) +
+  scale_x_continuous(
+    labels = ~ paste0(abs(.x), "%"),
+    limits = c(-75, 75)
+  ) +
+  labs(y = NULL, x = "Presence in SAGs") +
+  theme_bw() +
+  theme(
+    strip.background = element_rect(fill = NA),
+    strip.text = element_text(size = 8),
+    legend.text = element_text(size = 8),
+    axis.text = element_text(size = 8),
+    legend.title = element_text(size = 8),
+    axis.title = element_text(size = 8),
+    # legend.background = element_blank(),
+    # plot.background = element_blank(),
+    plot.margin = margin(t = 0, r = 10, b = 0, l = 10),
+  ) +
+  # coord_cartesian(clip = "off") +
+  guides(
+    fill = "none",
+    size = guide_legend("Mean genes per SAG", position = "right")
+  ) +
+  scale_size_manual(
+    values =
+      seq(from = 0.6, to = 4.5, length.out = 5),
+  )
+```
+
+### b
+
+```{r}
+supergroup_labels <- 
+  c(
+    Alveolata = 'Alveolata',
+    Archaeplastida = 'Archaeplas.',
+    Discoba = 'Disc.',
+    Haptista = 'Hapt.',
+    Opisthokonta = 'Opisthokonta',
+    Rhizaria = 'Rhizaria',
+    Stramenopiles = 'Stramenopiles',
+    Telonemia = 'Telonemia'
+  )
+
+shorten_group_names <- function(df, column_name) {
+  # Convert the string name into a usable symbol
+  col_sym <- rlang::sym(column_name)
+  
+  if (column_name == 'Group'){
+    renamed_df <- 
+      df |>
+      ungroup() |> 
+      arrange(!!col_sym) |> 
+      mutate(
+        temp_col := case_when(
+          !!col_sym == 'Chlorodendrophyceae' ~ 'Chlorodendro.',
+          !!col_sym == 'Prymnesiophyceae' ~ 'Prymnesio.',
+          !!col_sym == 'Mamiellophyceae' ~ 'Mamiello.',
+          !!col_sym == 'Dictyochophyceae' ~ 'Dictyocho.',
+          !!col_sym == 'Labyrinthulomycetes' ~ 'Labyrinthulo.',
+          TRUE ~ !!col_sym
+        ),
+        temp_col = fct_inorder(temp_col)
+      ) 
+  } else if (column_name == 'subgroup'){
+    renamed_df <- 
+      df |>
+      ungroup() |> 
+      arrange(!!col_sym) |> 
+      mutate(
+        temp_col := case_when(
+          !!col_sym == 'Dictyochophyceae' ~ 'Dictyocho.',
+          !!col_sym == 'Other Choanoflagellata' ~ 'Other Choano.',
+          !!col_sym == 'Other Prymnesiophyceae' ~ 'Other Prymnesio.',
+          !!col_sym == 'Prymnesium' ~ '*Prymnesium*',
+          !!col_sym == 'Chrysochromulina' ~ '*Chrysochrom.*',
+          !!col_sym == 'Phaeocystis' ~ '*Phaeocystis*',
+          !!col_sym == 'Other ochrophyta' ~ 'Other Ochrophyta',
+          !!col_sym == 'Novel dictyochophyte' ~ 'Novel Dictyo.',
+          TRUE ~ !!col_sym
+        ),
+        temp_col = fct_inorder(temp_col)
+      )     
+  } else if (column_name == 'name'){
+    renamed_df <- 
+      df |>
+      ungroup() |> 
+      arrange(!!col_sym) |> 
+      mutate(
+        temp_col := case_when(
+          !!col_sym == 'Microtubule-binding stalk of dynein motor' ~ 'MT-binding stalk of dynein motor',
+          !!col_sym == 'Triose-phosphate Transporter family' ~ 'Triose-phosphate transporter',
+          !!col_sym == 'GDSL/SGNH-like Acyl-Esterase family' ~ 'GDSL/SGNH-like acyl esterase',
+          !!col_sym == 'Phosphopantetheine attachment site' ~ 'Phosphopantetheine attach. site',
+          TRUE ~ !!col_sym
+        ),
+        temp_col = fct_inorder(temp_col)
+      )  
+  }
+    
+    renamed_df |> 
+    select(-!!col_sym) |> 
+    dplyr::rename(!!col_sym := temp_col)
+    
+}
+
+p_ngenes_per_sag <- 
+  pks_rhodo_ngenes_per_sag |> 
+  filter(Group != 'Unknown') |> 
+  group_by(Group ,Supergroup, protein) |> 
+  summarise(ngenes_per_sag  = sum(ngenes_per_sag)) |> 
+  replace_na(list(ngenes_per_sag = 0)) |> 
+  shorten_group_names(column_name = 'Group') |> 
+  ggplot(aes(x = Group, y = ngenes_per_sag)) +
+  geom_col(aes(fill = protein), position = position_dodge(),color = "gray20",
+      linewidth = 0.2) +
+  ggh4x::facet_grid2(
+      ~ Supergroup,
+      scales = 'free',
+      space = 'free_x', 
+      strip = strip_vanilla(clip = 'off'),
+      labeller = as_labeller(supergroup_labels)
+  ) +
+  theme_bw() +
+  scale_fill_manual(values = c("RHO" = "lightgoldenrod", "PKSI" = "lightblue")) +
+  labs(y = 'Genes per SAG') +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = 'inside',
+    legend.position.inside = c(.65,.8),
+    legend.title = element_blank(),
+    legend.direction = 'horizontal',
+    legend.key.size = unit(4, 'mm'),
+    strip.background = element_blank(),
+    strip.text = element_text(size = 8)
+  ) 
+
+p_expression <- 
+  mean_tpm |> 
+  filter(Group != 'Unknown') |> 
+  shorten_group_names(column_name = 'Group') |> 
+  ggplot(aes(x = Group, y = mean_tpm_corrected)) +
+  geom_col(aes(fill = protein), position = position_dodge(),color = "gray20",
+      linewidth = 0.2) +
+  ggh4x::facet_grid2(
+      ~ Supergroup,
+      scales = 'free',
+      strip = strip_vanilla(clip = 'off'),
+      space = 'free_x'
+  ) +
+  theme_bw() +
+  scale_fill_manual(values = c("RHO" = "lightgoldenrod", "PKSI" = "lightblue")) +
+  labs(y = 'TPM', x = NULL) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+  ) +
+  guides(fill = 'none')
+
+fig5b <- 
+  wrap_plots(
+    (p_ngenes_per_sag + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.x = element_blank())),
+    plot_spacer(),
+    (p_expression + theme(strip.text = element_blank())),
+    ncol = 1,
+    heights = c(.5,-.4,.5)
+  ) & 
+  theme(
+      legend.text = element_text(size = 8),
+      axis.text = element_text(size = 8),
+      axis.title = element_text(size = 8),
+      legend.background = element_blank(),
+      plot.background = element_blank(),
+      panel.grid.minor = element_blank()
+  )
+```
+
+
+### PFAM enrichment
+
+#### Fig S8
+
+```{r}
+sags_per_fraction <-
+  sags_metadata |>
+  count(fraction, name = "total_sags")
+
+pfam_per_subgroup_and_fraction <-
+  pfam_enrichment |>
+  left_join(sags_subgroups) |>
+  left_join(sags_metadata) |>
+  count(annot, fraction) |>
+  left_join(sags_per_fraction) |>
+  mutate(perc = 100 * n / total_sags) |>
+  group_by(annot) |>
+  filter(min(perc) >= 5)
+
+pfam_selection_supp <-
+  pfam_enrichment |>
+  filter(annot %in% pfam_per_subgroup_and_fraction$annot) |>
+  left_join(sags_subgroups) |>
+  left_join(sags_metadata) |>
+  count(annot, subgroup, fraction) |>
+  filter(subgroup != "-") |>
+  group_by(annot) |>
+  filter(n() > 1) |>
+  group_by(annot, fraction) |>
+  summarise(n = sum(n)) |>
+  group_by(annot) |>
+  mutate(
+    type =
+      case_when(
+        n() == 2 ~ "shared",
+        TRUE ~ fraction
+      )
+  ) |>
+  pivot_wider(names_from = fraction, values_from = n) |>
+  arrange(type, -HF, -PF)
+
+sags_per_subgroup <-
+  sags_subgroups |>
+  count(subgroup, name = "nsags")
+
+pfam_enrichment_selection_supp <-
+  pfam_enrichment |>
+  filter(annot %in% pfam_selection_supp$annot) |>
+  mutate(annot = factor(annot, levels = pfam_selection_supp$annot)) |>
+  left_join(sags_subgroups) |>
+  arrange(fraction, subgroup) |>
+  count(annot, subgroup) |>
+  left_join(sags_per_subgroup) |>
+  mutate(subgroup = fct_inorder(subgroup)) |>
+  mutate(perc = 100 * n / nsags) |>
+  left_join(pfam_names |> select(annot, pfam_id, pfam_description)) |>
+  mutate(
+    pfam_description = if_else(annot == "DUF2961", "Protein of unknown function (DUF2961)", pfam_description),
+    pfam_id = if_else(annot == "DUF2961", "no_id", pfam_id)
+  ) |>
+  mutate(
+    name = str_c("**", pfam_description, "** (*", annot, "* | ", pfam_id, ")"),
+    name = fct_inorder(name)
+  )
+
+annot_types_supp <-
+  pfam_selection_supp |>
+  left_join(pfam_enrichment_selection_supp |> distinct(annot, name)) |>
+  ungroup() |>
+  select(name, type) |>
+  mutate(type = fct_inorder(type))
+
+p_hm_supp_types <-
+  pfam_enrichment_selection_supp |>
+  left_join(annot_types_supp) |>
+  ggplot(aes(x = "", y = fct_rev(name))) +
+  geom_tile(aes(fill = type)) +
+  scale_fill_manual(values = c(HF = "chocolate3", PF = "aquamarine3", shared = "purple"))
+
+p_hm_supp <-
+  pfam_enrichment_selection_supp |>
+  ggplot(aes(x = subgroup, y = fct_rev(name))) +
+  geom_tile(aes(fill = perc)) +
+  theme_sags() +
+  scale_fill_viridis(name = "% SAGs") +
+  labs(x = NULL, y = NULL) +
+  theme(
+    axis.text.y.right = element_markdown(size = 10),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10)
+  ) +
+  scale_y_discrete(position = "right")
+
+fig <- "S8"
+
+caption <-
+  get_caption(fig)
+
+figS8 <-
+  wrap_plots(
+    p_hm_supp_types + theme_void(),
+    plot_spacer(),
+    p_hm_supp,
+    widths = c(0.02, -.033, .98),
+    guides = "collect"
+  ) &
+    coord_cartesian(clip = "off") &
+    theme(plot.margin = margin(5, 5, 5, 10))
+
+figS8_with_caption <-
+  wrap_plots(
+    p_hm_supp_types + theme_void(),
+    plot_spacer(),
+    p_hm_supp +
+      labs(
+        caption = caption
+      ) +
+      theme(
+        plot.caption = element_textbox_simple(
+          margin = margin(20, 0, 5, 0),
+          width = unit(1, "npc"),
+          size = 12
+        )
+      ),
+    widths = c(0.02, -.033, .98),
+    guides = "collect"
+  ) &
+    coord_cartesian(clip = "off") &
+    theme(plot.margin = margin(5, 5, 5, 10))
+
+ggsave(plot = figS8, filename = "../../figures/supp_figures/figS8.pdf", height = 45, width = 20)
+ggsave(plot = figS8_with_caption, filename = "../../figures/supp_figures/with_caption/figS8_with_caption.pdf", height = 45, width = 20)
+
+pfam_enrichment_selection <-
+  pfam_enrichment |>
+  filter(annot %in% pfam_selection$annot) |>
+  mutate(annot = factor(annot, levels = pfam_selection$annot)) |>
+  left_join(sags_subgroups) |>
+  arrange(fraction, subgroup) |>
+  mutate(subgroup = fct_inorder(subgroup)) |>
+  count(annot, subgroup) |>
+  left_join(sags_per_subgroup) |>
+  mutate(perc = 100 * n / nsags)
+```
+
+#### c
+
+```{r}
+sags_subgroups_modified <-
+  sags_subgroups |>
+  mutate(
+    fraction =
+      case_when(
+        subgroup %in% c("Other MAST", "Chlorarachnea", "Other Chrysophyceae") ~ "HF",
+        subgroup %in% c("Novel dictyochophyte", "Chrysophyceae-G") ~ "PF",
+        TRUE ~ fraction
+      )
+  )
+
+pfam_enrichment_selection_main <-
+  pfam_enrichment |>
+  filter(annot %in% pfam_selection$annot) |>
+  left_join(sags_subgroups_modified) |>
+  arrange(fraction, subgroup) |>
+  count(annot, subgroup) |>
+  left_join(sags_per_subgroup) |>
+  mutate(perc = 100 * n / nsags) |>
+  arrange(annot) |>
+  left_join(pfam_names |> select(annot, pfam_id, pfam_description)) |>
+  mutate(annot = factor(annot, levels = pfam_selection$annot)) |>
+  arrange(annot) |>
+  filter(nsags > 1) |>
+  mutate(
+    name = str_remove(pfam_description, "\\(.*|,.*| concanavalin.*| found.*"),
+    name = str_replace(name, "Glycosyltransferase family ", "GT"),
+    name = str_replace(name, "Glycosyl hydrolase.* family ", "GH"),
+    name = fct_inorder(name)
+  )
+
+order_subgroups <-
+  pfam_enrichment_selection_main |>
+  count(subgroup) |>
+  left_join(sags_subgroups_modified) |>
+  arrange(fraction, -n) |>
+  mutate(subgroup = fct_inorder(subgroup)) |>
+  distinct(subgroup) |>
+  pull()
+
+annot_types_main <-
+  pfam_selection |>
+  mutate(
+    type = fct_inorder(type),
+    annot = fct_inorder(annot)
+  )
+
+fig5c <-
+  pfam_enrichment_selection_main |>
+  left_join(sags_subgroups_modified) |>
+  mutate(subgroup = factor(subgroup, levels = order_subgroups),
+         fraction = if_else(fraction == 'HF', 'HP', 'PP'),
+         fraction = factor(fraction, levels = c('PP','HP'))) |>
+  shorten_group_names(column_name = 'subgroup') |> 
+  shorten_group_names(column_name = 'name') |> 
+  ggplot(aes(x = subgroup, y = fct_rev(name))) +
+  geom_tile(aes(fill = perc)) +
+  # scale_fill_viridis(option = 'mako', name = '% SAGs') +
+  scale_fill_distiller(palette = "Purples", name = "% SAGs", direction = 1) +
+  labs(x = NULL, y = NULL) +
+  scale_y_discrete(position = "right") +
+  ggh4x::facet_grid2(~fraction, space = "free", scales = "free_x") +
+  theme_sags() +
+  theme(axis.text.x = element_markdown(angle = 45, hjust = 1, size = 8),
+        legend.position = 'inside',
+        legend.title = element_text(size = 8),
+        legend.direction = 'horizontal',
+        legend.position.inside = c(1.17,-.19),
+        plot.margin = margin(r = 0))
+```
+
+### final
+
+```{r}
+fig5c_shifted <- wrap_plots(
+  plot_spacer(),
+  fig5c,
+  ncol = 2,
+  widths = c(0.00001, 0.999)
+) &
+  theme(plot.tag.position = c(-0.02, 1))
+
+fig5 <- 
+  wrap_plots(
+    free(fig5a, ),
+    plot_spacer(),
+    fig5c_shifted,
+    plot_spacer(),
+    free(fig5b),
+    ncol = 1,
+    heights = c(.25,-.01,.45,-.05,.3)
+  ) +
+  plot_annotation(tag_levels = list(c("A", "B","C","")))
+
+ggsave(plot = fig5, filename = "../../figures/fig5.pdf", units = 'mm', height = 220, width = 180)
+```
+
+## Table S5
+
+```{r}
+tableS5 <- 
+  enrichment_fractions_with_sags_selection |>
+  arrange(final_category, -perc_nsags) |> 
+  left_join(ngenes_per_sag |> select(`GO.ID` = go_terms, fraction, ngenes_per_sag)) |> 
+  replace_na(list(perc_nsags = 0, ngenes_per_sag= 0)) |> 
+  select(
+    `GO ID (BP)` = GO.ID,
+    Term,
+    `Functional category` = final_category,
+    perc_nsags,
+    ngenes_per_sag,
+    fraction
+  ) |> 
+  pivot_wider(names_from = fraction, values_from = c(perc_nsags, ngenes_per_sag), values_fill = 0) |> 
+  mutate(enriched_in = if_else(perc_nsags_PF > perc_nsags_HF, 'PF', 'HF')) |> 
+  arrange(desc(enriched_in))
+
+write_tsv(tableS5, '../../data/enrichment/tableS5.tsv')
+```
+
+
+## Table S6
+
+```{r}
+genes_pks1_summary <-
+  sags_annotation_pks |>
+  filter(module_type == "core") |>
+  arrange(sag_id, gene, start) |>
+  group_by(sag_id, gene, module_abb) |>
+  slice_head(n = 1) |>
+  group_by(sag_id, gene) |>
+  summarise(
+    structure = paste0(module_abb, collapse = "-")
+    ) |>
+  filter(str_detect(structure, "KS")) # keep structures that contain at least a KS domain
+
+genes_pk23_summary <-
+  sags_annotation_pks |>
+  filter(type != "Type I") |>
+  group_by(gene) |>
+  slice_head(n = 1) |>
+  count(sag_id, gene, type)
+
+sags_ngenes_pks1_summary <-
+  genes_pks1_summary |>
+  count(sag_id, structure, name = 'ngenes') |> 
+  mutate(
+    structure = factor(structure, levels = c("ACP-AT-KS", "ACP-KS", "AT-KS", "KS"))
+  ) |> 
+  arrange(structure)
+
+sags_pks1_summary <-
+  genes_pks1_summary |>
+  mutate(pks = if_else(str_detect(structure, ".*-.*--*"), "complete", "partial")) |>
+  count(sag_id, pks) |>
+  right_join(sags_metadata |> select(sag_id, Group, Supergroup))
+
+n_sags <-
+  sags_metadata |> count(Group, Supergroup, name = "total_sags")
+
+sags_pks1_group_summary <-
+  sags_pks1_summary |>
+  filter(!is.na(n)) |>
+  group_by(Group, Supergroup, sag_id) |>
+  summarise(ngenes = sum(n, na.rm = T)) |>
+  summarise(
+    nsags = n(),
+    ngenes_per_sag = mean(ngenes)
+  ) |>
+  arrange(Supergroup, Group) |>
+  right_join(n_sags) |>
+  arrange(Supergroup, Group) |>
+  replace_na(list(nsags = 0, ngenes_per_sag = 0)) |>
+  mutate(perc_nsags = 100 * nsags / total_sags)
+
+sags_pks23_summary <-
+  genes_pk23_summary |>
+  ungroup() |>
+  count(sag_id, type) |>
+  left_join(sags_metadata |> select(sag_id, Group, Supergroup))
+
+pks_summary <-
+  sags_pks1_summary |>
+  arrange(pks) |>
+  slice_head(n = 1) |> # keep pks complete if present
+  ungroup() |>
+  count(Supergroup, Group, pks) |>
+  pivot_wider(names_from = pks, values_from = n, values_fill = 0) |>
+  select(-`NA`) |>
+  left_join(
+    sags_ngenes_pks1_summary |>
+      right_join(sags_metadata |> select(sag_id, Group, Supergroup)) |>
+      group_by(Group, Supergroup, structure) |>
+      summarise(n = sum(ngenes)) |>
+      arrange(structure) |> 
+      pivot_wider(names_from = structure, values_from = n, values_fill = 0)
+  ) |>
+  left_join(n_sags) |>
+  select(-`NA`) |>
+  select(Supergroup, Group, nsags = total_sags, everything()) |>
+  left_join(
+    sags_pks23_summary |>
+      count(Supergroup, Group, type) |>
+      pivot_wider(names_from = type, values_from = n, values_fill = 0)
+  ) |>
+  left_join(
+    sags_pks23_summary |>
+      group_by(Supergroup, Group, type) |>
+      summarise(n = sum(n)) |>
+      pivot_wider(names_from = type, values_from = n, values_fill = 0) |>
+      rename_with(.cols = contains("Type"), .fn = ~ paste0(.x, "_ngenes"))
+  ) |>
+  replace_na(list("Type II" = 0, "Type III" = 0, "Type II_ngenes" = 0, "Type III_ngenes" = 0))
+
+rho_summary <- 
+  sags_rho_genes_classification |>
+  filter(classification != 'unclassified') |> 
+  mutate(sag_id = str_remove(id, '_g[0-9].*'),
+         classification = str_replace(classification, "8TM rhodopsin","8TM rhodopsins")) |> 
+  right_join(sags_metadata |> select(sag_id, Group, Supergroup)) |> 
+  count(Group, Supergroup, classification) |> 
+  mutate(classification = factor(classification, levels = c("Proteorhodopsins", "Xanthorhodopsins", "Channelrhodopsins", "Bestrhodopsins", "8TM rhodopsins", "SAR rhodopsins", "New clade", "Viral rhodopsins", "Halorhodopsins")
+)) |> 
+  arrange(classification) |> 
+  pivot_wider(names_from = classification, values_from = n, values_fill = 0) |> 
+  select(-`NA`)
+
+nsags_rhodopsins <- 
+  sags_rho_genes_classification |> 
+  mutate(sag_id = str_remove(id, '_g[0-9].*')) |>
+  distinct(sag_id) |> 
+  left_join(sags_metadata |> select(sag_id, Group, Supergroup)) |> 
+  count(Group, Supergroup, name = 'nsags_rhodo')
+  
+tableS6 <- 
+  pks_summary |> 
+  left_join(
+    rho_summary
+  ) |> 
+  left_join(
+    nsags_rhodopsins
+  ) |> 
+  select(
+    Supergroup,
+    Group,
+    nsags,
+    complete,
+    partial,
+    `Type II`,
+    `Type III`,
+    nsags_rhodo,
+    everything()
+  ) |> 
+  replace_na(list(nsags_rhodo = 0))
+  
+write_tsv(tableS6, "../../data/functional_genes/pks_and_rho_in_sags.tsv")
+```

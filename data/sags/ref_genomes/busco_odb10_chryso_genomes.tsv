@@ -1,0 +1,4 @@
+Input_file	Dataset	Complete	Single	Duplicated	Fragmented	Missing	n_markers	Internal stop codon percent	Scaffold N50	Contigs N50	Percent gaps	Number of scaffolds
+Chrysophyceae_sp._TOSAG23-4.fasta	eukaryota_odb10	46.7	45.1	1.6	5.5	47.8	255	67.2	25581	24881	0.611%	2737
+Chrysophyceae_sp._TOSAG23-5.fasta	eukaryota_odb10	22.0	21.6	0.4	7.1	71.0	255	58.9	10194	7405	1.136%	3058
+Ochromonadaceae_sp._CCMP2298.fasta	eukaryota_odb10	62.0	59.2	2.7	14.1	23.9	255	49.4	7503	4898	9.320%	12755

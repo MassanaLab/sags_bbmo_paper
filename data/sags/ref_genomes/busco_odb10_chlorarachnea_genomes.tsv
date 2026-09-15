@@ -1,0 +1,2 @@
+Input_file	Dataset	Complete	Single	Duplicated	Fragmented	Missing	n_markers	Internal stop codon percent	Scaffold N50	Contigs N50	Percent gaps	Number of scaffolds
+Bigelowiella_natans.fasta	eukaryota_odb10	60.0	57.3	2.7	8.6	31.4	255	43.1	59463	59463	0.000%	3736

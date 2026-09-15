@@ -1,0 +1,6 @@
+Input_file	Dataset	Complete	Single	Duplicated	Fragmented	Missing	n_markers	Internal stop codon percent	Scaffold N50	Contigs N50	Percent gaps	Number of scaffolds
+Gephyrocapsa_huxleyi.fasta	eukaryota_odb10	69.4	45.5	23.9	11.0	19.6	255	28.8	404808	29715	7.005%	7795
+Calcidiscus_leptoporus.fasta	eukaryota_odb10	77.3	75.3	2.0	3.9	18.8	255	54.3	718112	718112	0.000%	1440
+Chrysotila_carterae.fasta	eukaryota_odb10	49.8	46.7	3.1	18.8	31.4	255	50.4	76326	76326	0.000%	9265
+Phaeocystis_globosa.fasta	eukaryota_odb10	77.3	74.9	2.4	5.1	17.6	255	54.3	6601847	569225	0.144%	85
+Prymnesium_parvum.fasta	eukaryota_odb10	79.2	74.9	4.3	3.1	17.6	255	55.0	8642580	1823914	0.023%	34

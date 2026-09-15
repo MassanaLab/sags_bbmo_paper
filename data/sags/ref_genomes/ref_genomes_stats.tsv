@@ -1,0 +1,10 @@
+file	format	type	num_seqs	sum_len	min_len	avg_len	max_len
+Bigelowiella_natans.fasta	FASTA	DNA	3736	91405885	94	24466.2	382558
+Chrysophyceae_sp._TOSAG23-4.fasta	FASTA	DNA	2737	15909835	500	5812.9	153233
+Chrysophyceae_sp._TOSAG23-5.fasta	FASTA	DNA	3058	10586802	500	3462.0	110685
+Ochromonadaceae_sp._CCMP2298.fasta	FASTA	DNA	12755	61116754	1000	4791.6	104777
+Calcidiscus_leptoporus.fasta	FASTA	DNA	1440	452878705	286	314499.1	3150692
+Chrysotila_carterae.fasta	FASTA	DNA	9265	451748466	5002	48758.6	517649
+Gephyrocapsa_huxleyi.fasta	FASTA	DNA	7795	167675649	1000	21510.7	3018814
+Phaeocystis_globosa.fasta	FASTA	DNA	85	129669116	1926	1525519.0	9370350
+Prymnesium_parvum.fasta	FASTA	DNA	34	236006698	1891095	6941373.5	14654278

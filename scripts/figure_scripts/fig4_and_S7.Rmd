@@ -1,0 +1,507 @@
+---
+title: "SAGs genomic architectures - Figures 4 and S7"
+author: "Aleix Obiol"
+date: "2026-09-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+```
+
+## Read data
+
+### sags metadata
+
+```{r}
+# sags_metadata <-
+#   read_tsv("../../data/sags/sags_metadata.tsv")
+
+sags_metadata <-
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
+  select(
+    sag_id = 1,
+    sort = 3,
+    Group,
+    Supergroup,
+    completeness = `Completeness (%) (out of 255)`,
+    estimated_genome_size = `Estimated size (Mb)`,
+    perc_intronic = `Percent Intronic`,
+    perc_exonic = `Percent Exonic`,
+    perc_intergenic = `Percent Intergenic`,
+  ) |>
+  mutate(fraction = str_remove(sort, ".*-"), .before = sort) |>
+  select(-sort)
+
+sags_old_clusters <-
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
+  select(sag_id = 1, `Cluster in Fig. 4`)
+
+order_subgroups <-
+  c("MAST-1D", "Novel Isochrysidales", "Chrysophyceae-H", "MAST-3C/F/G", "Labyrinthulomycetes", "MAST-8", "MAST-7", "Mamiellophyceae", "Centroplasthelida", "MAST-4", "Novel dictyochophyte", "Diatomea", "Chrysophyceae-C", "Picozoa", "Chrysochromulina", "Acanthoecida", "Phaeocystis", "Prymnesium", "MALV-II", "MAST-1C", "Chrysophyceae-G", "MAST-3IK", "MALV-I", "Chlorodendrophyceae", "Cercozoa")
+
+sags_subgroups <-
+  readxl::read_excel("../../data/sags/Subgroup_level.xlsx") |>
+  select(sag_id = 1, subgroup = Subgroup_Figure_4...12) |>
+  filter(subgroup != "-") |>
+  mutate(subgroup = factor(subgroup, levels = order_subgroups))
+
+sags_fractions <-
+  readxl::read_excel("../../data/sags/Table-S2.xlsx") |>
+  select(sag_id = 1, fraction = Sort_FINAL)
+
+sags_subgroups_all <-
+  readxl::read_excel("../../data/sags/Subgroup_level.xlsx") |>
+  select(sag_id = 1, subgroup = Subgroup_Figure_5...11) |>
+  left_join(sags_metadata |> select(sag_id, Group, Supergroup)) |>
+  arrange(Supergroup, Group, subgroup) |>
+  mutate(subgroup = fct_inorder(subgroup))
+```
+
+### tree
+
+```{r}
+phylofisher_metadata <-
+  read_tsv("../../data/trees/phylofisher_metadata.tsv")
+```
+
+### metagenomics data
+
+```{r}
+total_metag_reads <-
+  read_tsv("../../data/metag/samples_metag_reads.tsv", col_names = c("sample", "total_reads"))
+
+sags_otutab <-
+  read_tsv("../../data/metag/otutab_sags_100id_tax_summary.tsv") |>
+  pivot_longer(names_to = "sample", values_to = "abundance", -1) |>
+  left_join(total_metag_reads) |>
+  mutate(perc = 100 * abundance / total_reads) |>
+  select(-total_reads)
+```
+
+## SAGs metaG abundance
+
+Add a discrete value representing abundance (high, mid, low).
+
+```{r}
+sags_mean_abundance <-
+  sags_otutab |>
+  filter(!str_detect(lca_taxonomy, "^lca:")) |>
+  mutate(sag_id = paste0(str_remove(lca_taxonomy, ".*;"), "_", str_remove(lca_taxonomy, ";.*"))) |>
+  group_by(sag_id) |>
+  summarise(mean_abun = mean(perc)) |>
+  left_join(sags_metadata |> select(sag_id, completeness, estimated_genome_size)) |>
+  mutate(
+    mean_abun_corrected = 100 * mean_abun / completeness,
+    mean_abun_corrected_length = 1000*mean_abun_corrected/estimated_genome_size
+    ) |>
+  arrange(-mean_abun_corrected_length) |>
+  mutate(
+    abundance =
+      case_when(
+        mean_abun_corrected_length >= 0.1 ~ "high",
+        mean_abun_corrected_length >= 0.01 ~ "mid",
+        TRUE ~ "low"
+      ),
+    abundance = factor(abundance, levels = c("high", "mid", "low"))
+    )
+  # mutate(
+  #   abundance =
+  #     case_when(
+  #       mean_abun_corrected >= 5e-3 ~ "high",
+  #       mean_abun_corrected >= 0.001 ~ "mid",
+  #       TRUE ~ "low"
+  #     ),
+  #   abundance = factor(abundance, levels = c("high", "mid", "low"))
+  # ) |> 
+
+temp_S3 <-
+  tibble::tribble(
+    ~`SCG Genome`, ~`Mean metaG abundance in BBMO`, ~`Order metaG`, ~`Sort`, ~`Species`, ~Group, ~Supergroup, ~ASV_EukEMM_v3, ~`Mean ASV abundance in BBMO`, ~`Order ASVs`, ~`Cluster in Fig  4`,
+    "ICM0030_SAG.1_Mamiellophyceae", 0.3, 1L, "pico-PP", "Bathycoccus prasinos", "Mamiellophyceae", "Archaeplastida", "ASV_5", "4.77", "1", 1L,
+    "ICM0001_COSAG.1_Mamiellophyceae", 0.272, 2L, "pico-PP", "Micromonas bravo_99.8", "Mamiellophyceae", "Archaeplastida", "ASV_9", "3.27", "2", 1L,
+    "ICM0028_COSAG.1_Mamiellophyceae", 0.059, 3L, "pico-PP", "Micromonas pusilla_98.3", "Mamiellophyceae", "Archaeplastida", "ASV_124", "0.60", "21", 2L,
+    "ICM0065_COSAG.1_Prymnesiophyceae", 0.056, 4L, "nano-PP", "Phaeocystis cordata_99.6", "Prymnesiophyceae", "Haptista", "ASV_165", "0.28", "52", 3L,
+    "ICM0010_COSAG.1_MAST-4", 0.054, 5L, "pico-HP", "MAST-4A sp1", "MAST-4", "Stramenopiles", "ASV_46", "1.11", "8", 2L,
+    "ICM0062_COSAG.1_Mamiellophyceae", 0.052, 6L, "pico-PP", "Micromonas bravo", "Mamiellophyceae", "Archaeplastida", "ASV_14", "1.60", "4", 2L,
+    "ICM0003_COSAG.1_Prymnesiophyceae", 0.047, 7L, "pico-PP", "Prymnesium parvum_95.6", "Prymnesiophyceae", "Haptista", "ASV_394", "0.16", "99", 1L,
+    "ICM0096_SAG.1_Mamiellophyceae", 0.046, 8L, "pico-PP", "Bathycoccus prasinos_sp2", "Mamiellophyceae", "Archaeplastida", "-", "-", "-", 1L,
+    "ICM0075_COSAG.1_MOCH-2", 0.034, 9L, "nano-PP", "MOCH-2 sp1", "MOCH-2", "Stramenopiles", "ASV_160", "0.45", "33", 1L,
+    "ICM0026_COSAG.1_MAST-1", 0.02, 10L, "nano-HP", "MAST-1C sp1", "MAST-1", "Stramenopiles", "ASV_132", "0.32", "46", 3L,
+    "ICM0077_COSAG.1_Mamiellophyceae", 0.018, 11L, "pico-PP", "Ostreococcus sp. RCC 143", "Mamiellophyceae", "Archaeplastida", "ASV_43", "0.24", "58", 1L,
+    "ICM0041_COSAG.1_Chlorarachnea", 0.018, 12L, "pico-HP", "Minorisa minuta_99.9", "Chlorarachnea", "Rhizaria", "ASV_131", "0.62", "20", 1L,
+    "ICM0114_SAG.1_Prymnesiophyceae", 0.016, 13L, "nano-PP", "Phaeocystis jahnii_96.8", "Prymnesiophyceae", "Haptista", "ASV_779", "0.04", "370", 2L,
+    "ICM0019_COSAG.1_Choanoflagellata", 0.012, 14L, "pico-HP", "Acanthocorbis camarensis_91.7", "Choanoflagellata", "Opisthokonta", "ASV_437", "0.43", "35", 2L,
+    "ICM0048_COSAG.1_Chrysophyceae", 0.011, 15L, "pico-PP", "Uncultured clade I", "Chrysophyceae", "Stramenopiles", "ASV_392", "0.14", "111", 1L,
+    "ICM0025_SAG.1_Dictyochophyceae", 0.011, 16L, "nano-HP", "Pseudopedinella elastica_93.0", "Dictyochophyceae", "Stramenopiles", "ASV_284", "0.11", "143", 2L,
+    "ICM0098_SAG.1_Chrysophyceae", 0.01, 17L, "pico-PP", "Uncultured clade G", "Chrysophyceae", "Stramenopiles", "-", "-", "-", 1L,
+    "ICM0016_COSAG.1_Dictyochophyceae", 0.009, 18L, "pico-PP", "Pseudopedinella elastica_93.4", "Dictyochophyceae", "Stramenopiles", "ASV_501", "0.04", "437", 2L,
+    "ICM0060_SAG.1_MAST-1", 0.009, 19L, "pico-HP", "MAST-1 sp1", "MAST-1", "Stramenopiles", "-", "-", "-", 1L,
+    "ICM0124_SAG.1_Prymnesiophyceae", 0.009, 20L, "nano-PP", "Chrysochromulina simplex_99.4b", "Prymnesiophyceae", "Haptista", "ASV_1015", "0.07", "223", 2L
+  )
+
+top20 <-
+  sags_mean_abundance |>
+  slice_head(n = 20) |>
+  select(`SCG Genome` = sag_id, `Mean metaG abundance in BBMO` = mean_abun_corrected) |>
+  mutate(`Order metaG` = row_number()) |>
+  left_join(
+    temp_S3 |> select(-c(2, 3))
+  )
+
+write_tsv(top20, "~/Desktop/tempS3.tsv")
+```
+
+## Cluster SAGs based on genome architectures
+
+```{r}
+sags_architectures <-
+  sags_metadata |>
+  select(sag_id,
+    Intronic = perc_intronic,
+    Exonic = perc_exonic,
+    Intergenic = perc_intergenic,
+    `Genome size` = estimated_genome_size
+  ) |>
+  filter(!sag_id %in% c("ICM0146_SAG.1_Ciliophora", "ICM0119_SAG.1_Dinoflagellata")) # outliers
+
+pca <- prcomp(sags_architectures |> column_to_rownames("sag_id"), scale. = TRUE)
+scores <- as_tibble(pca$x, rownames = "sag_id")
+# set.seed(4)
+# set.seed(123)
+set.seed(1234)
+
+
+clusters <-
+  c(3, 4, 5, 10) |>
+  map(
+    ~ tibble(!!paste0("k", .x) := kmeans(scores[, c("PC1", "PC2")], centers = .x)$cluster)
+  ) |>
+  purrr::reduce(bind_cols) |>
+  mutate(across(everything(), as.factor)) |>
+  mutate(sag_id = scores$sag_id, .before = 1) |>
+  # reorder clusters
+  mutate(
+    k5 =
+      factor(
+        case_when(
+          k5 == 5 ~ 1,
+          k5 == 3 ~ 2,
+          k5 == 1 ~ 3,
+          k5 == 2 ~ 4,
+          k5 == 4 ~ 5
+        )
+      )
+  )
+
+write_tsv(clusters |> select(sag_id = 1, cluster = k5), '../../data/sags/sags_clusters.tsv')
+
+scores_clusters <-
+  scores |>
+  left_join(clusters)
+
+sags_architectures_clusters <-
+  sags_architectures |>
+  left_join(clusters)
+
+sags_architectures_tidy_clusters <-
+  sags_architectures |>
+  pivot_longer(names_to = "region", values_to = "perc", -c(sag_id, `Genome size`)) |>
+  left_join(clusters)
+```
+
+## Figure 4
+
+### a
+
+```{r}
+pc_explained <-
+  round(summary(pca)$importance[2, 1:2], 3) * 100
+
+pca_loadings <-
+  as_tibble(pca$rotation, rownames = "region") |>
+  mutate(hjust = c(0.5, .8, 0.5, 0))
+
+cluster_colors <-
+  set_names(
+    c("#4dbbd5ff", "#e64b35", "#00a087", "#3c5488", "#f39b7f"),
+    as.character(1:5)
+  )
+
+fig4a <-
+  scores_clusters |>
+  pca_plotter(
+    cluster_col = "k5",
+    point_size = 2,
+    loadings = T,
+    text_size = 2.5,
+    fill_points = cluster_colors,
+    hulls = T,
+    fill_hulls = cluster_colors
+  ) +
+  guides(fill = "none")
+
+fig <- "S7"
+
+caption <-
+  get_caption(fig)
+
+figS7 <-
+  scores_clusters |>
+  left_join(sags_subgroups_all) |>
+  pca_plotter(
+    cluster_col = "k5",
+    point_size = 2,
+    loadings = F,
+    text_size = 2.5,
+    fill_points = cluster_colors,
+    hulls = F
+  ) +
+  guides(fill = "none") +
+  geom_mark_hull(
+    data = scores_clusters,
+    aes(fill = k5),
+    concavity = 3,
+    expand = 0.018,
+    radius = unit(2.5, "mm"),
+    color = NA,
+    alpha = 0.2
+  ) +
+  facet_wrap(~subgroup)
+
+figS7_with_caption <- 
+  figS7 +
+  labs(
+    caption = caption
+  ) +
+  theme(
+    plot.caption = element_textbox_simple(
+      margin = margin(20, 0, 5, 0),
+      width = unit(1, "npc"),
+      size = 12
+    )
+  )
+
+ggsave(plot = figS7, filename = "../../figures/supp_figures/figS7.pdf", height = 10, width = 15)
+ggsave(plot = figS7_with_caption, filename = "../../figures/supp_figures/with_caption/figS7_with_caption.pdf", height = 10, width = 15)
+```
+
+### b
+
+```{r}
+summary_clusters_length <-
+  sags_architectures_tidy_clusters |>
+  mutate(length = `Genome size` * perc / 100) |>
+  group_by(region, cluster = k5) |>
+  summarise(length = mean(length)) |> 
+  mutate(region = factor(region, levels = c('Exonic','Intronic','Intergenic')))
+
+fig4b <-
+  summary_clusters_length |>
+  ggplot(aes(y = fct_rev(cluster), x = length)) +
+  geom_col(aes(fill = cluster, alpha = fct_rev(region)), color = "gray20", linewidth = 0.2) +
+  theme_sags() +
+  scale_x_continuous(expand = 0) +
+  scale_y_discrete(expand = 0) +
+  labs(y = "Cluster", x = "Genome length (Mbp)") +
+  scale_fill_manual(values = cluster_colors) +
+  guides(
+    fill = "none",
+    alpha = guide_legend(
+      title = NULL,
+      keywidth = unit(3, "mm"),
+      keyheight = unit(3, "mm"),
+      reverse = T
+    )
+  ) +
+  scale_alpha_manual(values = c(0.333, 0.6666, 1)) +
+  theme(
+    legend.key.spacing.x = unit(-1, "mm"),
+    legend.key.spacing.y = unit(1, "mm"),
+    legend.margin = margin(1, 1, 1, 1),
+  )
+```
+
+### c
+
+```{r}
+fig4c <-
+  sags_architectures_tidy_clusters |>
+  summary_architecure_plotter_cluster(
+    # plot_spacer_length = -.115
+    plot_spacer_length = -.1
+  )
+```
+
+### d
+
+```{r}
+fig4d <-
+  scores_clusters |>
+  left_join(sags_mean_abundance |> mutate(abundance = fct_rev(abundance))) |>
+  pca_plotter(
+    cluster_col = "abundance",
+    loadings = F,
+    point_size = 2,
+    fill_points = rev(c("sienna", "khaki", "pink")),
+    hulls = T,
+    fill_hulls = cluster_colors
+  ) +
+  guides(fill = guide_legend(
+    position = "inside",
+    ncol = 1,
+    reverse = T,
+    keywidth = unit(3, "mm"),
+    override.aes = list(shape = 22)
+  )) +
+  theme(
+    legend.title = element_blank(),
+    legend.key.spacing.x = unit(-1, "mm"),
+    legend.key.spacing.y = unit(-1, "mm"),
+    legend.background = element_rect(color = "black", linewidth = 0.2, fill = NA),
+    legend.margin = margin(.5, 5, .5, 5),
+    legend.key = element_rect(fill = NA),
+    legend.position.inside = c(.135, .81)
+  )
+
+sags_clusters_and_abundance <-
+  scores_clusters |>
+  select(sag_id, cluster = k5) |>
+  left_join(sags_mean_abundance |> mutate(abundance = fct_rev(abundance))) |>
+  count(cluster, abundance) |>
+  group_by(cluster) |>
+  mutate(
+    perc = percentage(n),
+    abundance = factor(abundance, levels = rev(c("high", "mid", "low")))
+  )
+
+fig_clusters_abundance_n <-
+  sags_clusters_and_abundance |>
+  ggplot(aes(y = fct_rev(cluster), x = n)) +
+  geom_col(aes(fill = abundance), color = "gray20", linewidth = 0.2) +
+  theme_sags() +
+  scale_x_continuous(expand = 0) +
+  scale_y_discrete(expand = 0) +
+  labs(y = "Cluster", x = "Number of SAGs") +
+  scale_fill_manual(values = c(
+    "low" = "pink",
+    "mid" = "khaki",
+    "high" = "sienna"
+  )) +
+  guides(fill = guide_legend(reverse = T, title = "Abundance"))
+```
+
+### e
+
+```{r}
+fig4e <-
+  sags_clusters_and_abundance |>
+  ggplot(aes(y = fct_rev(cluster), x = perc)) +
+  geom_col(aes(fill = abundance), color = "gray20", linewidth = 0.2) +
+  theme_sags() +
+  scale_x_continuous(expand = 0) +
+  scale_y_discrete(expand = 0) +
+  labs(y = "Cluster", x = "% SAGs") +
+  scale_fill_manual(values = c(
+    "low" = "pink",
+    "mid" = "khaki",
+    "high" = "sienna"
+  )) +
+  guides(fill = guide_legend(reverse = T, title = "Abundance"))
+```
+
+### f
+
+```{r}
+clusters_per_subgroup <-
+  scores_clusters |>
+  select(sag_id, cluster = k5) |>
+  left_join(sags_subgroups) |>
+  filter(!is.na(subgroup)) |>
+  count(subgroup, cluster) |> 
+  mutate(
+    subgroup_formatted = 
+      case_when(
+        subgroup %in% c('Chrysochromulina','Phaeocystis','Prymnesium') ~ str_c('*',subgroup,'*'),
+        TRUE ~ subgroup
+      )
+  ) |> 
+  arrange(subgroup) |> 
+  mutate(subgroup_formatted = fct_inorder(subgroup_formatted))
+
+clusters_per_fraction <-
+  scores_clusters |>
+  select(sag_id, cluster = k5) |>
+  left_join(sags_fractions) |>
+  count(fraction, cluster)
+
+clusters_per_subgroup_and_fraction <-
+  clusters_per_subgroup |>
+  mutate(type = "subgroup") |>
+  bind_rows(
+    clusters_per_fraction |>
+      mutate(type = "fraction", subgroup = fraction)
+  ) |>
+  mutate(
+    subgroup = factor(subgroup, levels = c("pico-HP", "pico-PP", "nano-PP", "nano-HP", order_subgroups))
+  )
+
+fig4f <-
+  # clusters_per_subgroup_and_fraction |>
+  clusters_per_subgroup |>
+  ggplot(aes(x = cluster, y = fct_rev(subgroup_formatted))) +
+  geom_point(aes(fill = cluster, size = n), color = "gray20", stroke = 0.2, shape = 21) +
+  theme_bw() +
+  theme(
+    strip.background = element_blank(),
+    panel.grid.major.x = element_blank(),
+    strip.text = element_blank(),
+    legend.text = element_text(size = 8),
+    axis.text.x = element_text(size = 8),
+    axis.text.y = element_markdown(size = 8),
+    legend.title = element_text(size = 9),
+    axis.title = element_text(size = 9),
+    legend.background = element_blank(),
+    plot.background = element_blank(),
+    legend.position = "top",
+    legend.justification = "left",
+    legend.location = "plot",
+    legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    panel.border = element_blank(),
+    panel.background = element_rect(color = "gray20", fill = NA, linewidth = 0.3),
+    legend.key = element_blank()
+  ) +
+  # ggh4x::facet_grid2(type ~ ., space = 'free', scales = 'free') +
+  scale_fill_manual(values = cluster_colors) +
+  guides(
+    fill = "none",
+    size = guide_legend(nrow = 1, title = "Nº SAGs")
+  ) +
+  labs(y = NULL, x = "Cluster") +
+  scale_size(breaks = c(1, 5, 10, 15, 20), name = "SAGs") +
+  coord_cartesian(clip = "off")
+```
+
+### Plot
+
+```{r}
+fig4 <-
+  wrap_plots(
+    fig4a,
+    fig4d,
+    free(fig4b, side = "r"),
+    fig4e + guides(fill = "none"),
+    free(fig4c, side = "rt"),
+    free(fig4f, side = "l"),
+    ncol = 2,
+    nrow = 3,
+    heights = c(.32, .1, .58)
+  ) +
+    plot_annotation(
+      tag_levels = list(c("A", "D", "B", "E", "C", "", "F"))
+    ) &
+    theme(plot.tag = element_markdown())
+
+ggsave(plot = fig4, filename = "../../figures/fig4.pdf", units = "mm", width = 170, height = 220)
+```

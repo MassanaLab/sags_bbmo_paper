@@ -1,167 +1,283 @@
 ---
-title: "SAGs technical results - ANI"
+title: "SAGs - Contamination"
 author: "Aleix Obiol"
-date: "2026-03-23"
+date: "2026-09-14"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 source("../aux_functions_sags.R")
+
 ```
-
-## Helper functions
-
-```{r}
-scale_ani_identity <- function() {
-  scale_x_discrete(
-    breaks = function(x) {
-      vals <- as.numeric(sub(".*,", "", gsub("\\(|\\]", "", x)))
-      x[vals %in% c(70, 80, 90, 100)]
-    },
-    labels = function(x) sub(".*,", "", gsub("\\(|\\]", "%", x)),
-    drop = FALSE
-  )
-}
-
-plot_ani_hist <- function(data, facet_var, ncol = NULL, nrow = NULL, annotate_col = NULL) {
-  plot <-
-    ggplot(data, aes(x = bin_pident, y = bin_length / 1e6)) +
-    geom_col(color = "white", linewidth = .2) +
-    theme_sags() +
-    theme(strip.text = element_markdown(size = 8)) +
-    labs(y = "Size (Mbp)", x = "Percentage of identity") +
-    scale_ani_identity()
-
-  if (!missing(annotate_col)) {
-    annotations <-
-      data |>
-      group_by({{ facet_var }}, label = {{ annotate_col }}) |>
-      summarise(
-        y = max(bin_length) / (1.2 * 1e6)
-      ) |>
-      mutate(x = if_else(
-        str_detect({{ facet_var }}, "ICM0067.*ICM0068|ICM0053.*ICM0092|ICM0102.*ICM0110"),
-        factor("(88,89]"), # label to right
-        factor("(70,71]") # label to left
-      ))
-
-    plot <-
-      plot +
-      geom_richtext(
-        data = annotations,
-        aes(label = label, x = x, y = y),
-        fill = NA,
-        label.color = NA,
-        size = 2.5,
-        hjust = 0
-      )
-  }
-
-  plot <-
-    plot +
-    facet_wrap(vars({{ facet_var }}), scales = "free_y", ncol = ncol, nrow = nrow) +
-    force_panelsizes(rows = unit(4, "cm"), cols = unit(6, "cm"), respect = T)
-
-  return(plot)
-}
-
-ncol <- 8
-```
-
 
 ## Read data
 
 ```{r}
-ani_df <-
-  read_tsv("../../data/ani/ani_data.tsv.gz")
+tableS1 <- 
+  readxl::read_excel('../../data/sags/Table-S1.xlsx')
 
-comparisons_data <-
-  read_tsv("../../data/ani/ani_comparisons.tsv")
+tableS2 <- 
+  readxl::read_excel('../../data/sags/Table-S2.xlsx')
 
-ani_comparison_df <-
-  read_tsv("../../data/ani/ani_data_diff_species.tsv.gz") |>
+mtags_summary <- 
+  readxl::read_excel('../../data/mtags/sept26_mtags_otu_table_table_clean_with_NAs.xlsx')
+```
+## mtags
+
+```{r}
+mtags_filtered <- 
+  mtags_summary |> 
+  select(
+    sag_id = SAG,
+    purity = `purity_relaxed (%)`,
+    n_mtags = mtags
+    ) |> 
+  mutate(purity = as.numeric(purity)) |> 
+  replace_na(list(purity= 0)) |>
+  arrange(-n_mtags) |> 
+  mutate(sag_id = fct_inorder(sag_id))
+
+p_mtags_purity <- 
+  mtags_filtered |> 
+  ggplot(aes(x = sag_id, y  = purity)) +
+  geom_col(fill = 'tan2',
+           color = 'gray20',
+           linewidth = 0.1) +
+  theme_sags() +
+  scale_y_continuous(expand = c(0,0)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+  ) +
+  labs(x = 'SAGs', y = 'Purity (%)') +
+  geom_rect(xmin = 272, xmax = 326, ymin =0, ymax =100, fill = 'gray90')
+
+p_n_mtags <- 
+  mtags_filtered |> 
+  ggplot(aes(x = sag_id, y  = n_mtags)) +
+  geom_col(fill = alpha('tan2',.5),
+           color = 'gray20',
+           linewidth = 0.1) +
+  theme_sags() +
+  geom_rect(xmin = 272, xmax = 326, ymin =0, ymax =3.625, fill = 'gray90') +
+  geom_text(check_overlap = T, aes(x = 300, label = 'No mtags retrieved', y = 100), color = 'gray40') +
+  scale_y_log10(expand = c(0,0)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+  ) +
+  labs(x = NULL, y = '# mtags')
+
+p_mtags <- 
+  wrap_plots(
+    p_n_mtags,
+    plot_spacer(),
+    p_mtags_purity,
+    heights = c(.2,-.1,.8)
+    )
+```
+
+
+## Plot contamination
+
+```{r}
+prok_removed <- 
+  tableS1 |> 
   mutate(
-    name = paste0(comparison, " (", group, ")"),
-    additional_data = paste0("*Comp:* ", `%-compared genomes`, "%<br>*18S:* ", `%-18S`, "%"),
-    name = str_replace(name, "-%", "-"),
-    comparison = factor(comparison, levels = comparisons_data$comparison)
-  ) |>
-  arrange(comparison) |>
-  mutate(
-    name = str_replace(name, "ICM", "**ICM"),
-    name = str_replace(name, " vs ", "** vs **"),
-    name = str_replace(name, " \\(", "** ("),
-    name = fct_inorder(name)
+    euk_perc = 100-`%-prokarya-size`,
+    euk_mb = `Mb (≥1k)`-`Mb-prokarya`
+    ) |> 
+  select(sag_id = `Cell name`,
+         prok_mb = `Mb-prokarya`,
+         prok_perc = `%-prokarya-size`,
+         euk_mb,
+         euk_perc
+         ) |> 
+  arrange(-prok_perc) |> 
+  mutate(sag_id = fct_inorder(sag_id))
+  
+prok_removed_perc <- 
+  prok_removed |> 
+  select(1, contains('perc')) |> 
+  pivot_longer(-sag_id, names_pattern = '(.*)_.*') |> 
+  mutate(name = if_else(name == 'prok','Prokaryotic','Eukaryotic'))
+
+prok_removed_mb <- 
+  prok_removed |> 
+  select(1, contains('mb')) |> 
+  pivot_longer(-sag_id, names_pattern = '(.*)_.*') |> 
+  mutate(name = if_else(name == 'prok','Prokaryotic','Eukaryotic'))
+
+p_prok_removed_all <- 
+  prok_removed_perc |> 
+  ggplot(aes(x = sag_id, y = value)) +
+  geom_col(aes(fill = fct_rev(name)),
+           color = 'gray20',
+           linewidth = 0.1) +
+  theme_sags() +
+  scale_y_continuous(expand = c(0,0)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.title = element_blank(),
+    legend.position = 'bottom'
+  ) +
+  labs(y = '% of assembly', x = 'SAGs') +
+  scale_fill_manual(values = c(Prokaryotic = 'maroon2', Eukaryotic = 'springgreen2'))
+
+p_prok_removed_mb <- 
+  prok_removed_mb |>
+  filter(name == 'Prokaryotic') |> 
+  ggplot(aes(x = sag_id, y = value)) +
+  geom_col(fill = 'maroon2',
+           color = 'gray20',
+           linewidth = 0.1) +
+  theme_sags() +
+  scale_y_continuous(expand = c(0,0)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+  ) +
+  labs(y = 'Mbp', x = NULL)
+
+p_prok_removed_summary <- 
+  prok_removed_perc |> 
+  ggplot(aes(x = fct_rev(name), y = value)) +
+  geom_point(position = position_jitter(height = 0, width = 0.2), aes(fill = name), alpha = 0.6, shape = 21, color = 'gray20', stroke = 0.2) +
+  theme_sags() +
+  geom_boxplot(outlier.shape = NA, alpha = 0.2, aes(fill = name), linewidth = 0.2) +
+  scale_fill_manual(values = c(Prokaryotic = 'maroon2', Eukaryotic = 'springgreen2')) +
+  guides(fill = 'none') + 
+  labs(x = NULL, y = '% of assembly')
+  
+p_prok_contamination <- 
+  wrap_plots(
+    wrap_plots(
+     p_prok_removed_mb,
+      plot_spacer(),
+      p_prok_removed_all + guides(fill = 'none'),
+      heights = c(.2,-.1,.8)
+     ),
+    p_prok_removed_summary,
+    widths = c(.8,.2)
+  ) + 
+  plot_annotation(tag_levels = list(c('A','','B')))
+  
+ggsave(plot = p_prok_contamination, filename = '../../figures/supp_contamination.pdf', height = 4, width = 8)
+
+most_contaminated <- 
+  prok_removed |> 
+  slice_head(n =10) |> 
+  pull(sag_id)
+
+write_lines(most_contaminated, '../../data/sags/blob_data/most_contaminated.txt')
+```
+
+## blob plots
+
+### read and process data
+
+```{r}
+coverage_tables <- 
+  most_contaminated |> 
+  set_names() |> 
+  map(
+    ~ read_tsv(str_c('../../data/sags/blob_data/',.x,'_filter1_coverage.tsv'))
+  ) |> 
+  bind_rows(.id = 'sag_id') |> 
+  select(sag_id, contig = `#rname`, meandepth)
+
+removed_contigs <- 
+  most_contaminated |> 
+  set_names() |> 
+  map(
+    ~ tibble(
+      contig = read_lines(str_c('../../data/sags/blob_data/',.x,'_removed_in_filter3.txt')),
+      kept = 'no'
+    )
+  ) |> 
+  bind_rows(.id = 'sag_id')
+
+gc_tables <- 
+  most_contaminated |> 
+  set_names() |> 
+  map(
+    ~ read_tsv(str_c('../../data/sags/blob_data/',.x,'_contigs_gc_content.tsv'), col_names = c('contig', 'length', 'gc'))
+  ) |> 
+  bind_rows(.id = 'sag_id')  
+
+blob_data_df <- 
+  gc_tables |> 
+  left_join(coverage_tables) |> 
+  left_join(removed_contigs) |> 
+  replace_na(list(kept = 'yes')) |> 
+  mutate(sag_id = factor(sag_id, levels = most_contaminated))
+```
+
+### plots
+
+```{r}
+p_blobs <- 
+  blob_data_df |> 
+  ggplot(aes(x = gc, y = meandepth)) +
+  geom_point(alpha = 0.5, aes(size = length, color = fct_rev(kept))) +
+  facet_wrap(~ sag_id, scales = 'free') + 
+  theme_sags() +
+  scale_color_manual(name = 'Kept', values = c(no = 'maroon2', yes = 'springgreen2')) +
+  scale_y_log10() +
+  labs(x = 'GC content (%)', y = 'Mean depth of coverage')
+
+# ggsave(plot = p_blobs, filename = '../../figures/blob_plots.pdf', height = 10, width = 15)
+```
+
+## Final figure
+
+```{r}
+p_blobs_top3 <- 
+  blob_data_df |>
+  filter(sag_id %in% most_contaminated[1:3]) |> 
+  ggplot(aes(x = gc, y = meandepth)) +
+  geom_point(alpha = 0.5, aes(size = length/1e3, color = fct_rev(kept))) +
+  facet_wrap(~ sag_id, scales = 'free') + 
+  theme_sags() +
+  scale_color_manual(name = 'Kept', values = c(no = 'maroon2', yes = 'springgreen2')) +
+  scale_y_log10() +
+  labs(x = 'GC content (%)', y = 'Mean depth of coverage') +
+  guides(size =guide_legend(title = 'Length (kbp)'),
+         color = guide_legend(override.aes = list(size = 3)))
+
+p_prok_contamination_no_summary <- 
+  wrap_plots(
+     p_prok_removed_mb,
+      plot_spacer(),
+      p_prok_removed_all,
+      heights = c(.2,-.1,.8)
+     )
+
+fig <- "S1"
+
+caption <-
+  get_caption(fig)
+
+figS1 <- 
+  wrap_plots(p_mtags,p_prok_contamination_no_summary, free(p_blobs_top3, side = 'r'), heights = c(.3,.3,.2)) + 
+  plot_annotation(tag_levels = list(c('A','','B','','C','D')))  
+
+figS1_with_caption <- 
+  figS1 +
+  labs(
+    caption = caption
+  ) +
+  theme(
+    plot.caption = element_textbox_simple(
+      margin = margin(5, 0, 5, 0),
+      width = unit(1, "npc"),
+      size = 8
+    )
   )
 
-figure_legends <-
-  readxl::read_excel("../../data/aux/figure_legends.xlsx")
-```
-
-## ANI within COSAGs
-
-```{r}
-comparisons_per_sag <- # all comparisons, not just unique pairs (i.e., A vs B but also B vs A)
-  ani_df |>
-  distinct(sag_id, query_id, subject_id) |>
-  count(sag_id, name = "n_comparisons")
-
-ani_df_len <-
-  ani_df |>
-  mutate(bin_pident = cut_width(pident, width = 1, boundary = 100)) |>
-  summarise(bin_length_raw = sum(len), .by = c(sag_id, bin_pident)) |>
-  left_join(comparisons_per_sag) |>
-  mutate(bin_length = bin_length_raw / n_comparisons)
-
-p_ani_hist_len <-
-  plot_ani_hist(ani_df_len, facet_var = sag_id, ncol = ncol)
-```
-
-## ANI between different SAGs
-
-```{r}
-ani_comparison_length_df <-
-  ani_comparison_df |>
-  mutate(bin_pident = cut_width(pident, width = 1, boundary = 100)) |>
-  group_by(comparison, bin_pident, type, name, additional_data) |>
-  summarise(bin_length = sum(len))
-
-p_ani_comparison_len <-
-  plot_ani_hist(ani_comparison_length_df, facet_var = name, ncol = ncol, annotate_col = additional_data)
-```
-
-## Fig supp
-
-```{r}
-fig <- "S1"
-caption <- figure_legends |>
-  filter(figure == fig) |>
-  pull()
-
-figS1 <-
-  wrap_plots(
-    p_ani_hist_len,
-    p_ani_comparison_len +
-      labs(caption = caption) +
-      theme(
-        plot.caption = element_textbox_simple(
-          margin = margin(30, 0, 5, 0),
-          size = 12
-        )
-      ),
-    ncol = 1
-  ) +
-    plot_annotation(tag_levels = list(paste0("**", LETTERS[1:2], "**"))) &
-    theme(
-      plot.tag = element_markdown()
-    )
-
-ggsave(
-  plot = figS1,
-  filename = "../../figures/figS1.pdf",
-  height = 17,
-  width = 23
-)
+ggsave(plot = figS1, filename = '../../figures/supp_figures/figS1.pdf', height = 10, width = 10)
+ggsave(plot = figS1_with_caption, filename = '../../figures/supp_figures/with_caption/figS1_with_caption.pdf', height = 10, width = 10)
 ```
 

@@ -1,0 +1,285 @@
+---
+title: "SAGs - 18S tree"
+author: "Aleix Obiol"
+date: "2026-09-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../aux_functions_sags.R")
+library(ggtreeExtra)
+```
+
+## Read data
+
+```{r}
+ccm_tax <- 
+  read_tsv('../../data/trees/alignments/18S/ccm_taxonomy.tsv', col_names = c('id', 'tax_ncbi'))
+
+sags_tax <- 
+  readxl::read_excel("../../data/sags/Table-S1.xlsx") |>
+  select(
+    accnum = 1,
+    Group,
+    Supergroup
+    )
+
+refs_tax <- 
+  read_tsv('../../data/trees/alignments/18S/taxonomy_refs.tsv')
+
+tree_18S <- 
+  read.tree('../../data/trees/sags_individual_and_refs_18S.treefile')
+```
+
+## Process names for tree and rename
+
+```{r}
+metadata_tree <- 
+  tibble(
+    id = tree_18S$tip.label
+  ) |> 
+  mutate(
+    sag = str_detect(id, '_ICM'),
+    accnum = if_else(sag, str_remove(id,'_ICM.*'), str_remove(id, '\\..*'))
+  ) |> 
+  left_join(refs_tax, by = 'id') |> 
+  left_join(sags_tax, by = 'accnum') |>
+  left_join(ccm_tax, by = 'id') |> 
+  mutate(
+    Group = if_else(sag, Group.y, Group.x),
+    Supergroup = if_else(sag, Supergroup.y, Supergroup.x)
+  ) |> 
+  select(-matches('roup\\.')) |> 
+  mutate(
+    species = 
+      case_when(sag ~ str_match(id, '(ICM.*)')[,2],
+                str_detect(id, 'KY980041') ~ 'MAST-3 sp.', # this a MAST-3 wrongly annotated as Diatomea
+                is.na(tax_ncbi) ~ str_remove(id,'.*\\|'),
+                !is.na(tax_ncbi) ~ str_remove(tax_ncbi,'.*;')
+      ),
+    species = if_else(sag, species, str_replace_all(species, '_', ' ')),
+    new_name = 
+      if_else(
+        sag,
+        str_c(accnum, ' (',species,')'),
+        str_c(accnum,' ',species,' (',Group,')')
+      ),
+    new_name_tree = if_else(sag, 
+                            str_c("bold('",new_name, "')"),
+                            str_c("paste('",new_name,"')"))
+  )
+
+rooted_tree <- # use opisthokonta (opimoda) as root
+  root(tree_18S, node = 958) |> 
+  root(node = 901)
+
+rooted_tree_renamed <- 
+  rooted_tree
+
+rooted_tree_renamed$tip.label <- metadata_tree$new_name
+
+write.tree(rooted_tree_renamed, '../../data/trees/sags_individual_and_refs_18S_rooted_renamed.treefile')
+```
+
+## Plot tree
+
+```{r}
+supergroup_node_nums <- # get node numbers of supergroups
+  metadata_tree |>
+  group_by(Supergroup) |>
+  summarise(node_num = MRCA(rooted_tree, id))
+
+group_node_nums <-
+  metadata_tree |>
+  filter(Group != 'Telonemia') |> 
+  group_by(Group) |>
+  filter(n() > 1) |> 
+  summarise(node_num = MRCA(rooted_tree, id))
+  
+supergroup_node_nums_list <- # used to group clades, clades with only one tip not allowed
+  metadata_tree |>
+  filter(!is.na(Supergroup)) |>
+  group_by(Supergroup) |>
+  filter(n() > 1) |>
+  summarise(node_num = MRCA(rooted_tree, id)) |>
+  deframe()
+
+species_tree_with_metadata <- # create a copy and group supergroups
+  groupClade(rooted_tree, supergroup_node_nums_list)
+
+species_tree_with_metadata %<>%
+  dplyr::left_join(
+    metadata_tree,
+    by = c("label" = "id")
+  )
+
+species_tree_with_metadata_and_bootstraps <-
+  species_tree_with_metadata |>
+  mutate(
+    shalrt = as.numeric(str_remove(label, "\\/.*")),
+    ufboot = as.numeric(str_remove(label, ".*\\/")),
+    support =
+      case_when(
+        ufboot == 100 & shalrt == 100 ~ "UFBoot = 100 & SH-aLRT = 100",
+        ufboot >= 95 & shalrt >= 80 ~ "UFBoot ≥ 95 & SH-aLRT ≥ 80"
+      ),
+  )
+
+supergroup_colors <-
+  c(
+    "Archaeplastida" = "darkolivegreen4",
+    "Haptista" = "seagreen",
+    "Cryptista" = "mediumorchid",
+    "Picozoa" = "indianred3",
+    "Centrohelida" = "deepskyblue",
+    "Telonemia" = "burlywood3",
+    "Stramenopiles" = "goldenrod3",
+    "Rhizaria" = "deeppink3",
+    "Ancyromonadida" = "olivedrab",
+    "Alveolata" = "royalblue",
+    "Metamonada" = "orangered4",
+    "Discoba" = "orangered2",
+    "Hemimastigophora" = "aquamarine4",
+    "Opisthokonta" = "slateblue",
+    "Amoebozoa" = "darkgoldenrod4",
+    "CRuMs" = "maroon",
+    "Malawimonadida" = "chocolate",
+    "Apusomonadida" = "darkorchid4",
+    "Provora" = "turquoise",
+    "ref" = "gray60"
+  )
+
+p_tree <-
+  ggtree(species_tree_with_metadata_and_bootstraps, color = NA) +
+  geom_tree(
+    linewidth = 0.4
+  ) +
+  scale_color_manual(values = supergroup_colors) +
+  guides(color = "none") +
+  ggnewscale::new_scale_color() +
+  geom_tiplab(
+    parse = T,
+    aes(
+      label = new_name_tree,
+      color = Supergroup,
+      alpha = sag
+    ),
+    linesize = 0.2
+  ) +
+  scale_color_manual(values = supergroup_colors, na.value = "black") +
+  scale_alpha_manual(values = c(.7, 1)) +
+  guides(color = "none", fill = "none", alpha = "none") +
+  ggnewscale::new_scale_color() +
+  geom_nodepoint(
+    aes(color = support),
+    size = 2
+  ) +
+  scale_color_manual(
+    values = c(
+      "UFBoot = 100 & SH-aLRT = 100" = "black",
+      "UFBoot ≥ 95 & SH-aLRT ≥ 80" = "gray70"
+    ),
+    na.value = NA,
+    na.translate = F,
+    name = NULL
+  ) +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 12)
+  ) +
+  coord_cartesian(xlim = c(0, 2.7), clip = "off") +
+  guides(color = guide_legend(override.aes = list(size = 4))) +
+  geom_treescale(x = 0.9, y = 0.1)
+
+
+for (sp in supergroup_node_nums$Supergroup) {
+  
+  offset = -0.2
+  if (sp == 'Discoba'){
+    offset = 0.6
+  }
+  fontsize = 5.5
+  barsize = .6
+  node_color <- supergroup_colors[[sp]]
+
+  if (sp == 'Haptista'){
+    p_tree <-
+      p_tree +
+      geom_strip(
+        'P4_86_ICM0095_Centroplasthelida',
+        'KJ757367.1.1801_U|18S_rRNA|nucleus|clone_SGYY410|Eukaryota|Haptista|Centroplasthelida|Centroplasthelida_X|Pterocystida|Pterocystida_X|Pterocystida_XX|Pterocystida_XXX|Pterocystida_XXX_sp.',
+        label = str_c('   ',sp,'\n   (Centroplasthelida)'),
+        color = node_color,
+        offset = offset,
+        fontsize = fontsize,
+        barsize = barsize
+      ) +
+      geom_strip(
+        'JX680364.1.1070_U|18S_rRNA|nucleus|clone_DH122-Pry1-C28|Eukaryota|Haptista|Haptophyta|Haptophyta_X|Prymnesiophyceae|Prymnesiales|Chrysochromulinaceae|Chrysochromulina|Chrysochromulina_sp.',
+        'FJ537312.1.1800_U|18S_rRNA|nucleus|clone_Biosope_T33.039|Eukaryota|Haptista|Haptophyta|Haptophyta_X|Prymnesiophyceae|Prymnesiophyceae_Clade_D|Prymnesiophyceae_Clade_D_X|Prymnesiophyceae_Clade_D_XX|Prymnesiophyceae_Clade_D_XX_sp.',
+        label = str_c('   ',sp,'\n   (Prymnesiophyceae)'),
+        color = node_color,
+        offset = offset,
+        fontsize = fontsize,
+        barsize = barsize
+      )
+
+  }
+  else {
+  node_num <- supergroup_node_nums |>
+    filter(Supergroup == sp) |>
+    pull(node_num)
+  
+  label <- paste0(" ", sp)
+
+  p_tree <-
+    p_tree +
+    geom_cladelab(
+      node = node_num,
+      label = label,
+      textcolor = node_color,
+      barcolor = node_color,
+      align = T,
+      offset = offset,
+      fontsize = fontsize,
+      barsize = barsize
+    )
+  }
+}
+
+figS2 <- p_tree
+
+fig = 'S2'
+caption = get_caption(fig)
+
+figS2_with_caption <- 
+  figS2 +
+  labs(
+    caption = caption
+  ) +
+  theme(
+    plot.caption = element_textbox_simple(
+      margin = margin(30, 0, 5, 0),
+      width = unit(.95, "npc"),
+      size = 12
+    )
+  )
+
+ggsave(
+  plot = figS2,
+  filename = "../../figures/supp_figures/figS2.pdf",
+  height = 80,
+  width = 20,
+  limitsize = F
+)
+
+ggsave(
+  plot = figS2_with_caption,
+  filename = "../../figures/supp_figures/with_caption/figS2_with_caption.pdf",
+  height = 80,
+  width = 20,
+  limitsize = F
+)
+```
+

@@ -43,6 +43,18 @@ percentage <- function(x) {
   100 * x / sum(x)
 }
 
+get_caption <- function(fig, figure_legends_file = "../../data/aux/figure_legends.tsv"){
+
+   figure_legends <- read_tsv(figure_legends_file, show_col_types = F)
+  
+  caption <-
+    figure_legends |>
+    filter(figure == fig) |>
+    pull()
+  
+  return(caption)
+}
+
 # Functions for flow cytometry data ---------------------------------------
 
 fcs_to_df <- function(fcs_file) {
@@ -455,3 +467,5 @@ get_node_group_of_single_tip <- function(tree, group){
     pull(node)
   
 }
+
+
