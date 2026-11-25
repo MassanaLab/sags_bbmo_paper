@@ -3,7 +3,7 @@
 This repository contains code and data included in:
 
 --------
-López-Escardó, D., Obiol, A., Marimon, G., López-Alforja, X., Vaqué, D., Forn, I., Logares, R., Yau, S., Fornas, O., Martínez-García, M., and Massana R. Single-cell genomics reveals genome streamlining and functional traits in dominant uncultured marine protists.
+López-Escardó, D., Obiol, A., Marimon, G., López-Alforja, X., Vaqué, D., Forn, I., Logares, R., Yau, S., Fornas, Ò., Martínez-García, M., & Massana, R. (2026). Single-cell genomics reveals genome streamlining and functional traits in dominant uncultured marine protists. *Proceedings of the National Academy of Sciences*, *123*(48), e2621594123. DOI: [10.1073/pnas.2621594123](https://doi.org/10.1073/pnas.2621594123)
 
 --------
 
